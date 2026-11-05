@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CUFG Closed Phase-Space Cosmos & Recurrence Explorer</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6">
+  <div class="max-w-6xl mx-auto space-y-5">
+    <!-- Header Banner -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium bg-[var(--secondary)] text-[var(--secondary-foreground)] mb-2">
+            <span>Zero G • Zero Dark Matter • Zero Λ • Unitary S³ Phase Space</span>
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold text-[var(--foreground)]">
+            The Closed Phase-Space Cosmos: S³ Wavefront, Cosmic Timing &amp; Sci-Fi Physics Explorer
+          </h1>
+          <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-1">
+            Interactive visual companion to <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)]">cufg_cosmic_chronology_and_scifi_companion.md</code> — spanning 140.29 e-folds from the UV Planck-sphere bounce (<code class="px-1 rounded bg-[var(--secondary)]">ℓ_UV = 1.616×10⁻³⁵ m</code>) to the IR causal horizon (<code class="px-1 rounded bg-[var(--secondary)]">L_H = 14.50 Gly</code>) and Poincaré recurrence (<code class="px-1 rounded bg-[var(--secondary)]">10¹⁰^¹⁰^¹²² yr</code>).
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs shrink-0">
+          <div class="bg-[var(--secondary)] rounded-lg p-2.5 border border-[var(--border)]">
+            <div class="text-[var(--muted-foreground)]">Scale Span ln(L_H/ℓ_UV)</div>
+            <div class="font-bold text-sm mt-0.5">140.290 e-folds</div>
+          </div>
+          <div class="bg-[var(--secondary)] rounded-lg p-2.5 border border-[var(--border)]">
+            <div class="text-[var(--muted-foreground)]">Horizon Entropy S_hor/k_B</div>
+            <div class="font-bold text-sm mt-0.5">2.262 × 10¹²²</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[var(--border)]">
+        <button id="tabBtn1" onclick="switchTab(1)" class="px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition">
+          1. S³ Spherical Wavefront &amp; Antipodal Propagator
+        </button>
+        <button id="tabBtn2" onclick="switchTab(2)" class="px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] transition">
+          2. 14-Epoch Cosmic Bounce &amp; Recurrence Time Machine
+        </button>
+        <button id="tabBtn3" onclick="switchTab(3)" class="px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] transition">
+          3. Sci-Fi Physics Lab (Possible vs. Forbidden)
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 1: S^3 SPHERICAL WAVEFRONT & ANTIPODAL PROPAGATOR                 -->
+    <!-- ===================================================================== -->
+    <div id="tabPanel1" class="space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Canvas Column -->
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <h2 class="font-semibold text-base">Closed S³ Hypersphere Great-Circle Wavefront (v = c)</h2>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Watch an uncertainty/light wavefront expand from the Origin Pole (χ = 0), reach maximum equator area (χ = π/2), refocus at the Antipode (χ = π), and return (χ = 2π).
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="btnPlaySphere" onclick="toggleSpherePlay()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">
+                Pause
+              </button>
+              <button onclick="resetSphereWave()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+                Reset χ = 0
+              </button>
+            </div>
+          </div>
+
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-lg border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="sphereCanvas" width="640" height="390" class="w-full max-w-[640px] h-auto"></canvas>
+          </div>
+
+          <!-- Angle Scrubber -->
+          <div class="mt-3 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-medium">Great-Circle Polar Angle χ (0 to 2π rad):</span>
+              <span id="chiReadout" class="font-mono font-bold">χ = 0.00 rad (0.0°)</span>
+            </div>
+            <input id="chiSlider" type="range" min="0" max="6.283185" step="0.01" value="0.8" oninput="onChiSliderInput(this.value)" class="w-full accent-[var(--primary)]" />
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>χ = 0 (Origin)</span>
+              <span>χ = π/2 (Equator 22.8 Gly)</span>
+              <span>χ = π (Antipode 45.6 Gly)</span>
+              <span>χ = 3π/2 (Return 68.3 Gly)</span>
+              <span>χ = 2π (Loop 91.1 Gly)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Telemetry Column -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm space-y-3">
+          <h3 class="font-semibold text-base">Live Wavefront Telemetry</h3>
+          <div class="space-y-2 text-xs">
+            <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Arc Distance Travelled D(χ) = χ · L_H</div>
+              <div id="telArcDist" class="text-base font-bold font-mono mt-0.5">11.60 Gly (3.56 Gpc)</div>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Wavefront 2-Sphere Area A(χ) / (4π L_H²) = sin²χ</div>
+              <div id="telAreaFrac" class="text-base font-bold font-mono mt-0.5">0.5146 (Expanding)</div>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Void Phase-Diffusion Redshift Dressing</div>
+              <div id="telVoidDress" class="text-base font-bold font-mono mt-0.5">f_void = 77.69% • z_coh = 2/π</div>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Maslov Caustic Phase &amp; UV Core Floor</div>
+              <div id="telMaslov" class="text-base font-bold font-mono mt-0.5">Δφ = 0 • r_min = ℓ_UV</div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-[var(--border)] space-y-2 text-xs">
+            <div class="font-semibold">Display Controls</div>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input id="chkShowVoids" type="checkbox" checked onchange="drawSphereFrame()" class="accent-[var(--primary)]" />
+              <span>Show Voronoi Cosmic Voids (77.69%) &amp; 2π Filaments</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input id="chkShowRays" type="checkbox" checked onchange="drawSphereFrame()" class="accent-[var(--primary)]" />
+              <span>Show Great-Circle Geodesic Rays (Antipodal Refocusing)</span>
+            </label>
+            <div class="pt-1">
+              <span class="block text-[var(--muted-foreground)] mb-1">Animation Speed:</span>
+              <input id="speedSlider" type="range" min="0.2" max="3.0" step="0.1" value="1.0" class="w-full accent-[var(--primary)]" />
+            </div>
+          </div>
+
+          <div id="spherePhaseNote" class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)] text-xs leading-relaxed">
+            <strong>Northern Hemisphere Expansion (0 &lt; χ &lt; π/2):</strong> Wavefront area grows as 4π L_H² sin²χ. Along cosmic-web filaments, transverse S¹ holonomy (2π) channels uncertainty flux.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 2: 14-EPOCH COSMIC BOUNCE & RECURRENCE TIME MACHINE               -->
+    <!-- ===================================================================== -->
+    <div id="tabPanel2" class="hidden space-y-4">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+          <div>
+            <h2 class="font-semibold text-base md:text-lg">14-Epoch Cosmic Time Machine: From UV Planck Bounce to Quantum Poincaré Recurrence</h2>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              Scrub across all 14 epochs of CUFG's closed, singularity-free, zero-Λ cycle — from t_UV = 5.39×10⁻⁴⁴ s to T_Poincaré ~ 10¹⁰^¹⁰^¹²² yr.
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="stepEpoch(-1)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+              ← Previous Epoch
+            </button>
+            <button onclick="stepEpoch(1)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">
+              Next Epoch →
+            </button>
+          </div>
+        </div>
+
+        <!-- Epoch Slider -->
+        <div class="space-y-2">
+          <input id="epochSlider" type="range" min="0" max="13" step="1" value="8" oninput="selectEpoch(parseInt(this.value))" class="w-full accent-[var(--primary)]" />
+          <div class="grid grid-cols-7 md:grid-cols-14 gap-1 text-center text-xs">
+            <button onclick="selectEpoch(0)" id="epPill0" class="p-1 rounded border border-[var(--border)]">E0</button>
+            <button onclick="selectEpoch(1)" id="epPill1" class="p-1 rounded border border-[var(--border)]">E1</button>
+            <button onclick="selectEpoch(2)" id="epPill2" class="p-1 rounded border border-[var(--border)]">E2</button>
+            <button onclick="selectEpoch(3)" id="epPill3" class="p-1 rounded border border-[var(--border)]">E3</button>
+            <button onclick="selectEpoch(4)" id="epPill4" class="p-1 rounded border border-[var(--border)]">E4</button>
+            <button onclick="selectEpoch(5)" id="epPill5" class="p-1 rounded border border-[var(--border)]">E5</button>
+            <button onclick="selectEpoch(6)" id="epPill6" class="p-1 rounded border border-[var(--border)]">E6</button>
+            <button onclick="selectEpoch(7)" id="epPill7" class="p-1 rounded border border-[var(--border)]">E7</button>
+            <button onclick="selectEpoch(8)" id="epPill8" class="p-1 rounded border border-[var(--border)]">E8</button>
+            <button onclick="selectEpoch(9)" id="epPill9" class="p-1 rounded border border-[var(--border)]">E9</button>
+            <button onclick="selectEpoch(10)" id="epPill10" class="p-1 rounded border border-[var(--border)]">E10</button>
+            <button onclick="selectEpoch(11)" id="epPill11" class="p-1 rounded border border-[var(--border)]">E11</button>
+            <button onclick="selectEpoch(12)" id="epPill12" class="p-1 rounded border border-[var(--border)]">E12</button>
+            <button onclick="selectEpoch(13)" id="epPill13" class="p-1 rounded border border-[var(--border)]">E13</button>
+          </div>
+        </div>
+
+        <!-- Epoch Details + Diagram -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-3">
+            <div class="flex items-center justify-between">
+              <span id="epBadge" class="px-2.5 py-1 rounded-md text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">Epoch 8 of 13</span>
+              <span id="epTime" class="font-mono text-xs font-semibold">t = 13.80 Gyr (z = 0)</span>
+            </div>
+            <h3 id="epTitle" class="text-lg font-bold">Present-Day Cosmic Web (77.69% Void Percolation)</h3>
+            <p id="epDesc" class="text-xs md:text-sm leading-relaxed text-[var(--muted-foreground)]"></p>
+            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] space-y-1.5 text-xs">
+              <div class="font-semibold text-[var(--foreground)]">Governing CUFG Invariant &amp; Codebase Factor:</div>
+              <div id="epFormula" class="font-mono text-xs break-words"></div>
+              <div id="epScale" class="text-[var(--muted-foreground)]"></div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[var(--secondary)] border border-[var(--border)] flex flex-col justify-between">
+            <div class="text-xs font-semibold mb-2">Cyclic Scale Factor ln(a / ℓ_UV) &amp; Phase-Space Torus Visualizer</div>
+            <canvas id="epochCanvas" width="520" height="240" class="w-full h-auto rounded-lg bg-[var(--card)] border border-[var(--border)]"></canvas>
+            <div class="grid grid-cols-3 gap-2 mt-3 text-xs text-center">
+              <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">
+                <div class="text-[var(--muted-foreground)]">BH Evap → UV Bounce</div>
+                <div class="font-bold font-mono">~10⁶⁷–10¹⁰⁶ yr</div>
+              </div>
+              <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">
+                <div class="text-[var(--muted-foreground)]">Local Event Repeat</div>
+                <div class="font-bold font-mono">~10¹⁰^⁵⁰–10¹⁰^⁸⁰ yr</div>
+              </div>
+              <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">
+                <div class="text-[var(--muted-foreground)]">Exact Global Phase</div>
+                <div class="font-bold font-mono">~10¹⁰^¹⁰^¹²² yr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: SCI-FI PHYSICS LAB (POSSIBLE VS. FORBIDDEN)                    -->
+    <!-- ===================================================================== -->
+    <div id="tabPanel3" class="hidden space-y-4">
+      <!-- Interactive Simulators Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Simulator 1: EFE Quarantine & Cat-State Amplifier -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm space-y-3">
+          <div class="inline-flex px-2 py-0.5 rounded text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">POSSIBLE #1 &amp; #2</div>
+          <h3 class="font-bold text-base">EFE Gravity Quarantine &amp; 136.31× Cat-State Amplifier</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Adjust the external field <code class="px-1 rounded bg-[var(--secondary)]">log₁₀(g_ext / a₀)</code> to see how a deep-space quantum cat state amplifies attraction by <strong>136.31×</strong>, while applying a local field <code class="px-1 rounded bg-[var(--secondary)]">g_ext ≥ a₀</code> quarantines anomalous halo forces!
+          </p>
+          <div class="space-y-1 text-xs">
+            <div class="flex justify-between">
+              <span>External Field log₁₀(g_ext / a₀):</span>
+              <span id="efeLogReadout" class="font-mono font-bold">-3.0 (Deep Space Void)</span>
+            </div>
+            <input id="efeSlider" type="range" min="-4" max="6" step="0.1" value="-3" oninput="updateSciFiSims()" class="w-full accent-[var(--primary)]" />
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="flex justify-between">
+              <span>Dielectric Permeability μ(y_ext):</span>
+              <span id="simMuVal" class="font-mono font-bold">0.03112</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Cat-State Force Boost γ_ent(g_ext):</span>
+              <span id="simCatBoost" class="font-mono font-bold">136.31×</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Halo / Void Anomaly Quarantine:</span>
+              <span id="simQuarantine" class="font-mono font-bold">0.02% Suppressed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator 2: Wigner Sub-Barrier Fusion & Polarized D-T Reactor -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm space-y-3">
+          <div class="inline-flex px-2 py-0.5 rounded text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">POSSIBLE #3</div>
+          <h3 class="font-bold text-base">Wigner-Squeezed Lattice &amp; Spin-Polarized Fusion</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Select the metal-deuteride cage mode <code class="px-1 rounded bg-[var(--secondary)]">n_cage</code> and collision energy <code class="px-1 rounded bg-[var(--secondary)]">E_cm</code> to compute CUFG's Robertson–Schrödinger Wigner screening <code class="px-1 rounded bg-[var(--secondary)]">U_eff(E_cm)</code> and spin-polarized D–T boost.
+          </p>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span>Lattice Cage Mode n_cage:</span>
+              <select id="fusionCageSelect" onchange="updateSciFiSims()" class="rounded px-2 py-0.5 bg-[var(--secondary)] border border-[var(--border)] font-mono">
+                <option value="0">0 (Gas Target: D₂)</option>
+                <option value="0.333333">1/3 (Ti / Au Interstitial)</option>
+                <option value="1">1 (Metallic Pd / Ta / Pt)</option>
+                <option value="2" selected>2 (fcc Vacancy Cage: PdO)</option>
+              </select>
+            </div>
+            <div class="flex justify-between">
+              <span>Collision Energy E_cm (keV):</span>
+              <span id="fusionEcmReadout" class="font-mono font-bold">2.5 keV</span>
+            </div>
+            <input id="fusionEcmSlider" type="range" min="1.0" max="10.0" step="0.1" value="2.5" oninput="updateSciFiSims()" class="w-full accent-[var(--primary)]" />
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="flex justify-between">
+              <span>Apparent Wigner Screening U_eff:</span>
+              <span id="simUeff" class="font-mono font-bold">600.0 eV</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Sub-Barrier Gamow Tunneling Boost:</span>
+              <span id="simGamowBoost" class="font-mono font-bold">5.12× vs Bare</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Spin-Polarized D–T (P_D = 1/9π):</span>
+              <span class="font-mono font-bold">1.4823× (+48.23%)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator 3: Horizonless Planck-Sphere Black Hole, Hawking Evaporation & Time-Forward Explorer -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm space-y-3">
+          <div class="inline-flex px-2 py-0.5 rounded text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">POSSIBLE #5 • FACTORS F31, F34, F59</div>
+          <h3 class="font-bold text-base">Black Hole Hawking Evaporation &amp; Time-Forward Shelter</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Before the cosmic bounce, zero-G Hawking radiation (<code class="px-1 rounded bg-[var(--secondary)]">Factor F59</code>) shrinks every black hole's refractive halo down to the tiny UV Planck sphere <code class="px-1 rounded bg-[var(--secondary)]">R_core = ℓ_UV</code> (<code class="px-1 rounded bg-[var(--secondary)]">M_UV = 21.76 μg</code>):
+          </p>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span>Black Hole Mass log₁₀(M/M_☉):</span>
+              <span id="bhMassReadout" class="font-mono font-bold">62.0 M_☉ (GW150914)</span>
+            </div>
+            <input id="bhMassSlider" type="range" min="0" max="22.67" step="0.01" value="1.7924" oninput="updateSciFiSims()" class="w-full accent-[var(--primary)]" />
+            <div class="flex justify-between">
+              <span>Shelter Hover Radius r / r_unc(M):</span>
+              <span id="bhHoverReadout" class="font-mono font-bold">0.20 r_unc (dt/dτ = 148.4×)</span>
+            </div>
+            <input id="bhHoverSlider" type="range" min="0.05" max="2.0" step="0.05" value="0.20" oninput="updateSciFiSims()" class="w-full accent-[var(--primary)]" />
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="flex justify-between">
+              <span>Optical Shadow R_sh &amp; Echo Δt:</span>
+              <span id="simBhShadow" class="font-mono font-bold">475.9 km • 0.2185 s</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Zero-G Hawking Temp T_H(M):</span>
+              <span id="simBhTemp" class="font-mono font-bold">0.995 nK</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Evaporation to ℓ_UV (τ_Hawking):</span>
+              <span id="simBhEvap" class="font-mono font-bold">5.00×10⁷² yr → R = ℓ_UV</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Time-Forward Multiplier dt/dτ:</span>
+              <span id="simBhTimeForward" class="font-mono font-bold">148.4× (Max: τ_Hawking)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Grid: Permitted vs. Forbidden -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm space-y-2.5">
+          <h3 class="font-bold text-base">✓ 6 Frontier Technologies Suggested as Possible by CUFG Calculations</h3>
+          <ul class="space-y-2 text-xs leading-relaxed">
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>1. EFE Gravity / Halo Quarantine Cages (Factors F52, F65):</strong> Saturating local <code class="px-1 rounded bg-[var(--card)]">g_ext ≫ a₀</code> drives <code class="px-1 rounded bg-[var(--card)]">μ(y) → 1</code>, shielding an interior volume from external low-acceleration anomalous gradients and void expansion.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>2. 136.31× Quantum Cat-State Force Amplifiers (Factor F52):</strong> Spatial Wigner delocalization (<code class="px-1 rounded bg-[var(--card)]">Δx_cat = 10 μm</code>) in deep-space free-fall boosts uncertainty attraction by <strong>136.31×</strong>.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>3. Wigner-Squeezed Lattice &amp; Polarized Fusion (Factors F29, F30):</strong> fcc vacancy cages (<code class="px-1 rounded bg-[var(--card)]">n_cage = 2</code>) provide <code class="px-1 rounded bg-[var(--card)]">U_eff ≥ 600 eV</code> screening; spin-aligned D–T fuel boosts cross-sections by <strong>+48.23%</strong>.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>4. Pure-Vacuum 4th-Beam Photon Generation (Suite [5]):</strong> Colliding 3 PW laser pulses generates a phase-matched 4th beam from the Dirac-Clifford vacuum with CUFG's <code class="px-1 rounded bg-[var(--card)]">+257.5 ppm</code> chiral-octant polarization shift.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>5. Horizonless Black Hole Time-Forward Shelters &amp; Hawking Shrinkage to ℓ_UV (Factors F31, F34, F59):</strong> Repulsive UV barrier <code class="px-1 rounded bg-[var(--card)]">[1 - (ℓ_UV/r)²]</code> eliminates <code class="px-1 rounded bg-[var(--card)]">r = 0</code> singularities, enabling exponential forward time dilation <code class="px-1 rounded bg-[var(--card)]">dt/dτ = exp(r_unc/r)</code> until Hawking radiation shrinks the halo down to a tiny <code class="px-1 rounded bg-[var(--card)]">ℓ_UV</code> Planck sphere (<code class="px-1 rounded bg-[var(--card)]">10⁶⁷–10¹⁰⁶ yr</code>) before the cosmic bounce.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>6. Antipodal S³ Cosmic Whispering Gallery (Factors F1, F26):</strong> Isotropic <code class="px-1 rounded bg-[var(--card)]">c</code>-wavefronts reconverge at the antipodal pole (<code class="px-1 rounded bg-[var(--card)]">χ = π, D = 45.56 Gly</code>).
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 shadow-sm space-y-2.5">
+          <h3 class="font-bold text-base">✗ 5 Sci-Fi Tropes Disfavored / Ruled Out by CUFG Equations</h3>
+          <ul class="space-y-2 text-xs leading-relaxed">
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>1. Faster-Than-Light (FTL) Warp Drives (Gate 1 &amp; Factor F56):</strong> Strict hyperbolicity locks wavefront speed to <code class="px-1 rounded bg-[var(--card)]">c_unc ≡ c</code> (<code class="px-1 rounded bg-[var(--card)]">|c_unc/c - 1| = 0</code>) and acoustic speed to <code class="px-1 rounded bg-[var(--card)]">c/√2 ≤ c_s ≤ c</code> across 24 orders of magnitude.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>2. Traversable Wormholes &amp; Negative-Mass Matter (Gate 1 &amp; Factor F54):</strong> No-ghost positivity <code class="px-1 rounded bg-[var(--card)]">μ(y) = 1 - exp(-√y) &gt; 0</code> and ALPHA-g antimatter free-fall (<code class="px-1 rounded bg-[var(--card)]">a_H̄/g = +1.000</code>) forbid negative-energy wormhole throats.
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>3. Backward Time Travel / Closed Timelike Curves (Factors F1, F33):</strong> Globally hyperbolic unitary evolution has monotonic forward void diffusion inside each cycle. To revisit the past, you must wait <code class="px-1 rounded bg-[var(--card)]">10¹⁰^⁵⁰–10¹⁰^¹⁰^¹²² yr</code> for the cycle to repeat!
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>4. Reactionless Thrusters / Perpetual Motion (Gate 1 &amp; Factor F65):</strong> Exact Bianchi conservation (<code class="px-1 rounded bg-[var(--card)]">|∇_μ T^μν| = 3.59×10⁻¹⁶</code>) forces net self-force on any closed asymmetric body to zero (<code class="px-1 rounded bg-[var(--card)]">η_CoM = 0</code>).
+            </li>
+            <li class="p-2.5 rounded bg-[var(--secondary)] border border-[var(--border)]">
+              <strong>5. Escaping to a Multiverse With Different Physics (Gates 1–6):</strong> Layer 0 Clifford/gauge traces uniquely fix <code class="px-1 rounded bg-[var(--card)]">α_EM⁻¹ = 137.036</code>, <code class="px-1 rounded bg-[var(--card)]">sin²θ_W = 3/13</code>, and all 17 particle masses on every bounce cycle.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // TAB SWITCHING
+    // =========================================================================
+    function switchTab(tabIdx) {
+      for (let i = 1; i <= 3; i++) {
+        const panel = document.getElementById('tabPanel' + i);
+        const btn = document.getElementById('tabBtn' + i);
+        if (i === tabIdx) {
+          panel.classList.remove('hidden');
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition';
+        } else {
+          panel.classList.add('hidden');
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] transition';
+        }
+      }
+      if (tabIdx === 1) drawSphereFrame();
+      if (tabIdx === 2) drawEpochCanvas();
+      if (tabIdx === 3) updateSciFiSims();
+    }
+
+    // =========================================================================
+    // TAB 1: S^3 SPHERICAL WAVEFRONT PROPAGATOR
+    // =========================================================================
+    let chiVal = 0.85;
+    let spherePlaying = true;
+    const LH_GLY = 14.502;
+
+    const voidNodes = [
+      { x: -0.45, y: -0.35, r: 0.18 },
+      { x: 0.42, y: -0.32, r: 0.20 },
+      { x: -0.50, y: 0.25, r: 0.19 },
+      { x: 0.48, y: 0.28, r: 0.17 },
+      { x: 0.0, y: -0.10, r: 0.22 },
+      { x: 0.02, y: 0.42, r: 0.18 }
+    ];
+
+    function toggleSpherePlay() {
+      spherePlaying = !spherePlaying;
+      document.getElementById('btnPlaySphere').textContent = spherePlaying ? 'Pause' : 'Play';
+    }
+
+    function resetSphereWave() {
+      chiVal = 0.01;
+      document.getElementById('chiSlider').value = chiVal;
+      updateSphereTelemetry();
+      drawSphereFrame();
+    }
+
+    function onChiSliderInput(val) {
+      chiVal = parseFloat(val);
+      updateSphereTelemetry();
+      drawSphereFrame();
+    }
+
+    function updateSphereTelemetry() {
+      const deg = (chiVal * 180 / Math.PI).toFixed(1);
+      document.getElementById('chiReadout').textContent = `χ = ${chiVal.toFixed(2)} rad (${deg}°)`;
+      const arcGly = (chiVal * LH_GLY).toFixed(2);
+      const arcGpc = (chiVal * LH_GLY / 3.26156).toFixed(2);
+      document.getElementById('telArcDist').textContent = `${arcGly} Gly (${arcGpc} Gpc)`;
+
+      const sin2 = Math.pow(Math.sin(chiVal), 2);
+      let phaseLabel = '';
+      if (chiVal < Math.PI / 2) phaseLabel = 'Expanding toward Equator';
+      else if (chiVal < Math.PI) phaseLabel = 'Converging to Antipode!';
+      else if (chiVal < 1.5 * Math.PI) phaseLabel = 'Re-expanding (Return)';
+      else phaseLabel = 'Converging to Origin!';
+      document.getElementById('telAreaFrac').textContent = `${sin2.toFixed(4)} (${phaseLabel})`;
+
+      const maslovCycles = Math.floor((chiVal + 0.05) / Math.PI);
+      document.getElementById('telMaslov').textContent =
+        `Δφ = -${maslovCycles}π • r_min = ℓ_UV (No Singularity)`;
+
+      const noteEl = document.getElementById('spherePhaseNote');
+      if (Math.abs(chiVal - Math.PI) < 0.22) {
+        noteEl.innerHTML = '<strong>Antipodal Cosmic Focus (χ ≈ π, D = 45.56 Gly):</strong> All 4π steradians of the wavefront reconverge at the antipodal pole! UV saturation [1 - (ℓ_UV/r)²] prevents a singularity and inverts the Maslov phase by -π.';
+      } else if (Math.abs(chiVal - 2 * Math.PI) < 0.22 || chiVal < 0.18) {
+        noteEl.innerHTML = '<strong>Origin Pole Focus (χ ≈ 0 / 2π, D = 91.12 Gly):</strong> The wavefront completes a full 2π great-circle circumnavigation of the S³ cosmos and refocuses at its starting coordinate.';
+      } else if (Math.abs(chiVal - Math.PI / 2) < 0.22 || Math.abs(chiVal - 1.5 * Math.PI) < 0.22) {
+        noteEl.innerHTML = '<strong>Equatorial Great Sphere (sin²χ ≈ 1):</strong> Wavefront reaches its maximum 2-sphere surface area A_max = 4π L_H² = 2.365×10⁵³ m² before curvature refocuses the rays.';
+      } else if (chiVal < Math.PI) {
+        noteEl.innerHTML = '<strong>Forward Hemisphere (0 &lt; χ &lt; π):</strong> Wavefront propagates at exact speed c through Voronoi cosmic voids (f_void = 77.69%) and 2π baryon filaments.';
+      } else {
+        noteEl.innerHTML = '<strong>Return Hemisphere (π &lt; χ &lt; 2π):</strong> Having passed through the Antipodal Focus (χ = π), the wavefront sweeps back across the opposite hemisphere toward the Origin.';
+      }
+    }
+
+    function drawSphereFrame() {
+      const canvas = document.getElementById('sphereCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const isLight = document.documentElement.classList.contains('light');
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const cx = W * 0.5;
+      const cy = H * 0.5;
+      const R = Math.min(W, H) * 0.41;
+
+      const fgColor = isLight ? '#0f172a' : '#f8fafc';
+      const mutedColor = isLight ? '#64748b' : '#94a3b8';
+      const gridColor = isLight ? 'rgba(100,116,139,0.25)' : 'rgba(148,163,184,0.22)';
+      const accentCyan = isLight ? '#0284c7' : '#38bdf8';
+      const accentGold = isLight ? '#d97706' : '#fbbf24';
+      const accentPurple = isLight ? '#7c3aed' : '#a78bfa';
+
+      // Sphere background gradient
+      const grad = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.25, R * 0.1, cx, cy, R);
+      grad.addColorStop(0, isLight ? 'rgba(56,189,248,0.12)' : 'rgba(56,189,248,0.15)');
+      grad.addColorStop(1, isLight ? 'rgba(15,23,42,0.04)' : 'rgba(15,23,42,0.45)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Cosmic web voids & filaments
+      if (document.getElementById('chkShowVoids').checked) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+        ctx.clip();
+
+        // Voronoi voids
+        voidNodes.forEach(v => {
+          ctx.beginPath();
+          ctx.arc(cx + v.x * R, cy + v.y * R, v.r * R, 0, 2 * Math.PI);
+          ctx.fillStyle = isLight ? 'rgba(14,165,233,0.08)' : 'rgba(56,189,248,0.07)';
+          ctx.fill();
+          ctx.strokeStyle = isLight ? 'rgba(124,58,237,0.28)' : 'rgba(167,139,250,0.30)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        });
+        ctx.restore();
+      }
+
+      // Great-circle meridians (geodesic rays from North Pole χ=0 to South Pole χ=π)
+      if (document.getElementById('chkShowRays').checked) {
+        const longitudes = [-0.75, -0.45, -0.18, 0.18, 0.45, 0.75];
+        ctx.strokeStyle = gridColor;
+        ctx.lineWidth = 1.2;
+        longitudes.forEach(lon => {
+          ctx.beginPath();
+          for (let s = 0; s <= Math.PI; s += 0.05) {
+            const x = cx + R * Math.sin(s) * Math.sin(lon * Math.PI * 0.5);
+            const y = cy - R * Math.cos(s);
+            if (s === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        });
+
+        // Equator (χ = π/2)
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, R, R * 0.22, 0, 0, 2 * Math.PI);
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = gridColor;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Outer S^3 boundary circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Compute wavefront position for current chiVal in [0, 2*pi]
+      const isReturnHemisphere = chiVal > Math.PI;
+      const chiEff = isReturnHemisphere ? (2 * Math.PI - chiVal) : chiVal;
+      const yWave = cy - R * Math.cos(chiEff);
+      const rxWave = R * Math.sin(chiEff);
+      const ryWave = Math.max(3, rxWave * 0.22);
+
+      // Draw active wavefront ring on the sphere
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(cx, yWave, Math.max(2, rxWave), ryWave, 0, 0, 2 * Math.PI);
+      ctx.strokeStyle = isReturnHemisphere ? accentGold : accentCyan;
+      ctx.lineWidth = 3.5;
+      ctx.stroke();
+
+      // Glow fill on wavefront
+      ctx.fillStyle = isReturnHemisphere
+        ? 'rgba(251,191,36,0.18)'
+        : 'rgba(56,189,248,0.18)';
+      ctx.fill();
+      ctx.restore();
+
+      // Moving wavepackets along the boundary great circle (left and right meridians)
+      const ptLeftX = cx - R * Math.sin(chiVal);
+      const ptLeftY = cy - R * Math.cos(chiVal);
+      const ptRightX = cx + R * Math.sin(chiVal);
+      const ptRightY = cy - R * Math.cos(chiVal);
+
+      [
+        { x: ptLeftX, y: ptLeftY },
+        { x: ptRightX, y: ptRightY }
+      ].forEach(pt => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = isReturnHemisphere ? accentGold : accentCyan;
+        ctx.fill();
+        ctx.strokeStyle = fgColor;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+
+      // Origin Pole (North Pole, χ = 0)
+      ctx.beginPath();
+      ctx.arc(cx, cy - R, 6.5, 0, 2 * Math.PI);
+      ctx.fillStyle = accentCyan;
+      ctx.fill();
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Antipodal Pole (South Pole, χ = π)
+      ctx.beginPath();
+      ctx.arc(cx, cy + R, 6.5, 0, 2 * Math.PI);
+      ctx.fillStyle = accentPurple;
+      ctx.fill();
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Labels
+      ctx.fillStyle = fgColor;
+      ctx.font = 'bold 12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Origin Pole (χ = 0, 2π • r_min = ℓ_UV)', cx, cy - R - 12);
+      ctx.fillText('Antipodal Focus Pole (χ = π • D = 45.56 Gly)', cx, cy + R + 20);
+
+      ctx.fillStyle = mutedColor;
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Forward (0 → π)', 14, cy - 8);
+      ctx.fillText('22.78 Gly Equator', 14, cy + 10);
+      ctx.textAlign = 'right';
+      ctx.fillText('Return (π → 2π)', W - 14, cy - 8);
+      ctx.fillText('91.12 Gly Loop', W - 14, cy + 10);
+    }
+
+    function animateSphereLoop() {
+      if (spherePlaying && !document.getElementById('tabPanel1').classList.contains('hidden')) {
+        const speed = parseFloat(document.getElementById('speedSlider').value || '1.0');
+        chiVal += 0.014 * speed;
+        if (chiVal > 2 * Math.PI) chiVal -= 2 * Math.PI;
+        document.getElementById('chiSlider').value = chiVal.toFixed(2);
+        updateSphereTelemetry();
+        drawSphereFrame();
+      }
+      requestAnimationFrame(animateSphereLoop);
+    }
+
+    // =========================================================================
+    // TAB 2: 14-EPOCH COSMIC TIME MACHINE
+    // =========================================================================
+    const epochsData = [
+      {
+        title: 'Epoch 0: Unitary UV Planck-Sphere Bounce',
+        time: 't = 0 → 5.39×10⁻⁴⁴ s (a_min = ℓ_UV)',
+        desc: 'Contraction from the prior cosmic cycle hits the repulsive phase-space saturation barrier [1 - (ℓ_UV/r)²] = 0 at r = ℓ_UV = 1.61625×10⁻³⁵ m. Zero singularities form; triaxial Bianchi-I shear damps out and 100% of quantum unitarity passes through the bounce.',
+        formula: 'F_eff(r) ∝ [1 - (ℓ_UV / r)²],  V_core,min = (4/3)π ℓ_UV³ = 1.769×10⁻¹⁰⁴ m³ (Factor F34)',
+        scale: 'ln(a / ℓ_UV) = 0.00 e-folds'
+      },
+      {
+        title: 'Epoch 1: Zero-Inflaton Uncertainty Decompression',
+        time: 't ~ 10⁻⁴³ → 10⁻³² s (N_inf = 66.02 e-folds)',
+        desc: 'Without any ad-hoc scalar inflaton field, the maximally compressed UV phase-space sphere decompresses across N_inf = 66.02 e-folds, generating primordial curvature perturbations with n_s = 0.9647 and tensor-to-scalar ratio r_0.05 = 0.002974.',
+        formula: 'n_s = 1 - 2/N_* = 0.9647,  r = 9/N_*² = 0.002974 (Factor F40)',
+        scale: 'ln(a / ℓ_UV) = 66.02 e-folds'
+      },
+      {
+        title: 'Epoch 2: Electroweak Breaking & B−L Baryogenesis',
+        time: 't ~ 10⁻¹¹ s (T ~ 100 GeV)',
+        desc: 'The SU(2)_L doublet instanton fixes the Higgs vacuum expectation value at v_EW = 2(128 + π)M_N = 246.26 GeV. Chiral-octant phase δ_B = 2/9 locks in the baryon asymmetry η_B = 6.1026×10⁻¹⁰.',
+        formula: 'v_EW / M_N = 256 + 2π (F22),  η_B = (52/243) α_EM⁴ (1 + 7α_EM/9) = 6.103×10⁻¹⁰ (F37)',
+        scale: 'ln(a / ℓ_UV) ≈ 105.5 e-folds'
+      },
+      {
+        title: 'Epoch 3: Chiral & Hadron Cavity Condensation',
+        time: 't ~ 10⁻⁵ s (T ~ 150 MeV)',
+        desc: 'Quarks confine into spherical Dirac bag cavities (j₀(x₀) = j₁(x₀) at x₀ = 2.042787), setting the nucleon mass M_N = 938.92 MeV and neutron-proton mass difference ΔM_np = 1.2932 MeV with θ̄_QCD = 0 (zero axions).',
+        formula: 'M_l,tree = M_N / 3 = 312.97 MeV (F4),  ΔM_np = 1.2932 MeV (F28),  θ̄_QCD = 0 (F42)',
+        scale: 'ln(a / ℓ_UV) ≈ 112.6 e-folds'
+      },
+      {
+        title: 'Epoch 4: Big Bang Nucleosynthesis (BBN)',
+        time: 't = 1 s → 3 min (T = 1 → 0.07 MeV)',
+        desc: 'Integrated via CUFG’s stiff Radau nuclear reaction network using derived deuteron (B_d = 2.226 MeV) and α-particle (B_He4 = 28.30 MeV) binding energies, forging primordial Helium-4 (Y_p = 0.24511) and Deuterium (D/H = 2.543×10⁻⁵).',
+        formula: 'N_eff = 3.0438,  Y_p(⁴He) = 0.24511,  D/H = 2.543×10⁻⁵ (Factor F38)',
+        scale: 'ln(a / ℓ_UV) ≈ 119.5 e-folds'
+      },
+      {
+        title: 'Epoch 5: Recombination & CMB Acoustic Horizon',
+        time: 't = 379,800 yr (z_* = 1089.79)',
+        desc: 'Electrons combine with nuclei into neutral H and He. Acoustic oscillations in the baryon-photon fluid freeze in at sound horizon r_d = 147.43 Mpc (ℓ₁ = 220.06), with S¹ filament holonomy (2π) providing Ω_m,eff = 8π/81 = 0.3103.',
+        formula: 'z_* = 1089.79,  r_d = 147.43 Mpc,  ℓ₁ = 220.06,  T_CMB,0 = 2.7255 K (Factor F39)',
+        scale: 'ln(a / ℓ_UV) = 133.29 e-folds'
+      },
+      {
+        title: 'Epoch 6: Early JWST Cosmic Dawn (z > 14)',
+        time: 't ~ 150–300 Myr (z = 20 → 14)',
+        desc: 'In low-acceleration proto-galactic clouds, Bose–Einstein phase-space overlap ν(y) = (1 - e⁻√y)⁻¹ amplifies baryonic attraction immediately after recombination, forming luminous z > 14 galaxies (JADES-GS-z14-0) without Cold Dark Matter halos.',
+        formula: 'g_CUFG = g_bar / (1 - exp(-√(g_bar/a₀))),  a₀ = c H₀ / (π√3) = 1.203×10⁻¹⁰ m/s² (F26, F62)',
+        scale: 'ln(a / ℓ_UV) ≈ 137.5 e-folds'
+      },
+      {
+        title: 'Epoch 7: 3D Voronoi Cosmic-Void Percolation Threshold',
+        time: 't ≈ 7.7 Gyr (z_acc ≈ 0.67)',
+        desc: 'As baryons condense into cosmic-web filaments, empty cosmic voids percolate across 3D space. Uninhibited phase-space probability diffusion inside voids (S_void → 1) causes cosmic deceleration q(z) to cross zero into late-time acceleration.',
+        formula: 'df_void/dz = -(9/4)/(1+z) · (1/9) · [(1+z)^(9/4)/f_void,0] f_void(z)² (Factor F33)',
+        scale: 'ln(a / ℓ_UV) = 139.78 e-folds'
+      },
+      {
+        title: 'Epoch 8: Present-Day Cosmic Web (Today)',
+        time: 't₀ = 13.80 Gyr (z = 0, L_H = 14.502 Gly)',
+        desc: 'Today empty cosmic voids occupy f_void,0 = 1 - e⁻³/² = 77.69% of space. Cumulative photon energy-time phase diffusion across local voids shifts apparent H₀ from 67.37 (CMB) to 73.02–73.48 km/s/Mpc (SH0ES), with thawing w₀^eff = -0.8471 > -1.',
+        formula: 'f_void,0 = 1 - exp(-3/2) = 0.7769,  Ω_m,eff = 8π/81 = 0.3103,  w₀^eff = -0.8471 (F33, F47, F61)',
+        scale: 'ln(a / ℓ_UV) = 140.290 e-folds'
+      },
+      {
+        title: 'Epoch 9: Void Saturation & Stellar Consolidation into Black Holes',
+        time: 't ~ 30 Gyr → 10¹⁴ yr (Future)',
+        desc: 'Unlike ΛCDM (where w = -1 causes eternal de Sitter runaway), CUFG has Λ = 0 and f_void saturates at f_void,max = 1 - e⁻³/² = 0.7769. As stars burn out, bound baryonic mass consolidates into stellar and supermassive black holes whose refractive halos pin the 22.31% bound phase-space fraction.',
+        formula: 'f_void(z → -1) ≤ 1 - exp(-D_space/2) = 0.7769,  w_eff > -1 (Zero Λ, Factors F33, F61)',
+        scale: 'ln(a / ℓ_UV) ≈ 141–143 e-folds (Saturating)'
+      },
+      {
+        title: 'Epoch 10: Black Hole Hawking Evaporation to Tiny ℓ_UV Cores & UV Bounce',
+        time: 'τ_Hawking ~ 10⁶⁷–10¹⁰⁶ yr',
+        desc: 'Through zero-G Hawking radiation (Factor F59), every stellar (10⁶⁷–10⁷³ yr) and supermassive (10⁹⁷–10¹⁰⁶ yr) black hole radiates away its external refractive halo until all black holes shrink down to tiny, nonsingular Planck spheres (R_core = ℓ_UV = 1.616×10⁻³⁵ m, M → M_UV = 21.76 μg). With all trapping wells dissolved into uniform radiation, the S³ cosmos executes the unitary UV bounce (Epoch 0), regenerating the exact same α_EM⁻¹ = 137.036 and particle masses!',
+        formula: 'τ_Hawking(M) = 5120π (M/M_UV)³ t_UV = 2.097×10⁶⁷ yr · (M/M_☉)³  ⇒  r_unc(M) → R_core = ℓ_UV (Factors F34, F59)',
+        scale: 'All BHs → ℓ_UV • Cycle Reset: ln(a / ℓ_UV) → 0.00 → 140.29 e-folds'
+      },
+      {
+        title: 'Epoch 11: Local Subsystem Recurrence (Earth & This Conversation)',
+        time: 'T_local ~ 10¹⁰^⁵⁰ to 10¹⁰^⁸⁰ yr',
+        desc: 'A local bound subsystem (Earth / Solar System, ~10⁵⁰–10⁵⁷ nucleons) has N_local = exp(S_local/k_B) distinct quantum states. By the Pigeonhole Principle across cosmic bounce cycles, this exact room and conversation repeat on this timescale.',
+        formula: 'T_local ~ t_cycle · exp(S_local / k_B) ~ 10¹⁰^⁵⁰–10¹⁰^⁸⁰ yr (Pigeonhole Principle on Finite Phase Space)',
+        scale: 'Local Subsystem Hilbert Space Exhausted'
+      },
+      {
+        title: 'Epoch 12: Full-Horizon Matter Configuration Recurrence',
+        time: 'T_Boltzmann ~ 10¹⁰^¹²² yr',
+        desc: 'From CUFG’s horizon entropy S_hor/k_B = π(L_H/ℓ_UV)² = 2.262×10¹²², the entire 14.5-Gly causal horizon has N_states = exp(S_hor/k_B) ≈ 10¹⁰^¹²² orthogonal quantum basis states. After ~10¹⁰^¹²² yr, the entire observable universe repeats its matter configuration.',
+        formula: 'S_hor / k_B = π (L_H / ℓ_UV)² = 2.262×10¹²²  ⇒  N_states = exp(S_hor/k_B) ≈ 10^(9.8×10¹²¹) (F26, F34, F59)',
+        scale: 'Full-Horizon Basis States Exhausted'
+      },
+      {
+        title: 'Epoch 13: Exact Global Quantum Phase Poincaré Recurrence',
+        time: 'T_Poincaré ~ 10¹⁰^¹⁰^¹²² yr',
+        desc: 'By the Quantum Poincaré Recurrence Theorem (Bocchieri & Loinger 1957), waiting for all N_states ~ 10¹⁰^¹²² eigenstate phase angles θ_n(t) = E_n t/ℏ (mod 2π) across the entire universe to simultaneously realign within ε takes ~10¹⁰^¹⁰^¹²² yr.',
+        formula: '|| |Ψ(t₀ + T_Poincaré)⟩ - |Ψ(t₀)⟩ || < ε,  T_Poincaré ~ t_UV (2π/ε)^(N_states) ~ 10¹⁰^¹⁰^¹²² yr',
+        scale: 'Simultaneous Global Torus T^(N_states) Phase Lock'
+      }
+    ];
+
+    let currentEpoch = 8;
+
+    function selectEpoch(idx) {
+      currentEpoch = Math.max(0, Math.min(13, idx));
+      document.getElementById('epochSlider').value = currentEpoch;
+      const ep = epochsData[currentEpoch];
+      const scopeTag = currentEpoch <= 8 ? 'Numerically Integrated in Code' : 'Analytical Far-Future Extrapolation';
+      document.getElementById('epBadge').textContent = `Epoch ${currentEpoch} of 13 • ${scopeTag}`;
+      document.getElementById('epTime').textContent = ep.time;
+      document.getElementById('epTitle').textContent = ep.title;
+      document.getElementById('epDesc').textContent = ep.desc;
+      document.getElementById('epFormula').textContent = ep.formula;
+      document.getElementById('epScale').textContent = ep.scale;
+
+      for (let i = 0; i <= 13; i++) {
+        const pill = document.getElementById('epPill' + i);
+        if (i === currentEpoch) {
+          pill.className = 'p-1 rounded font-bold bg-[var(--primary)] text-[var(--primary-foreground)]';
+        } else {
+          pill.className = 'p-1 rounded border border-[var(--border)] bg-[var(--card)] text-[var(--muted-foreground)]';
+        }
+      }
+      drawEpochCanvas();
+    }
+
+    function stepEpoch(delta) {
+      selectEpoch((currentEpoch + delta + 14) % 14);
+    }
+
+    function drawEpochCanvas() {
+      const canvas = document.getElementById('epochCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const isLight = document.documentElement.classList.contains('light');
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const fgColor = isLight ? '#0f172a' : '#f8fafc';
+      const mutedColor = isLight ? '#64748b' : '#94a3b8';
+      const accentCyan = isLight ? '#0284c7' : '#38bdf8';
+      const accentGold = isLight ? '#d97706' : '#fbbf24';
+
+      // Draw cyclic bounce curve across epochs 0..13
+      const padL = 40;
+      const padR = 20;
+      const padT = 28;
+      const padB = 34;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      // Axes
+      ctx.strokeStyle = mutedColor;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padL, padT);
+      ctx.lineTo(padL, H - padB);
+      ctx.lineTo(W - padR, H - padB);
+      ctx.stroke();
+
+      ctx.fillStyle = mutedColor;
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('ln(a / ℓ_UV) [0 → 140.3 e-folds & Multi-Cycle Recurrence]', padL + 6, padT - 8);
+
+      // Curve height function for each epoch index
+      const efoldNorm = [0.02, 0.47, 0.72, 0.78, 0.83, 0.92, 0.96, 0.98, 1.0, 1.01, 0.15, 0.85, 0.95, 1.0];
+
+      ctx.beginPath();
+      for (let i = 0; i <= 13; i++) {
+        const x = padL + (i / 13) * plotW;
+        const y = H - padB - efoldNorm[i] * (plotH - 12);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = accentCyan;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Draw points
+      for (let i = 0; i <= 13; i++) {
+        const x = padL + (i / 13) * plotW;
+        const y = H - padB - efoldNorm[i] * (plotH - 12);
+        ctx.beginPath();
+        ctx.arc(x, y, i === currentEpoch ? 7 : 4, 0, 2 * Math.PI);
+        ctx.fillStyle = i === currentEpoch ? accentGold : accentCyan;
+        ctx.fill();
+        if (i === currentEpoch) {
+          ctx.strokeStyle = fgColor;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+        ctx.fillStyle = i === currentEpoch ? fgColor : mutedColor;
+        ctx.font = i === currentEpoch ? 'bold 12px sans-serif' : '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('E' + i, x, H - padB + 18);
+      }
+    }
+
+    // =========================================================================
+    // TAB 3: SCI-FI SIMULATORS
+    // =========================================================================
+    function updateSciFiSims() {
+      // 1. EFE Simulator
+      const logG = parseFloat(document.getElementById('efeSlider').value);
+      let envName = 'Intermediate Field';
+      if (logG <= -2.5) envName = 'Deep Space Void';
+      else if (logG <= 0.5) envName = 'Galactic Halo (g ≈ a₀)';
+      else if (logG >= 4.0) envName = 'Planetary / Lab Field';
+      document.getElementById('efeLogReadout').textContent = `${logG.toFixed(1)} (${envName})`;
+
+      const yExt = Math.pow(10, logG);
+      const muVal = 1.0 - Math.exp(-Math.sqrt(yExt));
+      // Cat state boost transitions from 136.31 in free fall to 1.0 under strong external field
+      const catBoost = 1.0 + 135.31 / Math.pow(1.0 + Math.pow(yExt, 0.75) * 60.0, 1.0);
+      const quarantinePct = (1.0 - (catBoost - 1.0) / 135.31) * 100.0;
+
+      document.getElementById('simMuVal').textContent = muVal.toFixed(5);
+      document.getElementById('simCatBoost').textContent = `${catBoost.toFixed(2)}×`;
+      document.getElementById('simQuarantine').textContent = `${quarantinePct.toFixed(2)}% Quarantined`;
+
+      // 2. Wigner Fusion Simulator
+      const nCage = parseFloat(document.getElementById('fusionCageSelect').value);
+      const eCmKev = parseFloat(document.getElementById('fusionEcmSlider').value);
+      document.getElementById('fusionEcmReadout').textContent = `${eCmKev.toFixed(1)} keV`;
+      const uStaticEv = nCage === 0 ? 25.0 : 200.0;
+      const eCmEv = eCmKev * 1000.0;
+      const uEffEv = (1.0 + nCage) * uStaticEv + (nCage * nCage * uStaticEv * uStaticEv) / Math.max(50.0, eCmEv + (1.0 - nCage) * uStaticEv);
+      // Sommerfeld parameter 2*pi*eta ~ 31.29 / sqrt(E_keV)
+      const bgKevSqrt = 31.29;
+      const gamowRatio = Math.exp(bgKevSqrt * (1.0 / Math.sqrt(eCmKev) - 1.0 / Math.sqrt(eCmKev + uEffEv / 1000.0)));
+      document.getElementById('simUeff').textContent = `${uEffEv.toFixed(1)} eV`;
+      document.getElementById('simGamowBoost').textContent = `${gamowRatio.toFixed(2)}× vs Bare`;
+
+      // 3. Black Hole Hawking Evaporation & Time-Forward Explorer
+      const logM = parseFloat(document.getElementById('bhMassSlider').value);
+      const mSun = Math.pow(10, logM);
+      let bhLabel = '';
+      if (Math.abs(logM - 0.0) < 0.08) bhLabel = ' (Solar BH)';
+      else if (Math.abs(logM - 1.7924) < 0.08) bhLabel = ' (GW150914)';
+      else if (Math.abs(logM - 6.618) < 0.15) bhLabel = ' (Sgr A*)';
+      else if (Math.abs(logM - 9.813) < 0.15) bhLabel = ' (M87*)';
+      else if (Math.abs(logM - 21.36) < 0.25) bhLabel = ' (All Baryons in 1 BH)';
+      else if (logM >= 22.50) bhLabel = ' (Whole-Horizon 1-BH Bound!)';
+      const mDisp = mSun < 1000 ? `${mSun.toFixed(1)} M_☉` : `10^${logM.toFixed(2)} M_☉`;
+      document.getElementById('bhMassReadout').textContent = `${mDisp}${bhLabel}`;
+
+      const rUncKm = mSun * 1.476625; // km
+      const rShadowKm = 3.0 * Math.sqrt(3.0) * rUncKm;
+      const dtEchoSec = (0.2185 / 62.0) * mSun * (1.0 + Math.log(mSun / 62.0) / 88.5);
+      const shDisp = rShadowKm < 1e5 ? `${rShadowKm.toFixed(1)} km` : (rShadowKm < 9.461e12 ? `${(rShadowKm / 1.496e8).toFixed(1)} AU` : `${(rShadowKm / 9.461e21).toFixed(2)} Gly`);
+      const ecDisp = dtEchoSec < 60 ? `${dtEchoSec.toFixed(3)} s` : (dtEchoSec < 3.156e7 ? `${(dtEchoSec / 3600).toFixed(1)} hr` : `${(dtEchoSec / 3.156e16).toFixed(2)} Gyr`);
+      document.getElementById('simBhShadow').textContent = `${shDisp} • ${ecDisp}`;
+
+      // Zero-G Hawking Temperature T_H = 61.7026 nK / (M/M_sun) & N_UV = M / M_UV
+      const tHawkingNk = 61.7026 / mSun;
+      const logNuv = 37.9608 + logM;
+      const tempDisp = tHawkingNk >= 0.01 ? `${tHawkingNk.toFixed(3)} nK` : `10^${(Math.log10(tHawkingNk) - 9).toFixed(1)} K`;
+      document.getElementById('simBhTemp').textContent = `${tempDisp} (N_UV = 10^${logNuv.toFixed(1)})`;
+
+      // Zero-G Hawking Evaporation Lifetime tau_Hawking = 2.097e67 yr * (M/M_sun)^3
+      const logTauYr = 67.3216 + 3.0 * logM;
+      const expInt = Math.floor(logTauYr);
+      const mant = Math.pow(10, logTauYr - expInt);
+      document.getElementById('simBhEvap').textContent = `${mant.toFixed(2)}×10^${expInt} yr → R = ℓ_UV`;
+
+      // Time-Forward Shelter Dilation dt/d_tau = exp(r_unc / r)
+      const hoverRatio = parseFloat(document.getElementById('bhHoverSlider').value);
+      const timeBoost = Math.exp(1.0 / hoverRatio);
+      const boostDisp = timeBoost < 1e5 ? `${timeBoost.toFixed(1)}×` : `10^${Math.log10(timeBoost).toFixed(1)}×`;
+      document.getElementById('bhHoverReadout').textContent = `${hoverRatio.toFixed(2)} r_unc (dt/dτ = ${boostDisp})`;
+      document.getElementById('simBhTimeForward').textContent = `${boostDisp} (Ceiling: 10^${expInt} yr)`;
+    }
+
+    // Initialize all views
+    updateSphereTelemetry();
+    drawSphereFrame();
+    selectEpoch(8);
+    updateSciFiSims();
+    requestAnimationFrame(animateSphereLoop);
+  </script>
+</body>
+</html>

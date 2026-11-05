@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cufg"
+version = "1.0.0"
+description = "Causal Uncertainty-Field Dynamics (CUFG): First-Principles Theoretical Formulation and 40-Suite Numerical Verification Benchmark (Zero G, Zero Dark Matter, Zero Cosmological Constant, Zero Numerology)"
+readme = "README.md"
+authors = [
+    { name = "Jason Bales" }
+]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = [
+    "physics",
+    "quantum-uncertainty",
+    "gravitation",
+    "cosmology",
+    "standard-model",
+    "nuclear-physics",
+    "wigner-phase-space",
+    "first-principles",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+dependencies = [
+    "numpy>=2.0.0",
+    "scipy>=1.13.0",
+    "matplotlib>=3.8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jasonbales1/Causal-Uncertainty-Field-Dynamics"
+Repository = "https://github.com/jasonbales1/Causal-Uncertainty-Field-Dynamics"
+
+[tool.setuptools.packages.find]
+include = ["cufg*"]

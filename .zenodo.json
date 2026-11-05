@@ -1,0 +1,23 @@
+{
+  "title": "Causal Uncertainty-Field Dynamics (CUFG): Gravitation from Overlapping Quantum Phase-Space Uncertainties at Speed c, Zero-Dark-Matter Cosmology, and the Subatomic Hierarchy",
+  "upload_type": "software",
+  "description": "First-principles theoretical formulation, 9-manuscript trilogy/companion suite, interactive HTML5 explorers, and 40-suite numerical verification codebase exploring whether the Standard Model of physics can account for gravitational, cosmological, and subatomic benchmarks without bare spin-2 gravity (G_bare = 0), Dark Matter, Dark Energy (Lambda = 0), scalar inflatons, or Peccei-Quinn axions via an Effective Uncertainty Field propagating at the speed of light c. Includes an 85-factor (F0-F81), 1,011-edge Causal Epistemological Dependency Graph (DAG) and 16 programmatic Referee Gates across 41 orders of magnitude.",
+  "creators": [
+    {
+      "name": "Bales, Jason"
+    }
+  ],
+  "version": "1.0.0",
+  "license": "MIT",
+  "keywords": [
+    "gravitation",
+    "quantum phase-space uncertainty",
+    "Wigner phase space",
+    "zero dark matter",
+    "zero cosmological constant",
+    "Standard Model mass hierarchy",
+    "nuclear binding energy",
+    "reproducible computational physics"
+  ],
+  "notes": "Software code (*.py) is licensed under the MIT License; theoretical manuscripts (*.md), figures (output/*.png), and datasets (output/*.json, output/*.html) are licensed under CC-BY-4.0. Run `python -B run_all_tests.py` to execute all 40 benchmark suites and 16 Referee Gates."
+}

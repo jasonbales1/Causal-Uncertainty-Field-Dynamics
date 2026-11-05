@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "Causal Uncertainty-Field Dynamics (CUFG): Gravitation from Overlapping Quantum Phase-Space Uncertainties at Speed c, Zero-Dark-Matter Cosmology, and the Subatomic Hierarchy"
+message: "If you use this software, theoretical formulation, or verification benchmark suite in your research, please cite it using the metadata below."
+type: software
+authors:
+  - family-names: "Bales"
+    given-names: "Jason"
+repository-code: "https://github.com/jasonbales1/Causal-Uncertainty-Field-Dynamics"
+url: "https://github.com/jasonbales1/Causal-Uncertainty-Field-Dynamics"
+version: "1.0.0"
+date-released: "2026-11-05"
+license: "MIT AND CC-BY-4.0"
+keywords:
+  - gravitation
+  - quantum phase-space uncertainty
+  - Wigner function
+  - zero dark matter
+  - zero cosmological constant
+  - Standard Model hierarchy
+  - nuclear binding
+  - causal dependency graph
+abstract: >-
+  A first-principles theoretical formulation and 40-suite numerical
+  verification benchmark exploring whether the Standard Model of physics (hbar, c,
+  SU(3)_C x SU(2)_L x U(1)_Y, and a single hadronic scale anchor M_N = 938.9187 MeV
+  locked to the UV Planck-sphere saturation mass M_UV) can account for gravitational,
+  cosmological, and subatomic observations without postulating classical/quantum
+  spin-2 gravity (G_bare = 0), Dark Matter, Dark Energy (Lambda = 0), scalar inflatons,
+  or Peccei-Quinn axions, modeling these effects via an Effective Uncertainty Field
+  propagating at the speed of light c. Enforces 16 programmatic Referee Gates across
+  85 causal factors (F0-F81) and 1,011 directed edges with zero free dimensionless
+  parameters and zero numerology.

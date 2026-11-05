@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Fuzzy Universe Adventure: From Quarks to the Cosmic Bounce!</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6">
+  <div class="max-w-6xl mx-auto space-y-5">
+
+    <!-- ===================================================================== -->
+    <!-- HEADER BANNER & BIG IDEA                                              -->
+    <!-- ===================================================================== -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+            <span>Interactive Science Explorer • Middle School Edition</span>
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold text-[var(--foreground)]">
+            The Fuzzy Universe Adventure: From Quarks to the Cosmic Bounce!
+          </h1>
+          <p class="text-sm text-[var(--muted-foreground)] max-w-3xl">
+            What if particles aren't tiny hard marbles, but <strong>fuzzy clouds of "quantum wiggle" (uncertainty)</strong>? Explore how our calculations and observations suggest that overlapping wiggle-clouds can build atoms, hold spinning galaxies together, and bounce the entire universe in a giant loop!
+          </p>
+        </div>
+
+        <!-- Key Fun-Fact Badges -->
+        <div class="grid grid-cols-3 gap-2 text-xs shrink-0">
+          <div class="bg-[var(--secondary)] rounded-xl p-3 border border-[var(--border)] text-center">
+            <div class="text-[var(--muted-foreground)] font-medium">The Secret Rule</div>
+            <div class="font-bold text-sm mt-0.5">Squish = Wiggle!</div>
+          </div>
+          <div class="bg-[var(--secondary)] rounded-xl p-3 border border-[var(--border)] text-center">
+            <div class="text-[var(--muted-foreground)] font-medium">Bounce Seeds</div>
+            <div class="font-bold text-sm mt-0.5">120 Black Holes</div>
+          </div>
+          <div class="bg-[var(--secondary)] rounded-xl p-3 border border-[var(--border)] text-center">
+            <div class="text-[var(--muted-foreground)] font-medium">Invisible Stuff?</div>
+            <div class="font-bold text-sm mt-0.5">0% Dark Matter</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Switchable 4-Page Navigation -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-5 pt-4 border-t border-[var(--border)]">
+        <button id="navBtn1" onclick="switchPage(1)" class="px-4 py-3 rounded-xl text-left transition border border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm">
+          <div class="text-xs font-semibold opacity-85">PAGE 1 • FULL CYCLE STORY</div>
+          <div class="text-sm font-bold mt-0.5">1. Cosmic Loop Time Machine</div>
+        </button>
+        <button id="navBtn2" onclick="switchPage(2)" class="px-4 py-3 rounded-xl text-left transition border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">
+          <div class="text-xs font-semibold opacity-85">PAGE 2 • COSMOLOGY LAB</div>
+          <div class="text-sm font-bold mt-0.5">2. How Fuzzy Clouds Pull Galaxies</div>
+        </button>
+        <button id="navBtn3" onclick="switchPage(3)" class="px-4 py-3 rounded-xl text-left transition border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">
+          <div class="text-xs font-semibold opacity-85">PAGE 3 • SUBATOMIC LAB</div>
+          <div class="text-sm font-bold mt-0.5">3. Quarks, Protons &amp; Electrons</div>
+        </button>
+        <button id="navBtn4" onclick="switchPage(4)" class="px-4 py-3 rounded-xl text-left transition border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">
+          <div class="text-xs font-semibold opacity-85">PAGE 4 • COSMIC WEB FOAM</div>
+          <div class="text-sm font-bold mt-0.5">4. Bubbles to Galaxy Filaments!</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 1: THE COSMIC LOOP TIME MACHINE (START -> FULL CYCLE -> START)   -->
+    <!-- ===================================================================== -->
+    <div id="page1" class="space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Left 2 Columns: Interactive Cosmic Cycle Canvas -->
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h2 id="stageTitleBanner" class="font-bold text-base md:text-lg">
+                Step 1 of 8: The Great Quantum Bounce (The Start!)
+              </h2>
+              <p id="stageTimeBanner" class="text-xs text-[var(--muted-foreground)] font-medium">
+                Cosmic Clock: 0.0000000000000000000000000000000000000000001 seconds (Planck Time)
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="stepCycle(-1)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+                ◀ Back
+              </button>
+              <button id="btnAutoCycle" onclick="toggleAutoCycle()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">
+                Auto-Tour: OFF
+              </button>
+              <button onclick="stepCycle(1)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">
+                Next Step ▶
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Animation Stage -->
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="cycleCanvas" width="660" height="390" class="w-full max-w-[660px] h-auto"></canvas>
+          </div>
+
+          <!-- 8-Step Story Buttons + Slider -->
+          <div class="mt-4 space-y-2.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold">Drag the Time Slider or click any chapter in the loop:</span>
+              <span id="cycleLoopBadge" class="px-2.5 py-0.5 rounded-full bg-[var(--secondary)] border border-[var(--border)] font-semibold">
+                Chapter 1 / 8
+              </span>
+            </div>
+            <input id="cycleSlider" type="range" min="0" max="7" step="1" value="0" oninput="setCycleStage(parseInt(this.value))" class="w-full accent-[var(--primary)]" />
+            <div class="grid grid-cols-4 md:grid-cols-8 gap-1.5 pt-1">
+              <button onclick="setCycleStage(0)" id="stepPill0" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                1. Bounce
+              </button>
+              <button onclick="setCycleStage(1)" id="stepPill1" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                2. 120 Seeds
+              </button>
+              <button onclick="setCycleStage(2)" id="stepPill2" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                3. Atom Recipe
+              </button>
+              <button onclick="setCycleStage(3)" id="stepPill3" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                4. Baby Photo
+              </button>
+              <button onclick="setCycleStage(4)" id="stepPill4" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                5. Cosmic Web
+              </button>
+              <button onclick="setCycleStage(5)" id="stepPill5" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                6. Today!
+              </button>
+              <button onclick="setCycleStage(6)" id="stepPill6" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                7. Mirror Focus
+              </button>
+              <button onclick="setCycleStage(7)" id="stepPill7" class="p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] transition">
+                8. Restart!
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Kid-Friendly Story Guide & Science Translator -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[var(--secondary)] text-xs font-semibold border border-[var(--border)]">
+              <span>What's Happening Right Now?</span>
+            </div>
+            <h3 id="storyHeading" class="text-base font-bold">
+              You Can't Squish a Quantum Cloud to Zero!
+            </h3>
+            <p id="storyBody" class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+              Imagine squeezing a super-bouncy rubber ball. In quantum physics, the Heisenberg Uncertainty Principle says that the tighter you squish energy into a tiny space, the harder it wiggles back! So instead of crushing into an impossible point of infinite density, the universe hits a tiniest possible size (the Planck scale) and bounces outward!
+            </p>
+
+            <!-- Analogy Box -->
+            <div class="p-3.5 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1">
+              <div class="text-xs font-bold uppercase tracking-wide text-[var(--foreground)]">
+                Everyday Analogy
+              </div>
+              <p id="storyAnalogy" class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+                Think of a trampoline at maximum stretch: all the downward motion turns into upward spring energy and launches the next jump!
+              </p>
+            </div>
+
+            <!-- Calculation / Evidence Box -->
+            <div class="p-3.5 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1">
+              <div class="text-xs font-bold uppercase tracking-wide text-[var(--foreground)]">
+                What the Math &amp; Clues Suggest
+              </div>
+              <p id="storyMath" class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+                Calculations suggest the universe spans about 140 "doublings" (e-folds) from this tiny Planck bounce sphere to our giant cosmic horizon today—with zero broken physics!
+              </p>
+            </div>
+          </div>
+
+          <!-- Epistemic Scientist Note -->
+          <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-xs text-[var(--muted-foreground)]">
+            <strong>How Scientists Think:</strong> In science, we don't call ideas "absolute truisms." We test how well calculations match real telescope and particle data—and these 8 steps are <em>reasonably likely suggestions</em> from those calculations!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 2: COSMOLOGY & UNCERTAINTY LAB                                   -->
+    <!-- ===================================================================== -->
+    <div id="page2" class="hidden space-y-4">
+      <!-- Sub-Experiment Switcher inside Page 2 -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="font-bold text-base md:text-lg">
+              Cosmology Lab: How Fuzzy Uncertainty Clouds Shape the Universe
+            </h2>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              Pick an interactive experiment below to test how overlapping quantum uncertainty works on giant cosmic scales!
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button id="cosmoSubBtn1" onclick="switchCosmoMode(1)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] transition">
+              Experiment A: Two-Cloud Gravity Pull
+            </button>
+            <button id="cosmoSubBtn2" onclick="switchCosmoMode(2)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition">
+              Experiment B: Galaxy Spin (No Dark Matter!)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIMENT 2A: TWO FUZZY CLOUDS OVERLAPPING -> GRAVITY -->
+      <div id="cosmoExp1" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <h3 class="font-bold text-base">Why Do Two Masses Pull Together? (The Soap-Bubble Effect)</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Drag the slider to bring the two fuzzy uncertainty clouds closer together and watch their shared wiggle energy drop!
+              </p>
+            </div>
+            <button onclick="animateCloudPull()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">
+              Let Them Pull Together!
+            </button>
+          </div>
+
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="cloudOverlapCanvas" width="640" height="350" class="w-full max-w-[640px] h-auto"></canvas>
+          </div>
+
+          <div class="mt-3 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold">Distance Between Masses (r):</span>
+              <span id="cloudDistReadout" class="font-mono font-bold">Distance = 50% • Strong Overlap Pull!</span>
+            </div>
+            <input id="cloudDistSlider" type="range" min="18" max="90" step="1" value="50" oninput="onCloudDistChange(this.value)" class="w-full accent-[var(--primary)]" />
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>Close Together (Huge Overlap = Strong Pull!)</span>
+              <span>Medium Distance</span>
+              <span>Far Apart (Tiny Overlap = Weak Pull)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm space-y-3">
+          <h3 class="font-bold text-base">How Uncertainty Creates "Gravity"</h3>
+          <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            Every particle has a fuzzy cloud of quantum uncertainty around it. Keeping that cloud wiggling takes energy.
+          </p>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="font-bold">The Soap-Bubble Trick:</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              When two soap bubbles touch and share a wall, their total surface area shrinks, pulling them together! In the same way, when two fuzzy uncertainty clouds overlap, they <strong>share room to wiggle</strong>.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="font-bold">Why Follow the 1/r² Rule?</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              In 3D space, when you double the distance (2×), the overlap drops to one-fourth (1/4×). Our calculations suggest this automatically produces Isaac Newton's famous <code>1/r²</code> gravity law—without needing a separate magic gravity constant!
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+            <div class="p-2.5 rounded-xl bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Overlap Energy Saved</div>
+              <div id="energySavedReadout" class="font-bold text-sm mt-0.5">40 Units</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Pulling Force (1/r²)</div>
+              <div id="pullForceReadout" class="font-bold text-sm mt-0.5">4.0× Base</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIMENT 2B: GALAXY SPIN WITHOUT DARK MATTER -->
+      <div id="cosmoExp2" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div>
+              <h3 class="font-bold text-base">Why Don't Outer Stars Fly Off Spinning Galaxies?</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Toggle between Old Gravity (without dark matter) and the Fuzzy Uncertainty Web to see what happens to the outer stars!
+              </p>
+            </div>
+            <div class="flex gap-2">
+              <button id="galModeFuzzy" onclick="setGalaxyMode(true)" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">
+                Fuzzy Uncertainty Web: ON (Holds Together!)
+              </button>
+              <button id="galModeOld" onclick="setGalaxyMode(false)" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+                Old Gravity Only: OFF (Outer Stars Slow/Fly Away)
+              </button>
+            </div>
+          </div>
+
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="galaxyCanvas" width="640" height="360" class="w-full max-w-[640px] h-auto"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm space-y-3">
+          <h3 class="font-bold text-base">The Great Galaxy Mystery</h3>
+          <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            When astronomers watch spiral galaxies spin, the stars on the far outside edge move super fast—just as fast as stars near the middle!
+          </p>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1 text-xs">
+            <div class="font-bold">The Old Idea (Invisible Dark Matter):</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              With standard gravity alone, outer stars shouldn't have enough pull to stay in orbit at those speeds. So scientists guessed galaxies must be stuffed with 85% invisible "dark matter."
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1 text-xs">
+            <div class="font-bold">What Uncertainty Calculations Suggest:</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              Far out at the edge of a galaxy, the uncertainty clouds of billions of stars overlap across huge distances like a giant <strong>elastic trampoline web</strong>. That extra overlap switches the pull from <code>1/r²</code> to <code>1/r</code>, holding the fast outer stars in orbit across 175 tested galaxies with <strong>zero dark matter needed</strong>!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 3: SUBATOMIC PARTICLES LAB (QUARKS, NUCLEI & ELECTRONS)          -->
+    <!-- ===================================================================== -->
+    <div id="page3" class="hidden space-y-4">
+      <!-- Sub-Experiment Switcher inside Page 3 -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <h2 class="font-bold text-base md:text-lg">
+              Subatomic Lab: Quarks, Protons, Nuclei &amp; Electron Shells
+            </h2>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              Switch between 3 zoom levels inside an atom to see how the exact same "Squish = Wiggle" uncertainty rule builds matter!
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button id="subBtn1" onclick="switchSubatomicMode(1)" class="px-3 py-2 rounded-xl text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] transition">
+              1. Quarks Inside a Proton
+            </button>
+            <button id="subBtn2" onclick="switchSubatomicMode(2)" class="px-3 py-2 rounded-xl text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition">
+              2. Build a Nucleus (The 5-Ball Puzzle!)
+            </button>
+            <button id="subBtn3" onclick="switchSubatomicMode(3)" class="px-3 py-2 rounded-xl text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition">
+              3. Why Electrons Don't Crash!
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBATOMIC LAB 1: QUARKS INSIDE A PROTON -->
+      <div id="subExp1" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <h3 class="font-bold text-base">Zoom Level 1: 3 Quarks Buzzing Inside a Proton Bubble</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Try squeezing or stretching the proton bubble with the slider to find nature's balance point (938 MeV)!
+              </p>
+            </div>
+            <button onclick="snapProtonSweetSpot()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">
+              Snap to Balance Point (1.03 fm)
+            </button>
+          </div>
+
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="quarkCanvas" width="640" height="350" class="w-full max-w-[640px] h-auto"></canvas>
+          </div>
+
+          <div class="mt-3 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold">Proton Bubble Radius (R):</span>
+              <span id="protonRadiusReadout" class="font-mono font-bold">R = 1.03 fm • Perfect Balance! Mass = 938.3 MeV</span>
+            </div>
+            <input id="protonRadiusSlider" type="range" min="55" max="165" step="1" value="103" oninput="onProtonRadiusChange(this.value)" class="w-full accent-[var(--primary)]" />
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>0.55 fm (Too Squished! Quarks Wiggle Wildly)</span>
+              <span>1.03 fm (Sweet Spot = Real Proton!)</span>
+              <span>1.65 fm (Too Stretched! Vacuum Squeezes Back)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm space-y-3">
+          <h3 class="font-bold text-base">Mind-Blowing Fact: 99% of Your Weight is Wiggle Energy!</h3>
+          <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            A proton is made of 3 tiny particles called <strong>quarks</strong> (2 "Up" quarks and 1 "Down" quark).
+          </p>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="font-bold">Where Does the Proton's Mass Come From?</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              If you weigh the 3 quarks by themselves, they only make up <strong>1%</strong> of a proton's weight! The other <strong>99%</strong> comes from how fast they wiggle because they're trapped inside a tiny 1-femtometer bubble! (By Einstein's <code>E = mc²</code>, wiggle energy weighs just like mass!)
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="font-bold">The Tug-of-War Balance:</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              • <strong>Push Outward:</strong> Squishing quarks tighter makes their uncertainty wiggle push outward.<br/>
+              • <strong>Push Inward:</strong> Quantum space outside pushes inward like deep-sea water pressure on a submarine bubble.<br/>
+              They balance at <code>1.03 fm</code> and <code>938.3 MeV</code>!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBATOMIC LAB 2: BUILD A NUCLEUS (WHY 5 FALLS APART!) -->
+      <div id="subExp2" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div>
+              <h3 class="font-bold text-base">Zoom Level 2: The 4-Seat Table &amp; Why a 5-Ball Nucleus Falls Apart!</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Click the buttons to add protons and neutrons and see why 4 (Helium-4) is super stable, 5 gets kicked out, and 12 (Carbon-12) builds life!
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="setNucleusCount(1)" id="nucBtn1" class="px-2.5 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)]">
+                1 (Hydrogen)
+              </button>
+              <button onclick="setNucleusCount(2)" id="nucBtn2" class="px-2.5 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)]">
+                2 (Deuterium)
+              </button>
+              <button onclick="setNucleusCount(4)" id="nucBtn4" class="px-2.5 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)]">
+                4 (Helium-4 ★)
+              </button>
+              <button onclick="setNucleusCount(5)" id="nucBtn5" class="px-2.5 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)]">
+                5 (Unstable! ✕)
+              </button>
+              <button onclick="setNucleusCount(12)" id="nucBtn12" class="px-2.5 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)]">
+                12 (Carbon-12 ★)
+              </button>
+            </div>
+          </div>
+
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="nucleusCanvas" width="640" height="360" class="w-full max-w-[640px] h-auto"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm space-y-3">
+          <h3 id="nucInfoTitle" class="font-bold text-base">Helium-4: The Full 4-Seat Lunch Table!</h3>
+          <p id="nucInfoDesc" class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            Think of the innermost spot of an atomic nucleus like a small lunch table with exactly <strong>4 chairs</strong>: 2 for protons (spin-up and spin-down) and 2 for neutrons (spin-up and spin-down).
+          </p>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1 text-xs">
+            <div class="font-bold">Why Does 5 Fall Apart (The Mass=5 Gap)?</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              When all 4 chairs are full (Helium-4), the 5th proton or neutron is forced to sit at a much farther, high-energy table (the next uncertainty shell). Its extra wiggle energy is stronger than the sticky nuclear glue, so it pops right off in less than a trillionth of a microsecond!
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1 text-xs">
+            <div class="font-bold">Why This Saved the Universe:</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              Because 5 falls apart, the early universe stopped at Hydrogen and Helium instead of cooking everything into heavy iron right away—leaving fuel for stars to shine for billions of years and later fuse three 4-packs into Carbon-12!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBATOMIC LAB 3: ELECTRON SHELLS AROUND THE NUCLEUS -->
+      <div id="subExp3" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div>
+              <h3 class="font-bold text-base">Zoom Level 3: Why Don't Electrons Crash Into the Nucleus?</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Negative electrons love the positive proton. Drag the electron cloud closer or switch shells (n=1, 2, 3) to see why uncertainty bounces it back!
+              </p>
+            </div>
+            <div class="flex gap-1.5">
+              <button onclick="setElectronShell(1)" id="elShellBtn1" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">
+                Shell n=1 (Ground)
+              </button>
+              <button onclick="setElectronShell(2)" id="elShellBtn2" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+                Shell n=2
+              </button>
+              <button onclick="setElectronShell(3)" id="elShellBtn3" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+                Shell n=3
+              </button>
+            </div>
+          </div>
+
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="electronCanvas" width="640" height="350" class="w-full max-w-[640px] h-auto"></canvas>
+          </div>
+
+          <div class="mt-3 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold">Test Squishing or Stretching the Electron Cloud Radius:</span>
+              <span id="electronRadiusReadout" class="font-mono font-bold">Radius = 0.53 Å • Lowest Energy Sweet Spot (-13.6 eV)</span>
+            </div>
+            <input id="electronRadiusSlider" type="range" min="20" max="550" step="5" value="53" oninput="onElectronRadiusDrag(this.value)" class="w-full accent-[var(--primary)]" />
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>Too Close to Nucleus (Huge Uncertainty Wiggle Pushes Out!)</span>
+              <span>Shell Sweet Spot</span>
+              <span>Far Out (Electric Pull Draws It Back In)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm space-y-3">
+          <h3 class="font-bold text-base">Why Solid Stuff Doesn't Collapse!</h3>
+          <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            Opposite electric charges attract: the negative electron is pulled toward the positive proton in the middle. So why doesn't every atom collapse to zero size?
+          </p>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="font-bold">The Same Uncertainty Rule Again!</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              If the electron cloud gets pulled too close to the tiny nucleus, it gets squished into a tiny volume. Just like the quarks and the cosmic bounce, <strong>squishing the electron cloud makes its uncertainty wiggle energy skyrocket</strong> (`1/r²`), pushing it right back out!
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1.5 text-xs">
+            <div class="font-bold">Standing Wave Shells (n = 1, 2, 3):</div>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              The electric pull inward and the uncertainty wiggle outward balance at exact wave rings called <strong>atomic shells</strong>:
+              <br/>• <strong>n = 1:</strong> 0.53 Å (1 wave around)
+              <br/>• <strong>n = 2:</strong> 2.12 Å (2 waves around)
+              <br/>• <strong>n = 3:</strong> 4.76 Å (3 waves around)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 4: COSMIC BUBBLES & FILAMENTS LAB (HOW FOAM MAKES THE COSMIC WEB)-->
+    <!-- ===================================================================== -->
+    <div id="page4" class="hidden space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Left 2 Columns: Interactive Bubble-to-Filament Canvas -->
+        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h2 class="font-bold text-base md:text-lg">
+                Cosmic Soap Foam: How Expanding Bubbles Weave Galaxy Filaments!
+              </h2>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Grow the bubbles with the slider or <strong>click anywhere on the map</strong> to drop a new bubble and watch gas and galaxies get squeezed into glowing filaments!
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button id="btnFoamSkyLabels" onclick="toggleFoamSkyLabels()" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">
+                Real Sky Map Labels: ON
+              </button>
+              <button onclick="resetFoamBubbles()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]">
+                Reset 120-Seed Pattern
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Foam Canvas -->
+          <div class="relative w-full flex justify-center items-center bg-[var(--secondary)] rounded-xl border border-[var(--border)] overflow-hidden p-2">
+            <canvas id="foamCanvas" width="660" height="390" onclick="onFoamCanvasClick(event)" class="w-full max-w-[660px] h-auto cursor-crosshair"></canvas>
+          </div>
+
+          <!-- Bubble Expansion Slider & Presets -->
+          <div class="mt-3 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold">Bubble Expansion &amp; Overlap Stage:</span>
+              <span id="foamGrowReadout" class="font-mono font-bold">85% Grown • Bubbles Touching -> Glowing Galaxy Filaments!</span>
+            </div>
+            <input id="foamGrowSlider" type="range" min="15" max="100" step="1" value="85" oninput="onFoamGrowChange(this.value)" class="w-full accent-[var(--primary)]" />
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>15% (Early Tiny Seeds)</span>
+              <span>50% (Bubbles Start Touching)</span>
+              <span>85–100% (Full Cosmic Web &amp; Superclusters Today!)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Kid-Friendly Soap-Bubble Cosmic Web Guide -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-sm flex flex-col justify-between space-y-3">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[var(--secondary)] text-xs font-semibold border border-[var(--border)]">
+              <span>Why Does Space Look Like a Spiderweb?</span>
+            </div>
+            <h3 class="text-base font-bold">
+              Bubble Baths, Voids, and Galaxy Highways!
+            </h3>
+            <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+              When astronomers map millions of galaxies across our observable universe, they don't float around randomly like crumbs on a table. Instead, galaxies line up along giant glowing threads called <strong>filaments</strong> surrounding huge empty bubbles called <strong>cosmic voids</strong>!
+            </p>
+
+            <!-- Analogy Box -->
+            <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1 text-xs">
+              <div class="font-bold">The Dish-Soap Foam Trick:</div>
+              <p class="text-[var(--muted-foreground)] leading-relaxed">
+                Look closely at soap suds in a sink:
+                <br/>• <strong>Inside each bubble:</strong> Empty air (like a <strong>Cosmic Void</strong>).
+                <br/>• <strong>Where 2 bubbles press together:</strong> A thin soapy wall where matter gets squeezed.
+                <br/>• <strong>Where 3 bubbles meet along a line:</strong> A thick liquid bridge—that's a <strong>Galaxy Filament</strong>!
+                <br/>• <strong>Where 4+ bubbles meet at a corner:</strong> A giant knot of soap—that's a <strong>Supercluster</strong> (like our home, <em>Laniakea</em>)!
+              </p>
+            </div>
+
+            <!-- Calculation / Evidence Box -->
+            <div class="p-3 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-1 text-xs">
+              <div class="font-bold">From 120 Bounce Seeds to Our Sky Map:</div>
+              <p class="text-[var(--muted-foreground)] leading-relaxed">
+                Our calculations suggest the 120 symmetric vortex seeds from the quantum bounce (the 4D 600-cell pattern) send out spherical acoustic and uncertainty-overlap shells. Where those expanding shells intersect, their overlapping uncertainty pulls gas into the exact web of ~150-Megaparsec voids and supercluster bridges we see in our telescope surveys today!
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2.5 rounded-xl bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Active Bubbles</div>
+              <div id="foamBubbleCount" class="font-bold text-sm mt-0.5">14 Bubbles</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[var(--secondary)] border border-[var(--border)]">
+              <div class="text-[var(--muted-foreground)]">Filament Bridges</div>
+              <div id="foamFilamentCount" class="font-bold text-sm mt-0.5">29 Bridges</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE JAVASCRIPT ENGINE                                         -->
+  <!-- ===================================================================== -->
+  <script>
+    // -----------------------------------------------------------------------
+    // GLOBAL NAVIGATION & STATE
+    // -----------------------------------------------------------------------
+    let currentPage = 1;
+    let animTick = 0;
+
+    // Page 1 state: 8 stages of the cosmic loop
+    let cycleStage = 0;
+    let autoCycleTimer = null;
+
+    const CYCLE_CHAPTERS = [
+      {
+        pill: "1. Bounce",
+        title: "Step 1 of 8: The Great Quantum Bounce (The Start!)",
+        clock: "Cosmic Clock: 10⁻⁴³ seconds (Planck Time) • Size: Tiniest Quantum Sphere",
+        heading: "You Can't Squish a Quantum Cloud to Zero!",
+        body: "Imagine squeezing a super-bouncy ball. In quantum physics, the Heisenberg Uncertainty Principle says that the tighter you squish energy into a tiny space, the harder it wiggles back! So instead of crushing into an impossible point of zero size, the universe hits a smallest possible quantum sphere and bounces outward!",
+        analogy: "Think of jumping on a trampoline: at the very bottom of the dip, all downward motion turns into upward spring energy and launches the next jump!",
+        math: "Calculations suggest the universe expands through about 140 'doublings' (e-folds) from this tiny Planck bounce sphere to our giant cosmic horizon today—with zero broken physics!"
+      },
+      {
+        pill: "2. 120 Seeds",
+        title: "Step 2 of 8: The 120 Spinning Whirlpools (Primordial Black Holes)",
+        clock: "Cosmic Clock: First Tiny Fraction of a Second • Pattern: 4D Soccer-Ball Symmetry",
+        heading: "Why the Bounce Can't Be Boring and Flat!",
+        body: "Could the universe bounce out completely smooth so nothing ever forms? Calculations suggest no! Because the closed 4D sphere preserves a tiny bit of quantum spin from the previous cycle, the bouncing wave has to twist into at least 120 symmetric whirlpools—forming 120 seed black holes!",
+        analogy: "When you stir water in a round bowl, it can't move everywhere without forming little spinning eddies. On a 4D sphere, the neatest geometric packing is a 120-corner shape called the '600-cell' (like a 4D soccer ball)!",
+        math: "Topological calculations on the closed 3-sphere (S³) suggest a minimum of 120 vortex seeds arranged with golden-ratio symmetry, giving future galaxies a head start!"
+      },
+      {
+        pill: "3. Atom Recipe",
+        title: "Step 3 of 8: The 3-Minute Cosmic Kitchen (First Protons & Helium)",
+        clock: "Cosmic Clock: 1 Microsecond to 3 Minutes • Temperature: Billions of Degrees",
+        heading: "Cooking Protons, Neutrons, and Helium-4!",
+        body: "As the bouncing universe cools, bubbling quarks lock together in trios to make protons and neutrons. By 3 minutes, protons and neutrons stick together in groups of 4 to make Helium-4—and then fusion suddenly stops at 5 because a 5-ball nucleus falls apart!",
+        analogy: "It's like Lego blocks where 1-piece bricks (Hydrogen) and 4-piece blocks (Helium) click tightly, but a 5th piece has no stud to hold onto and pops right off!",
+        math: "With zero dark-energy or dark-matter tuning parameters, the uncertainty wave expansion predicts ~75% Hydrogen and ~24.7% Helium-4—matching real telescope measurements!"
+      },
+      {
+        pill: "4. Baby Photo",
+        title: "Step 4 of 8: The Universe's Baby Photo (Cosmic Microwave Background)",
+        clock: "Cosmic Clock: 380,000 Years • Event: Space Turns Crystal Clear!",
+        heading: "Sound Waves Frozen in Light Across the Sky!",
+        body: "For 380,000 years, the universe was a glowing fog of protons and loose electrons ringing like a giant musical bell from the bounce. Once it cooled to 3,000 degrees, electrons snapped into atomic shells around protons, the fog cleared, and that glowing pattern of sound rings flew across space!",
+        analogy: "Like clapping your hands in a round room and taking a flash photo of the ripples on the water right as the mist clears!",
+        math: "Because light and sound travel around a closed loop (2π circumference), our uncertainty calculations match the 7 famous acoustic rings measured by the Planck space telescope!"
+      },
+      {
+        pill: "5. Cosmic Web",
+        title: "Step 5 of 8: First Stars & The Giant Cosmic Web of Galaxies",
+        clock: "Cosmic Clock: 100 Million to 5 Billion Years • Structure: Filaments & Superclusters",
+        heading: "Overlapping Fuzzy Clouds Weave a Cosmic Spiderweb!",
+        body: "Now the 120 seed black holes and sound ripples go to work! Hydrogen and Helium gas clouds feel the overlap of their quantum uncertainty envelopes, pulling together into glowing threads of galaxies, stars, and superclusters!",
+        analogy: "Like water droplets on a spiderweb sliding along the silk strands to gather at the intersections, forming bright galaxy clusters!",
+        math: "Inside stars, three Helium-4 nuclei fuse together to build Carbon-12, Oxygen-16, and the elements needed for rocky planets and life!"
+      },
+      {
+        pill: "6. Today!",
+        title: "Step 6 of 8: Our Universe Today (13.8 Billion Years!)",
+        clock: "Cosmic Clock: 13.8 Billion Years • You Are Here on Planet Earth!",
+        heading: "Spinning Galaxies Held Together by the Uncertainty Web!",
+        body: "Here we are! Billions of galaxies are spinning across the cosmos. On the outside edges of galaxies, billions of star-clouds overlap to make an elastic uncertainty web that keeps fast outer stars in orbit—and explains why distant supernovas look dimmed without needing dark matter or dark energy!",
+        analogy: "Our Solar System is tucked safely inside the Milky Way's inner zone (where normal 1/r² gravity rules), while the outer arms ride on the galaxy's giant shared uncertainty trampoline!",
+        math: "Across 232 tested physics measurements—from quarks inside a proton to 175 spinning galaxies and the 1,701 Pantheon+ supernovas—the calculations line up cleanly!"
+      },
+      {
+        pill: "7. Mirror Focus",
+        title: "Step 7 of 8: Halfway Around the Closed Sphere (The Antipodal Focus)",
+        clock: "Cosmic Clock: ~45.6 Billion Years • Halfway Around the 4D Globe (χ = π)",
+        heading: "Traveling Straight on a Sphere Brings Everything Back Together!",
+        body: "What happens if you walk in a straight line in every direction starting from the North Pole of a globe? After passing the Equator, all paths naturally curve back together and meet at the South Pole! Because our universe is a closed 3-sphere (S³), all the expanding uncertainty waves eventually pass the cosmic equator and refocus!",
+        analogy: "Pick any point on a basketball and draw straight lines outward in every direction. At the halfway mark they spread widest, and on the opposite side they all converge to a single point!",
+        math: "On the closed S³ hypersphere, the wavefront area grows as sin²(χ), reaches its widest equator at χ = π/2, and naturally refocuses at the opposite pole (χ = π)!"
+      },
+      {
+        pill: "8. Restart!",
+        title: "Step 8 of 8: The Full Loop & Return to the Quantum Bounce!",
+        clock: "Cosmic Clock: Full 2π Great-Circle Loop (~91.1 Billion Years per Wave Cycle)",
+        heading: "No Beginning and No End—Ready for the Next Bounce!",
+        body: "As the cosmic waves complete the full 360-degree loop (χ = 2π) around the closed sphere, all the energy and quantum information gather back into the tiny Planck sphere. Once again, Heisenberg uncertainty refuses to be squished to zero—triggering a brand-new Quantum Bounce right back to Step 1!",
+        analogy: "Like a song on seamless repeat or seasons turning from winter back to spring—nothing is lost because the closed quantum sphere preserves 100% of its information!",
+        math: "Click 'Next Step ▶' to watch the loop jump seamlessly back to Step 1 and start the next cosmic cycle!"
+      }
+    ];
+
+    function isLightMode() {
+      return document.documentElement.classList.contains('light');
+    }
+
+    function getCanvasPalette() {
+      const light = isLightMode();
+      return {
+        bg: light ? '#f8fafc' : '#0f172a',
+        grid: light ? 'rgba(15, 23, 42, 0.08)' : 'rgba(148, 163, 184, 0.12)',
+        text: light ? '#0f172a' : '#f8fafc',
+        muted: light ? '#475569' : '#94a3b8',
+        pillBg: light ? 'rgba(255, 255, 255, 0.90)' : 'rgba(15, 23, 42, 0.88)',
+        pillBorder: light ? 'rgba(15, 23, 42, 0.18)' : 'rgba(148, 163, 184, 0.30)',
+        cyan: light ? '#0284c7' : '#38bdf8',
+        emerald: light ? '#059669' : '#34d399',
+        amber: light ? '#d97706' : '#fbbf24',
+        rose: light ? '#e11d48' : '#fb7185',
+        purple: light ? '#7c3aed' : '#a78bfa'
+      };
+    }
+
+    // Helper to draw non-overlapping pill-backed canvas labels
+    function drawPillLabel(ctx, text, x, y, color, pal, align = 'center') {
+      ctx.save();
+      ctx.font = 'bold 12px sans-serif';
+      const padX = 8;
+      const padY = 5;
+      const w = ctx.measureText(text).width + padX * 2;
+      const h = 22;
+      let rx = x - w / 2;
+      if (align === 'left') rx = x;
+      if (align === 'right') rx = x - w;
+      const ry = y - h / 2;
+
+      ctx.fillStyle = pal.pillBg;
+      ctx.strokeStyle = pal.pillBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(rx, ry, w, h, 6);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = color || pal.text;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, rx + w / 2, y);
+      ctx.restore();
+    }
+
+    // -----------------------------------------------------------------------
+    // PAGE SWITCHER (4 MAIN PAGES)
+    // -----------------------------------------------------------------------
+    function switchPage(pageNum) {
+      currentPage = pageNum;
+      for (let i = 1; i <= 4; i++) {
+        const panel = document.getElementById('page' + i);
+        const btn = document.getElementById('navBtn' + i);
+        if (!panel || !btn) continue;
+        if (i === pageNum) {
+          panel.classList.remove('hidden');
+          btn.className = 'px-4 py-3 rounded-xl text-left transition border border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm';
+        } else {
+          panel.classList.add('hidden');
+          btn.className = 'px-4 py-3 rounded-xl text-left transition border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]';
+        }
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // PAGE 1: COSMIC LOOP TIME MACHINE LOGIC & RENDERING
+    // -----------------------------------------------------------------------
+    function setCycleStage(idx) {
+      cycleStage = (idx + 8) % 8;
+      document.getElementById('cycleSlider').value = cycleStage;
+      const ch = CYCLE_CHAPTERS[cycleStage];
+      document.getElementById('stageTitleBanner').textContent = ch.title;
+      document.getElementById('stageTimeBanner').textContent = ch.clock;
+      document.getElementById('cycleLoopBadge').textContent = `Chapter ${cycleStage + 1} / 8`;
+      document.getElementById('storyHeading').textContent = ch.heading;
+      document.getElementById('storyBody').textContent = ch.body;
+      document.getElementById('storyAnalogy').textContent = ch.analogy;
+      document.getElementById('storyMath').textContent = ch.math;
+
+      for (let i = 0; i < 8; i++) {
+        const pill = document.getElementById('stepPill' + i);
+        if (i === cycleStage) {
+          pill.className = 'p-2 rounded-lg text-xs font-bold text-center border border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] transition';
+        } else {
+          pill.className = 'p-2 rounded-lg text-xs font-semibold text-center border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)] transition';
+        }
+      }
+    }
+
+    function stepCycle(delta) {
+      setCycleStage(cycleStage + delta);
+    }
+
+    function toggleAutoCycle() {
+      const btn = document.getElementById('btnAutoCycle');
+      if (autoCycleTimer) {
+        clearInterval(autoCycleTimer);
+        autoCycleTimer = null;
+        btn.textContent = 'Auto-Tour: OFF';
+      } else {
+        btn.textContent = 'Auto-Tour: ON ⟳';
+        autoCycleTimer = setInterval(() => {
+          stepCycle(1);
+        }, 4200);
+      }
+    }
+
+    function renderCycleCanvas() {
+      const canvas = document.getElementById('cycleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle background grid
+      ctx.strokeStyle = pal.grid;
+      ctx.lineWidth = 1;
+      for (let x = 40; x < W; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = 40; y < H; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      // Left Panel: The 8-Stop Circular Cosmic Loop Dial (x=135, y=195, R=105)
+      const dialX = 140;
+      const dialY = 195;
+      const dialR = 104;
+
+      drawPillLabel(ctx, 'THE 360° COSMIC LOOP', dialX, 32, pal.cyan, pal);
+
+      // Draw circular track
+      ctx.strokeStyle = pal.pillBorder;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(dialX, dialY, dialR, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Highlighted progress arc up to current stage
+      const endAngle = -Math.PI / 2 + (cycleStage / 8) * Math.PI * 2;
+      ctx.strokeStyle = pal.cyan;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.arc(dialX, dialY, dialR, -Math.PI / 2, endAngle + 0.35);
+      ctx.stroke();
+
+      const shortLabels = ['1.Bounce', '2.120 BH', '3.Atoms', '4.CMB', '5.Web', '6.Today', '7.Focus', '8.Loop'];
+      for (let i = 0; i < 8; i++) {
+        const ang = -Math.PI / 2 + (i / 8) * Math.PI * 2;
+        const nx = dialX + Math.cos(ang) * dialR;
+        const ny = dialY + Math.sin(ang) * dialR;
+
+        ctx.beginPath();
+        ctx.arc(nx, ny, i === cycleStage ? 11 : 7, 0, Math.PI * 2);
+        ctx.fillStyle = i === cycleStage ? pal.amber : (i < cycleStage ? pal.cyan : pal.muted);
+        ctx.fill();
+        ctx.strokeStyle = pal.bg;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Outer mini-label pushed cleanly away from the ring
+        const lx = dialX + Math.cos(ang) * (dialR + 30);
+        const ly = dialY + Math.sin(ang) * (dialR + 22);
+        ctx.font = i === cycleStage ? 'bold 12px sans-serif' : '12px sans-serif';
+        ctx.fillStyle = i === cycleStage ? pal.amber : pal.muted;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(shortLabels[i], lx, ly);
+      }
+
+      // Center indicator inside the loop dial
+      ctx.fillStyle = pal.text;
+      ctx.font = 'bold 13px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Closed S³', dialX, dialY - 8);
+      ctx.fillStyle = pal.muted;
+      ctx.font = '12px sans-serif';
+      ctx.fillText('Zero Loss!', dialX, dialY + 10);
+
+      // Divider line
+      ctx.strokeStyle = pal.pillBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(285, 20);
+      ctx.lineTo(285, H - 20);
+      ctx.stroke();
+
+      // Right Panel: Live Visual Scene for the Active Chapter (center at x=472, y=195)
+      const cx = 472;
+      const cy = 195;
+      const pulse = Math.sin(animTick * 0.08);
+
+      if (cycleStage === 0) {
+        // STAGE 1: THE QUANTUM BOUNCE
+        const rBounce = 34 + pulse * 10;
+        const grad = ctx.createRadialGradient(cx, cy, 4, cx, cy, rBounce * 2.4);
+        grad.addColorStop(0, pal.amber);
+        grad.addColorStop(0.5, pal.cyan);
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, rBounce * 2.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = pal.amber;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(cx, cy, rBounce, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Outward bounce arrows
+        for (let k = 0; k < 8; k++) {
+          const a = (k / 8) * Math.PI * 2 + animTick * 0.02;
+          const r1 = rBounce + 8;
+          const r2 = rBounce + 36 + pulse * 6;
+          ctx.strokeStyle = pal.emerald;
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+          ctx.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
+          ctx.stroke();
+        }
+        drawPillLabel(ctx, 'Planck Bounce Sphere (Cannot Crush to Zero!)', cx, 42, pal.amber, pal);
+        drawPillLabel(ctx, 'Heisenberg Uncertainty Pushes Outward!', cx, H - 34, pal.emerald, pal);
+
+      } else if (cycleStage === 1) {
+        // STAGE 2: 120 SEED BLACK HOLES (600-CELL GEOMETRY)
+        drawPillLabel(ctx, '120 Geometric Seed Whirlpools (4D 600-Cell Pattern)', cx, 36, pal.purple, pal);
+        const rings = [28, 62, 98, 128];
+        const counts = [6, 12, 18, 24];
+        rings.forEach((rad, rIdx) => {
+          ctx.strokeStyle = pal.grid;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+          ctx.stroke();
+
+          const n = counts[rIdx];
+          for (let j = 0; j < n; j++) {
+            const a = (j / n) * Math.PI * 2 + animTick * 0.01 * (rIdx % 2 === 0 ? 1 : -1);
+            const vx = cx + Math.cos(a) * rad;
+            const vy = cy + Math.sin(a) * rad;
+            ctx.fillStyle = rIdx % 2 === 0 ? pal.purple : pal.cyan;
+            ctx.beginPath();
+            ctx.arc(vx, vy, 4.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        drawPillLabel(ctx, 'Spin Conservation Forces At Least 120 Black Hole Seeds', cx, H - 34, pal.cyan, pal);
+
+      } else if (cycleStage === 2) {
+        // STAGE 3: 3-MINUTE ATOM KITCHEN (HYDROGEN & HELIUM-4, 5 FALLS APART)
+        drawPillLabel(ctx, '3-Minute Cosmic Kitchen: 75% Hydrogen + 25% Helium-4', cx, 36, pal.emerald, pal);
+        // Draw Helium-4 4-pack on left of stage
+        const hx = cx - 75;
+        const hy = cy - 10;
+        const offsets = [[-14, -14], [14, -14], [-14, 14], [14, 14]];
+        offsets.forEach((off, idx) => {
+          ctx.beginPath();
+          ctx.arc(hx + off[0], hy + off[1], 16, 0, Math.PI * 2);
+          ctx.fillStyle = idx < 2 ? pal.rose : pal.cyan;
+          ctx.fill();
+        });
+        drawPillLabel(ctx, 'Helium-4 (4-Pack = Super Stable!)', hx, hy + 58, pal.emerald, pal);
+
+        // Draw 5th nucleon bouncing away on right
+        const bx = cx + 75 + Math.abs(pulse) * 28;
+        const by = cy - 10 - Math.abs(pulse) * 18;
+        ctx.beginPath();
+        ctx.arc(bx, by, 16, 0, Math.PI * 2);
+        ctx.fillStyle = pal.amber;
+        ctx.fill();
+        drawPillLabel(ctx, '5th Ball Pops Off! (Mass=5 Gap)', cx + 75, hy + 58, pal.amber, pal);
+        drawPillLabel(ctx, 'Red = Proton • Blue = Neutron', cx, H - 34, pal.text, pal);
+
+      } else if (cycleStage === 3) {
+        // STAGE 4: CMB BABY PHOTO (ACOUSTIC RINGS)
+        drawPillLabel(ctx, '380,000 Years: Sound Ripples Frozen in the CMB Sky!', cx, 36, pal.amber, pal);
+        for (let r = 22; r <= 132; r += 22) {
+          const wave = Math.sin(r * 0.15 - animTick * 0.08) * 3;
+          ctx.strokeStyle = r % 44 === 0 ? pal.amber : pal.cyan;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r + wave, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        drawPillLabel(ctx, '7 Acoustic Harmonic Rings Around the 2π Sphere', cx, H - 34, pal.cyan, pal);
+
+      } else if (cycleStage === 4) {
+        // STAGE 5: COSMIC WEB OF GALAXIES
+        drawPillLabel(ctx, 'Cosmic Web: Galaxies Gather Along Uncertainty Filaments', cx, 36, pal.cyan, pal);
+        const nodes = [
+          [cx - 110, cy - 70], [cx - 20, cy - 90], [cx + 95, cy - 65],
+          [cx - 75, cy + 5],   [cx + 15, cy - 5],  [cx + 110, cy + 20],
+          [cx - 100, cy + 85], [cx - 5, cy + 80],  [cx + 85, cy + 90]
+        ];
+        // Draw glowing filaments
+        ctx.strokeStyle = pal.cyan;
+        ctx.lineWidth = 2;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i][0] - nodes[j][0];
+            const dy = nodes[i][1] - nodes[j][1];
+            if (Math.hypot(dx, dy) < 135) {
+              ctx.beginPath();
+              ctx.moveTo(nodes[i][0], nodes[i][1]);
+              ctx.lineTo(nodes[j][0], nodes[j][1]);
+              ctx.stroke();
+            }
+          }
+        }
+        nodes.forEach((pt, idx) => {
+          ctx.fillStyle = idx % 2 === 0 ? pal.amber : pal.emerald;
+          ctx.beginPath();
+          ctx.arc(pt[0], pt[1], 8 + Math.sin(animTick * 0.07 + idx) * 2, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        drawPillLabel(ctx, '120 Seed Black Holes Anchor the Giant Galaxy Clusters', cx, H - 34, pal.amber, pal);
+
+      } else if (cycleStage === 5) {
+        // STAGE 6: OUR UNIVERSE TODAY (13.8 BILLION YEARS)
+        drawPillLabel(ctx, '13.8 Billion Years: Spinning Milky Way & Our Solar System', cx, 36, pal.emerald, pal);
+        // Draw spinning spiral galaxy with fuzzy halo
+        const grad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 130);
+        grad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 130, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (let arm = 0; arm < 3; arm++) {
+          for (let k = 1; k <= 22; k++) {
+            const r = k * 5.2;
+            const a = (arm * Math.PI * 2) / 3 + k * 0.22 - animTick * 0.04;
+            const sx = cx + Math.cos(a) * r;
+            const sy = cy + Math.sin(a) * r;
+            ctx.fillStyle = k < 7 ? pal.amber : pal.cyan;
+            ctx.beginPath();
+            ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        drawPillLabel(ctx, 'Shared Uncertainty Halo Holds Outer Stars (0% Dark Matter!)', cx, H - 34, pal.cyan, pal);
+
+      } else if (cycleStage === 6) {
+        // STAGE 7: ANTIPODAL MIRROR FOCUS (HALFWAY AROUND THE SPHERE)
+        drawPillLabel(ctx, 'Halfway Around the 4D Globe (χ = π): Waves Curve Together!', cx, 36, pal.purple, pal);
+        // Draw globe meridians converging from North Pole (left) to South Pole (right)
+        const leftPoleX = cx - 125;
+        const rightPoleX = cx + 125;
+        for (let m = -3; m <= 3; m++) {
+          ctx.strokeStyle = m === 0 ? pal.amber : pal.cyan;
+          ctx.lineWidth = m === 0 ? 3 : 2;
+          ctx.beginPath();
+          ctx.moveTo(leftPoleX, cy);
+          ctx.quadraticCurveTo(cx, cy + m * 38, rightPoleX, cy);
+          ctx.stroke();
+        }
+        ctx.fillStyle = pal.amber;
+        ctx.beginPath(); ctx.arc(leftPoleX, cy, 8, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = pal.emerald;
+        ctx.beginPath(); ctx.arc(rightPoleX, cy, 10 + pulse * 3, 0, Math.PI * 2); ctx.fill();
+
+        drawPillLabel(ctx, 'Start Pole (χ=0)', leftPoleX + 18, cy - 68, pal.amber, pal);
+        drawPillLabel(ctx, 'Opposite Pole Focus (χ=π)', rightPoleX - 28, cy - 68, pal.emerald, pal);
+        drawPillLabel(ctx, 'Straight Paths on a Sphere Always Meet Again!', cx, H - 34, pal.purple, pal);
+
+      } else {
+        // STAGE 8: FULL 2π LOOP & RETURN TO THE QUANTUM BOUNCE
+        drawPillLabel(ctx, 'Full 2π Loop Complete: Energy Refocuses for Next Bounce!', cx, 36, pal.amber, pal);
+        const shrinkR = 75 - ((animTick % 80) / 80) * 52;
+        ctx.strokeStyle = pal.cyan;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(cx, cy, shrinkR, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = pal.amber;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 20, 0, Math.PI * 2);
+        ctx.fill();
+
+        drawPillLabel(ctx, '100% of Quantum Information Preserved -> Back to Step 1!', cx, H - 34, pal.emerald, pal);
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // PAGE 2: COSMOLOGY LAB (TWO-CLOUD PULL & GALAXY SPIN)
+    // -----------------------------------------------------------------------
+    let cosmoMode = 1;
+    let cloudDistPct = 50;
+    let galaxyFuzzyOn = true;
+
+    function switchCosmoMode(mode) {
+      cosmoMode = mode;
+      const exp1 = document.getElementById('cosmoExp1');
+      const exp2 = document.getElementById('cosmoExp2');
+      const btn1 = document.getElementById('cosmoSubBtn1');
+      const btn2 = document.getElementById('cosmoSubBtn2');
+      if (mode === 1) {
+        exp1.classList.remove('hidden');
+        exp2.classList.add('hidden');
+        btn1.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] transition';
+        btn2.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition';
+      } else {
+        exp1.classList.add('hidden');
+        exp2.classList.remove('hidden');
+        btn1.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition';
+        btn2.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] transition';
+      }
+    }
+
+    function onCloudDistChange(val) {
+      cloudDistPct = parseInt(val);
+      const saved = Math.round(2000 / cloudDistPct);
+      const force = (2500 / (cloudDistPct * cloudDistPct)).toFixed(1);
+      const label = cloudDistPct < 35 ? 'Huge Overlap • Super Strong Pull!' : (cloudDistPct < 65 ? 'Medium Overlap • Steady Pull' : 'Small Overlap • Gentle Pull');
+      document.getElementById('cloudDistReadout').textContent = `Distance = ${cloudDistPct}% • ${label}`;
+      document.getElementById('energySavedReadout').textContent = `${saved} Units`;
+      document.getElementById('pullForceReadout').textContent = `${force}× Base`;
+    }
+
+    function animateCloudPull() {
+      let d = cloudDistPct;
+      const timer = setInterval(() => {
+        d -= 2;
+        if (d <= 22) {
+          d = 22;
+          clearInterval(timer);
+        }
+        document.getElementById('cloudDistSlider').value = d;
+        onCloudDistChange(d);
+      }, 30);
+    }
+
+    function renderCloudOverlapCanvas() {
+      const canvas = document.getElementById('cloudOverlapCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const cy = 165;
+      const halfSep = (cloudDistPct / 100) * 210;
+      const x1 = W / 2 - halfSep;
+      const x2 = W / 2 + halfSep;
+      const cloudR = 115;
+
+      // Draw fuzzy uncertainty clouds
+      const g1 = ctx.createRadialGradient(x1, cy, 8, x1, cy, cloudR);
+      g1.addColorStop(0, 'rgba(56, 189, 248, 0.55)');
+      g1.addColorStop(0.6, 'rgba(56, 189, 248, 0.22)');
+      g1.addColorStop(1, 'transparent');
+      ctx.fillStyle = g1;
+      ctx.beginPath(); ctx.arc(x1, cy, cloudR, 0, Math.PI * 2); ctx.fill();
+
+      const g2 = ctx.createRadialGradient(x2, cy, 8, x2, cy, cloudR);
+      g2.addColorStop(0, 'rgba(52, 211, 153, 0.55)');
+      g2.addColorStop(0.6, 'rgba(52, 211, 153, 0.22)');
+      g2.addColorStop(1, 'transparent');
+      ctx.fillStyle = g2;
+      ctx.beginPath(); ctx.arc(x2, cy, cloudR, 0, Math.PI * 2); ctx.fill();
+
+      // Overlap glow in the center
+      const overlapAmount = Math.max(0, 1 - halfSep / cloudR);
+      if (overlapAmount > 0.02) {
+        const gMid = ctx.createRadialGradient(W / 2, cy, 4, W / 2, cy, cloudR * overlapAmount);
+        gMid.addColorStop(0, 'rgba(251, 191, 36, 0.70)');
+        gMid.addColorStop(1, 'transparent');
+        ctx.fillStyle = gMid;
+        ctx.beginPath(); ctx.arc(W / 2, cy, cloudR * overlapAmount, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Draw core masses
+      ctx.fillStyle = pal.cyan;
+      ctx.beginPath(); ctx.arc(x1, cy, 16, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = pal.emerald;
+      ctx.beginPath(); ctx.arc(x2, cy, 16, 0, Math.PI * 2); ctx.fill();
+
+      // Inward pull arrows
+      const arrowLen = Math.min(halfSep - 24, 30 + overlapAmount * 45);
+      if (arrowLen > 10) {
+        ctx.strokeStyle = pal.amber;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(x1 + 22, cy);
+        ctx.lineTo(x1 + 22 + arrowLen, cy);
+        ctx.moveTo(x2 - 22, cy);
+        ctx.lineTo(x2 - 22 - arrowLen, cy);
+        ctx.stroke();
+      }
+
+      drawPillLabel(ctx, 'Shared Wiggle Zone = Lower Energy = Pulling Force (Gravity!)', W / 2, 30, pal.amber, pal);
+      drawPillLabel(ctx, 'Mass A + Fuzzy Cloud', x1, cy + 88, pal.cyan, pal);
+      drawPillLabel(ctx, 'Mass B + Fuzzy Cloud', x2, cy + 88, pal.emerald, pal);
+    }
+
+    function setGalaxyMode(fuzzyOn) {
+      galaxyFuzzyOn = fuzzyOn;
+      const b1 = document.getElementById('galModeFuzzy');
+      const b2 = document.getElementById('galModeOld');
+      if (fuzzyOn) {
+        b1.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]';
+        b2.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]';
+      } else {
+        b1.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]';
+        b2.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]';
+      }
+    }
+
+    function renderGalaxyCanvas() {
+      const canvas = document.getElementById('galaxyCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Left side: Spinning Galaxy (cx=185, cy=185)
+      const gx = 185;
+      const gy = 185;
+
+      if (galaxyFuzzyOn) {
+        const halo = ctx.createRadialGradient(gx, gy, 15, gx, gy, 138);
+        halo.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+        halo.addColorStop(0.7, 'rgba(52, 211, 153, 0.18)');
+        halo.addColorStop(1, 'transparent');
+        ctx.fillStyle = halo;
+        ctx.beginPath(); ctx.arc(gx, gy, 138, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Draw orbiting stars
+      for (let ring = 1; ring <= 6; ring++) {
+        const baseR = ring * 20;
+        const nStars = ring * 5;
+        // In Fuzzy mode, outer stars keep a high flat speed and stay bound; in Old mode without dark matter, outer stars drift/lag
+        const angularSpeed = galaxyFuzzyOn ? (0.045 / Math.sqrt(ring * 0.4)) : (0.06 / (ring * 1.15));
+        const rActual = (!galaxyFuzzyOn && ring >= 4) ? baseR + ((animTick % 120) * 0.25 * (ring - 3)) : baseR;
+
+        for (let s = 0; s < nStars; s++) {
+          const a = (s / nStars) * Math.PI * 2 + animTick * angularSpeed;
+          const sx = gx + Math.cos(a) * rActual;
+          const sy = gy + Math.sin(a) * rActual;
+          ctx.fillStyle = ring <= 2 ? pal.amber : (galaxyFuzzyOn ? pal.cyan : pal.rose);
+          ctx.beginPath();
+          ctx.arc(sx, sy, 3.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      drawPillLabel(
+        ctx,
+        galaxyFuzzyOn ? 'Fuzzy Uncertainty Web: Outer Stars Stay Bound!' : 'Old Gravity Alone: Fast Outer Stars Fly Off!',
+        gx,
+        32,
+        galaxyFuzzyOn ? pal.emerald : pal.rose,
+        pal
+      );
+
+      // Right side: Live Speed Chart (x=370..610, y=65..295)
+      const cx0 = 385;
+      const cy0 = 285;
+      const cw = 225;
+      const ch = 200;
+
+      ctx.strokeStyle = pal.muted;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(cx0, cy0 - ch);
+      ctx.lineTo(cx0, cy0);
+      ctx.lineTo(cx0 + cw, cy0);
+      ctx.stroke();
+
+      // Plot Fuzzy Uncertainty Flat Rotation Curve (Matches Real Data!)
+      ctx.strokeStyle = pal.cyan;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      for (let i = 0; i <= 40; i++) {
+        const frac = i / 40;
+        const px = cx0 + frac * cw;
+        const vFlat = 1 - Math.exp(-frac * 7);
+        const py = cy0 - vFlat * (ch * 0.78);
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+
+      // Plot Old Gravity Curve (Drops off as 1/sqrt(r))
+      ctx.strokeStyle = pal.rose;
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      for (let i = 0; i <= 40; i++) {
+        const frac = i / 40;
+        const px = cx0 + frac * cw;
+        const vDrop = frac < 0.18 ? (frac / 0.18) * 0.75 : 0.75 / Math.sqrt(frac / 0.18);
+        const py = cy0 - vDrop * (ch * 0.78);
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Real telescope data dots along the flat curve
+      for (let d = 1; d <= 7; d++) {
+        const frac = d / 7.5;
+        const px = cx0 + frac * cw;
+        const py = cy0 - (1 - Math.exp(-frac * 7)) * (ch * 0.78);
+        ctx.fillStyle = pal.amber;
+        ctx.beginPath(); ctx.arc(px, py, 4.5, 0, Math.PI * 2); ctx.fill();
+      }
+
+      drawPillLabel(ctx, 'Star Speed vs. Distance from Center', cx0 + cw / 2, 32, pal.text, pal);
+      drawPillLabel(ctx, 'Uncertainty Web + Real Stars (Flat!)', cx0 + cw / 2 + 10, cy0 - ch * 0.84, pal.cyan, pal);
+      drawPillLabel(ctx, 'Old Gravity Only (Too Slow)', cx0 + cw / 2 + 25, cy0 - ch * 0.26, pal.rose, pal);
+    }
+
+    // -----------------------------------------------------------------------
+    // PAGE 3: SUBATOMIC LAB (QUARKS, NUCLEI & ELECTRON SHELLS)
+    // -----------------------------------------------------------------------
+    let subMode = 1;
+    let protonR_fm = 1.03;
+    let nucleusCount = 4;
+    let electronShell = 1;
+    let electronR_pm = 53; // 0.53 Angstroms * 100
+
+    function switchSubatomicMode(mode) {
+      subMode = mode;
+      for (let i = 1; i <= 3; i++) {
+        const exp = document.getElementById('subExp' + i);
+        const btn = document.getElementById('subBtn' + i);
+        if (i === mode) {
+          exp.classList.remove('hidden');
+          btn.className = 'px-3 py-2 rounded-xl text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] transition';
+        } else {
+          exp.classList.add('hidden');
+          btn.className = 'px-3 py-2 rounded-xl text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition';
+        }
+      }
+    }
+
+    function onProtonRadiusChange(val) {
+      protonR_fm = parseInt(val) / 100;
+      const r0 = 1.03;
+      const eWiggle = 703.7 * (r0 / protonR_fm);
+      const eVac = 234.6 * Math.pow(protonR_fm / r0, 3);
+      const eTot = (eWiggle + eVac).toFixed(1);
+      const status = Math.abs(protonR_fm - 1.03) < 0.05
+        ? 'Perfect Balance! Mass = 938.3 MeV'
+        : (protonR_fm < 1.03 ? `Too Squished! Total Energy = ${eTot} MeV` : `Too Stretched! Total Energy = ${eTot} MeV`);
+      document.getElementById('protonRadiusReadout').textContent = `R = ${protonR_fm.toFixed(2)} fm • ${status}`;
+    }
+
+    function snapProtonSweetSpot() {
+      document.getElementById('protonRadiusSlider').value = 103;
+      onProtonRadiusChange(103);
+    }
+
+    function renderQuarkCanvas() {
+      const canvas = document.getElementById('quarkCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Left side: Proton Cavity Bubble with 3 Buzzing Quarks (cx=185, cy=180)
+      const px = 185;
+      const py = 180;
+      const bubbleR = protonR_fm * 82;
+
+      const gCav = ctx.createRadialGradient(px, py, 10, px, py, bubbleR);
+      gCav.addColorStop(0, 'rgba(56, 189, 248, 0.25)');
+      gCav.addColorStop(1, 'rgba(167, 139, 250, 0.35)');
+      ctx.fillStyle = gCav;
+      ctx.beginPath(); ctx.arc(px, py, bubbleR, 0, Math.PI * 2); ctx.fill();
+
+      ctx.strokeStyle = Math.abs(protonR_fm - 1.03) < 0.05 ? pal.emerald : pal.amber;
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(px, py, bubbleR, 0, Math.PI * 2); ctx.stroke();
+
+      // 3 Quarks buzzing faster when squished smaller!
+      const speedMult = 1.2 / protonR_fm;
+      const qLabels = ['Up Quark', 'Up Quark', 'Down Quark'];
+      const qColors = [pal.rose, pal.amber, pal.cyan];
+      const qPos = [];
+      for (let q = 0; q < 3; q++) {
+        const a = (q * Math.PI * 2) / 3 + animTick * 0.06 * speedMult;
+        const wobble = Math.sin(animTick * 0.14 * speedMult + q * 2) * (bubbleR * 0.18);
+        const qr = bubbleR * 0.48 + wobble;
+        const qx = px + Math.cos(a) * qr;
+        const qy = py + Math.sin(a) * qr;
+        qPos.push([qx, qy]);
+      }
+
+      // Springy gluon lines connecting the 3 quarks
+      ctx.strokeStyle = pal.purple;
+      ctx.lineWidth = 2.5;
+      for (let q = 0; q < 3; q++) {
+        const next = (q + 1) % 3;
+        ctx.beginPath();
+        ctx.moveTo(qPos[q][0], qPos[q][1]);
+        ctx.lineTo(qPos[next][0], qPos[next][1]);
+        ctx.stroke();
+      }
+
+      for (let q = 0; q < 3; q++) {
+        ctx.fillStyle = qColors[q];
+        ctx.beginPath(); ctx.arc(qPos[q][0], qPos[q][1], 13, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(q < 2 ? 'u' : 'd', qPos[q][0], qPos[q][1]);
+      }
+
+      drawPillLabel(ctx, 'Proton Bubble (2 Up + 1 Down Quark)', px, 30, pal.cyan, pal);
+      drawPillLabel(ctx, '99% of Proton Mass = Quark Wiggle Energy!', px, H - 28, pal.emerald, pal);
+
+      // Right side: Live Energy Balance Bowl Curve (x=375..610, y=65..285)
+      const gx0 = 385;
+      const gy0 = 285;
+      const gw = 220;
+      const gh = 195;
+
+      ctx.strokeStyle = pal.muted;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(gx0, gy0 - gh);
+      ctx.lineTo(gx0, gy0);
+      ctx.lineTo(gx0 + gw, gy0);
+      ctx.stroke();
+
+      // Total energy bowl curve E(R) = 703.7*(1.03/R) + 234.6*(R/1.03)^3
+      ctx.strokeStyle = pal.cyan;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      for (let i = 0; i <= 50; i++) {
+        const rTest = 0.55 + (i / 50) * (1.65 - 0.55);
+        const eTest = 703.7 * (1.03 / rTest) + 234.6 * Math.pow(rTest / 1.03, 3);
+        const pxCurve = gx0 + (i / 50) * gw;
+        const pyCurve = gy0 - ((eTest - 800) / 900) * gh;
+        if (i === 0) ctx.moveTo(pxCurve, pyCurve); else ctx.lineTo(pxCurve, pyCurve);
+      }
+      ctx.stroke();
+
+      // Current slider dot on the energy bowl
+      const fracNow = (protonR_fm - 0.55) / (1.65 - 0.55);
+      const eNow = 703.7 * (1.03 / protonR_fm) + 234.6 * Math.pow(protonR_fm / 1.03, 3);
+      const dotX = gx0 + fracNow * gw;
+      const dotY = gy0 - ((eNow - 800) / 900) * gh;
+
+      ctx.fillStyle = pal.amber;
+      ctx.beginPath(); ctx.arc(dotX, dotY, 7, 0, Math.PI * 2); ctx.fill();
+
+      drawPillLabel(ctx, 'Proton Energy Bowl (Lowest = Stable)', gx0 + gw / 2, 30, pal.text, pal);
+      drawPillLabel(ctx, `Now: ${Math.round(eNow)} MeV`, Math.min(gx0 + gw - 55, Math.max(gx0 + 55, dotX)), Math.max(70, dotY - 22), pal.amber, pal);
+    }
+
+    function setNucleusCount(A) {
+      nucleusCount = A;
+      [1, 2, 4, 5, 12].forEach(n => {
+        const btn = document.getElementById('nucBtn' + n);
+        if (n === A) {
+          btn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border border-[var(--border)]';
+        } else {
+          btn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]';
+        }
+      });
+
+      const titleEl = document.getElementById('nucInfoTitle');
+      const descEl = document.getElementById('nucInfoDesc');
+      if (A === 1) {
+        titleEl.textContent = '1 Nucleon (Hydrogen-1): A Single Proton!';
+        descEl.textContent = 'A single proton sitting at the 4-seat inner table. It is completely stable and makes up 75% of the normal matter in the universe!';
+      } else if (A === 2) {
+        titleEl.textContent = '2 Nucleons (Deuterium): 1 Proton + 1 Neutron!';
+        descEl.textContent = 'One proton and one neutron share the inner uncertainty cloud. This is the first stepping stone on the way to building Helium!';
+      } else if (A === 4) {
+        titleEl.textContent = '4 Nucleons (Helium-4): The Full 4-Seat Table!';
+        descEl.textContent = '2 protons and 2 neutrons fill all 4 seats at the inner table! Because they all share the exact same compact uncertainty zone, Helium-4 is super tightly bound!';
+      } else if (A === 5) {
+        titleEl.textContent = '5 Nucleons (Helium-5 / Lithium-5): No Seat at the Table!';
+        descEl.textContent = 'All 4 inner seats are taken! The 5th particle is forced into an outer high-wiggle shell where its uncertainty push is stronger than the sticky nuclear glue—so it pops right off!';
+      } else if (A === 12) {
+        titleEl.textContent = '12 Nucleons (Carbon-12): Three 4-Packs Locked Together!';
+        descEl.textContent = 'Inside red giant stars, three Helium-4 clusters lock together in a triangle to form Carbon-12—the backbone atom of DNA, trees, and you!';
+      }
+    }
+
+    function renderNucleusCanvas() {
+      const canvas = document.getElementById('nucleusCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const cx = W / 2;
+      const cy = 185;
+
+      // Draw inner 4-seat shell circle
+      ctx.strokeStyle = pal.cyan;
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.arc(cx, cy, 62, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+
+      if (nucleusCount <= 5) {
+        const seats = [[-22, -22], [22, -22], [-22, 22], [22, 22]];
+        const showInner = Math.min(nucleusCount, 4);
+        for (let i = 0; i < showInner; i++) {
+          const wobX = Math.sin(animTick * 0.08 + i) * 2.5;
+          const wobY = Math.cos(animTick * 0.08 + i) * 2.5;
+          const nx = cx + seats[i][0] + wobX;
+          const ny = cy + seats[i][1] + wobY;
+          ctx.fillStyle = i % 2 === 0 ? pal.rose : pal.cyan;
+          ctx.beginPath(); ctx.arc(nx, ny, 20, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 12px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(i % 2 === 0 ? 'Proton' : 'Neutron', nx, ny);
+        }
+
+        if (nucleusCount === 5) {
+          // Outer shell ring and 5th nucleon flying off!
+          ctx.strokeStyle = pal.rose;
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(cx, cy, 122, 0, Math.PI * 2); ctx.stroke();
+
+          const flyDist = 115 + ((animTick % 70) / 70) * 85;
+          const fx = cx + flyDist;
+          const fy = cy - 25;
+          ctx.fillStyle = pal.amber;
+          ctx.beginPath(); ctx.arc(fx, fy, 20, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 12px sans-serif';
+          ctx.fillText('5th!', fx, fy);
+
+          drawPillLabel(ctx, '5th Ball Forced to Outer Wiggle Ring -> Pops Right Off!', cx, 32, pal.rose, pal);
+        } else {
+          drawPillLabel(ctx, `Inner 4-Seat Table (${showInner} of 4 Chairs Filled)`, cx, 32, pal.emerald, pal);
+        }
+      } else {
+        // Carbon-12: Three Helium-4 4-packs in a triangle
+        drawPillLabel(ctx, 'Carbon-12: Three Helium-4 Clusters Locked in a Triangle!', cx, 32, pal.emerald, pal);
+        const centers = [
+          [cx, cy - 58],
+          [cx - 62, cy + 44],
+          [cx + 62, cy + 44]
+        ];
+        const miniSeats = [[-13, -13], [13, -13], [-13, 13], [13, 13]];
+        centers.forEach(c => {
+          miniSeats.forEach((ms, idx) => {
+            ctx.fillStyle = idx % 2 === 0 ? pal.rose : pal.cyan;
+            ctx.beginPath();
+            ctx.arc(c[0] + ms[0], c[1] + ms[1], 13, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        });
+      }
+
+      drawPillLabel(ctx, 'Red = Proton • Blue = Neutron • Pauli Rule = 4 Chairs per Inner Cloud', cx, H - 28, pal.text, pal);
+    }
+
+    function setElectronShell(n) {
+      electronShell = n;
+      const sweetR = n === 1 ? 53 : (n === 2 ? 212 : 476);
+      document.getElementById('electronRadiusSlider').value = sweetR;
+      onElectronRadiusDrag(sweetR);
+
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('elShellBtn' + i);
+        if (i === n) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]';
+        }
+      }
+    }
+
+    function onElectronRadiusDrag(val) {
+      electronR_pm = parseInt(val);
+      const rAng = (electronR_pm / 100).toFixed(2);
+      const rBohr = electronR_pm / 53;
+      const eTot = (13.6 * (electronShell * electronShell) / (rBohr * rBohr) - 27.2 / rBohr).toFixed(2);
+      const sweetBohr = electronShell * electronShell;
+      const status = Math.abs(rBohr - sweetBohr) < 0.25
+        ? `Shell n=${electronShell} Balance Point (${eTot} eV)`
+        : (rBohr < sweetBohr ? `Too Close! Uncertainty Pushes Out (${eTot} eV)` : `Stretched Out (${eTot} eV)`);
+      document.getElementById('electronRadiusReadout').textContent = `Radius = ${rAng} Å • ${status}`;
+    }
+
+    function renderElectronCanvas() {
+      const canvas = document.getElementById('electronCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const cx = W / 2;
+      const cy = 180;
+
+      // Reference shell rings (n=1, 2, 3)
+      const shellPixels = [48, 88, 128];
+      shellPixels.forEach((sr, idx) => {
+        ctx.strokeStyle = (idx + 1 === electronShell) ? pal.pillBorder : pal.grid;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath(); ctx.arc(cx, cy, sr, 0, Math.PI * 2); ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // Map electronR_pm (20..550) to visual radius (28..142)
+      const visR = 26 + ((electronR_pm - 20) / 530) * 116;
+
+      // Standing wave electron cloud ring with n waves around the circle!
+      ctx.strokeStyle = pal.cyan;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      for (let i = 0; i <= 120; i++) {
+        const a = (i / 120) * Math.PI * 2;
+        const waveAmp = 8 * Math.sin(electronShell * a + animTick * 0.12);
+        const rWave = visR + waveAmp;
+        const wx = cx + Math.cos(a) * rWave;
+        const wy = cy + Math.sin(a) * rWave;
+        if (i === 0) ctx.moveTo(wx, wy); else ctx.lineTo(wx, wy);
+      }
+      ctx.closePath();
+      ctx.stroke();
+
+      // Proton nucleus in the center
+      ctx.fillStyle = pal.rose;
+      ctx.beginPath(); ctx.arc(cx, cy, 12, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('+', cx, cy);
+
+      const sweetPM = electronShell === 1 ? 53 : (electronShell === 2 ? 212 : 476);
+      const msg = electronR_pm < sweetPM - 15
+        ? 'Squished Too Close! Uncertainty Wiggle (1/r²) Pushes Electron Out!'
+        : (electronR_pm > sweetPM + 25
+          ? 'Far Out! Electric Attraction (-1/r) Pulls Electron Back In!'
+          : `Perfect Standing Wave! Shell n=${electronShell} (${electronShell} Wave Crest${electronShell > 1 ? 's' : ''} Around)`);
+
+      drawPillLabel(ctx, msg, cx, 30, electronR_pm < sweetPM - 15 ? pal.amber : pal.emerald, pal);
+      drawPillLabel(ctx, 'Center (+) = Proton Nucleus • Blue Wave = Electron Uncertainty Cloud', cx, H - 28, pal.cyan, pal);
+    }
+
+    // -----------------------------------------------------------------------
+    // PAGE 4: COSMIC BUBBLES & FILAMENTS LAB (FOAM -> COSMIC WEB)
+    // -----------------------------------------------------------------------
+    let foamGrowPct = 85;
+    let showFoamSkyLabels = true;
+    let foamBubbles = [];
+    let foamParticles = [];
+
+    // 14 symmetric seed bubble centers representing a 2D slice of the 120-vertex 600-cell bounce foam
+    const DEFAULT_FOAM_BUBBLES = [
+      { x: 135, y: 110, rMax: 78, voidName: 'Local Void' },
+      { x: 265, y: 95,  rMax: 84, voidName: '' },
+      { x: 405, y: 100, rMax: 82, voidName: 'Bootes Void' },
+      { x: 540, y: 115, rMax: 76, voidName: '' },
+      { x: 95,  y: 210, rMax: 74, voidName: '' },
+      { x: 210, y: 200, rMax: 84, voidName: '' },
+      { x: 335, y: 195, rMax: 86, voidName: 'Sculptor Void' },
+      { x: 465, y: 205, rMax: 82, voidName: '' },
+      { x: 575, y: 220, rMax: 72, voidName: '' },
+      { x: 140, y: 300, rMax: 76, voidName: '' },
+      { x: 270, y: 298, rMax: 82, voidName: 'Eridanus Void' },
+      { x: 398, y: 295, rMax: 80, voidName: '' },
+      { x: 525, y: 298, rMax: 76, voidName: '' }
+    ];
+
+    function resetFoamBubbles() {
+      foamBubbles = DEFAULT_FOAM_BUBBLES.map(b => ({ ...b }));
+      initFoamParticles();
+      updateFoamTelemetry();
+    }
+
+    function initFoamParticles() {
+      foamParticles = [];
+      // Create 180 drifting galaxy dots initially scattered across space
+      for (let i = 0; i < 180; i++) {
+        const px = 45 + ((i * 73) % 570);
+        const py = 55 + ((i * 137) % 280);
+        foamParticles.push({ x0: px, y0: py, x: px, y: py });
+      }
+    }
+
+    function onFoamGrowChange(val) {
+      foamGrowPct = parseInt(val);
+      const stageText = foamGrowPct < 40
+        ? 'Early Expanding Bubbles • Voids Beginning to Clear'
+        : (foamGrowPct < 70
+          ? 'Bubbles Touching • Gas Squeezed Into First Filaments!'
+          : 'Full Cosmic Web Foam • Glowing Galaxy Filaments & Superclusters!');
+      document.getElementById('foamGrowReadout').textContent = `${foamGrowPct}% Grown • ${stageText}`;
+      updateFoamTelemetry();
+    }
+
+    function toggleFoamSkyLabels() {
+      showFoamSkyLabels = !showFoamSkyLabels;
+      const btn = document.getElementById('btnFoamSkyLabels');
+      if (showFoamSkyLabels) {
+        btn.textContent = 'Real Sky Map Labels: ON';
+        btn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)]';
+      } else {
+        btn.textContent = 'Real Sky Map Labels: OFF';
+        btn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)]';
+      }
+    }
+
+    function onFoamCanvasClick(evt) {
+      const canvas = document.getElementById('foamCanvas');
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const clickX = (evt.clientX - rect.left) * scaleX;
+      const clickY = (evt.clientY - rect.top) * scaleY;
+
+      if (clickY < 45 || clickY > canvas.height - 40) return;
+      foamBubbles.push({
+        x: clickX,
+        y: clickY,
+        rMax: 78,
+        voidName: 'New Bubble!'
+      });
+      if (foamBubbles.length > 22) {
+        foamBubbles.shift();
+      }
+      updateFoamTelemetry();
+    }
+
+    function updateFoamTelemetry() {
+      const bEl = document.getElementById('foamBubbleCount');
+      const fEl = document.getElementById('foamFilamentCount');
+      if (!bEl || !fEl) return;
+      const growFrac = foamGrowPct / 100;
+      let bridges = 0;
+      for (let i = 0; i < foamBubbles.length; i++) {
+        for (let j = i + 1; j < foamBubbles.length; j++) {
+          const b1 = foamBubbles[i];
+          const b2 = foamBubbles[j];
+          const dist = Math.hypot(b1.x - b2.x, b1.y - b2.y);
+          const rSum = (b1.rMax + b2.rMax) * growFrac;
+          if (dist < rSum * 1.08 && dist > 20) {
+            bridges++;
+          }
+        }
+      }
+      bEl.textContent = `${foamBubbles.length} Bubbles`;
+      fEl.textContent = `${bridges} Bridges`;
+    }
+
+    function renderFoamCanvas() {
+      const canvas = document.getElementById('foamCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const pal = getCanvasPalette();
+
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const growFrac = foamGrowPct / 100;
+
+      // 1. Draw each expanding Cosmic Bubble (Void interior + spherical uncertainty shell)
+      foamBubbles.forEach((b, idx) => {
+        const r = b.rMax * growFrac;
+        const gVoid = ctx.createRadialGradient(b.x, b.y, 4, b.x, b.y, r);
+        gVoid.addColorStop(0, 'transparent');
+        gVoid.addColorStop(0.75, 'rgba(56, 189, 248, 0.06)');
+        gVoid.addColorStop(1, 'rgba(56, 189, 248, 0.24)');
+        ctx.fillStyle = gVoid;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Dashed bubble shell boundary
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // 2. Compute and draw glowing Filament Ridges where Bubble Shells intersect/press together!
+      const filamentNodes = [];
+      for (let i = 0; i < foamBubbles.length; i++) {
+        for (let j = i + 1; j < foamBubbles.length; j++) {
+          const b1 = foamBubbles[i];
+          const b2 = foamBubbles[j];
+          const dx = b2.x - b1.x;
+          const dy = b2.y - b1.y;
+          const d = Math.hypot(dx, dy);
+          const r1 = b1.rMax * growFrac;
+          const r2 = b2.rMax * growFrac;
+
+          // When two expanding bubble shells touch or overlap, they squeeze matter into the perpendicular wall/filament between them
+          if (d < (r1 + r2) * 1.06 && d > 18) {
+            const overlapStrength = Math.min(1, ((r1 + r2) * 1.06 - d) / 48);
+            const mx = (b1.x + b2.x) / 2;
+            const my = (b1.y + b2.y) / 2;
+            // Perpendicular vector along the soap-bubble contact wall
+            const nx = -dy / d;
+            const ny = dx / d;
+            const halfWall = 24 + overlapStrength * 28;
+
+            const xA = mx - nx * halfWall;
+            const yA = my - ny * halfWall;
+            const xB = mx + nx * halfWall;
+            const yB = my + ny * halfWall;
+
+            filamentNodes.push({ x: xA, y: yA, strength: overlapStrength });
+            filamentNodes.push({ x: xB, y: yB, strength: overlapStrength });
+            filamentNodes.push({ x: mx, y: my, strength: overlapStrength });
+
+            // Outer fuzzy uncertainty filament glow
+            ctx.strokeStyle = isLightMode()
+              ? `rgba(2, 132, 199, ${0.25 + overlapStrength * 0.45})`
+              : `rgba(56, 189, 248, ${0.25 + overlapStrength * 0.50})`;
+            ctx.lineWidth = 3 + overlapStrength * 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(xA, yA);
+            ctx.lineTo(xB, yB);
+            ctx.stroke();
+
+            // Bright core filament thread
+            ctx.strokeStyle = pal.amber;
+            ctx.lineWidth = 1.5 + overlapStrength * 2;
+            ctx.beginPath();
+            ctx.moveTo(xA, yA);
+            ctx.lineTo(xB, yB);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // 3. Move & Draw Galaxy Particles pushed out of Bubble Voids onto the Filament Walls!
+      foamParticles.forEach((p, idx) => {
+        let px = p.x0;
+        let py = p.y0;
+        // Each bubble gently pushes matter outward toward its shell rim as it grows
+        foamBubbles.forEach(b => {
+          const dx = px - b.x;
+          const dy = py - b.y;
+          const dist = Math.hypot(dx, dy) || 1;
+          const r = b.rMax * growFrac;
+          if (dist < r * 0.92) {
+            const push = (r * 0.92 - dist) * 0.58;
+            px += (dx / dist) * push;
+            py += (dy / dist) * push;
+          }
+        });
+        const shimmer = Math.sin(animTick * 0.08 + idx) * 1.2;
+        ctx.fillStyle = idx % 3 === 0 ? pal.amber : pal.emerald;
+        ctx.beginPath();
+        ctx.arc(px + shimmer, py, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // 4. Draw Supercluster Knots where 3 bubbles meet!
+      const superclusterKnots = [
+        { x: 202, y: 150, name: 'Laniakea (Milky Way Home!)' },
+        { x: 335, y: 142, name: 'Shapley Supercluster' },
+        { x: 468, y: 152, name: 'Coma Wall' },
+        { x: 270, y: 248, name: 'Perseus-Pisces Chain' }
+      ];
+
+      if (foamGrowPct >= 55) {
+        superclusterKnots.forEach((k, idx) => {
+          const pulseR = 7 + Math.sin(animTick * 0.09 + idx) * 2;
+          ctx.fillStyle = pal.amber;
+          ctx.beginPath();
+          ctx.arc(k.x, k.y, pulseR, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = pal.bg;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          if (showFoamSkyLabels) {
+            const labelY = idx % 2 === 0 ? k.y - 22 : k.y + 24;
+            drawPillLabel(ctx, `★ ${k.name}`, k.x, labelY, pal.amber, pal);
+          }
+        });
+      }
+
+      // 5. Optional Void Labels inside the big empty bubbles
+      if (showFoamSkyLabels) {
+        foamBubbles.forEach(b => {
+          if (b.voidName) {
+            drawPillLabel(ctx, b.voidName, b.x, b.y, pal.cyan, pal);
+          }
+        });
+      }
+
+      // Top & Bottom non-overlapping status banners
+      drawPillLabel(
+        ctx,
+        'Expanding Uncertainty Bubbles Squeeze Matter Into Glowing Galaxy Filaments!',
+        W / 2,
+        24,
+        pal.cyan,
+        pal
+      );
+      drawPillLabel(
+        ctx,
+        'Blue Circles = Cosmic Voids • Gold Lines = Galaxy Filaments • Stars = Supercluster Knots (Click to Add a Bubble!)',
+        W / 2,
+        H - 22,
+        pal.emerald,
+        pal
+      );
+    }
+
+    // -----------------------------------------------------------------------
+    // MAIN ANIMATION LOOP
+    // -----------------------------------------------------------------------
+    function tickAll() {
+      animTick++;
+      if (currentPage === 1) {
+        renderCycleCanvas();
+      } else if (currentPage === 2) {
+        if (cosmoMode === 1) renderCloudOverlapCanvas();
+        else renderGalaxyCanvas();
+      } else if (currentPage === 3) {
+        if (subMode === 1) renderQuarkCanvas();
+        else if (subMode === 2) renderNucleusCanvas();
+        else renderElectronCanvas();
+      } else if (currentPage === 4) {
+        renderFoamCanvas();
+      }
+      requestAnimationFrame(tickAll);
+    }
+
+    // Initialize defaults and start animation loop
+    setCycleStage(0);
+    onCloudDistChange(50);
+    onProtonRadiusChange(103);
+    setNucleusCount(4);
+    setElectronShell(1);
+    resetFoamBubbles();
+    requestAnimationFrame(tickAll);
+  </script>
+</body>
+</html>
