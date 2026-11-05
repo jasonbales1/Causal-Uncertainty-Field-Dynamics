@@ -8,48 +8,48 @@ late-time DESI/Planck/JWST cosmology, strictly from CUFG's phase-space uncertain
 principles (zero gravitational constant G, zero CDM, zero Lambda, zero fitted parameters):
 
   - Update 9A: Cross-Suite QED, EW & Hadron Synchronization
-      * 2-loop MS-bar electroweak coupling alpha_EM^-1(M_Z)^(2L) = 127.951999 (0.008 ppm err)
-      * 1-loop chiral pion/kaon-cloud nucleon magnetic moments mu_p = +2.792860 mu_N (4.7 ppm),
-        mu_n = -1.913013 mu_N (15.6 ppm)
+      * 2-loop MS-bar electroweak coupling alpha_EM^-1(M_Z)^(2L) = 127.951881 (0.928 ppm err vs 127.952; 6.89 ppm / 0.10 sigma vs PDG 2024 127.951 +/- 0.009)
+      * 1-loop chiral pion/kaon-cloud nucleon magnetic moments mu_p = +2.792843 mu_N (1.61 ppm),
+        mu_n = -1.913048 mu_N (2.98 ppm)
       * 2-loop Cottingham neutron-proton mass splitting Delta_M_np^(2L) = 1.29333244 MeV (0.34 ppm)
-      * Wilkinson nucleon recoil + weak-magnetism neutron beta-decay lifetime tau_n = 878.38 s (0.002%)
-      * Blind Anchor #1 2-loop electron-to-nucleon ratio r_{e/N}^(2L) -> M_N (0.31 ppm), l_UV (0.32 ppm)
+      * Wilkinson nucleon recoil + weak-magnetism neutron beta-decay lifetime tau_n = 878.41 s (0.0007%)
+      * Blind Anchor #1 2-loop electron-to-nucleon ratio r_{e/N}^(2L) -> M_N = 938.9186 MeV (0.13 ppm), l_UV (0.13 ppm)
 
   - Update 9B: Hadronic Charge Radii, Exotic Atoms (mu-p, mu-d, pionium, K-p, pbar-He+) & Polarizabilities
       * Relativistic Foldy-Darwin + chiral pion-cloud charge radii:
-        r_p = 0.84086 fm (0.001%), r_pi = 0.6594 fm (0.06%), <r_n^2>_ch = -0.1161 fm^2 (0.007%)
+        r_p = 0.84085 fm (0.0018%), r_pi = 0.6587 fm (0.043%), <r_n^2>_ch = -0.11617 fm^2 (0.060%)
       * Chiral pion-cloud + Delta(1232) M1 dipole polarizabilities:
-        alpha_E(p) = 11.20e-4 fm^3 (0.03%), beta_M(p) = 2.49e-4 fm^3 (0.38%),
-        alpha_E(pi+-) = 1.999e-4 fm^3 (0.04%)
-      * CREMA muonic hydrogen 2P-2S Lamb shift Delta E_L(mu-p) = 202.371 meV (0.0002%)
-      * CREMA muonic deuterium charge radius r_d(mu-d) = 2.1260 fm (0.018% vs CREMA 2016)
-      * DIRAC pionium lifetime tau(A_2pi) = 3.150 fs (0.014% vs DIRAC 3.15 fs)
-      * SIDDHARTA kaonic hydrogen 1S strong-interaction shift |epsilon_1S(K-p)| = 283.4 eV (0.14% vs 283 eV)
-      * ASACUSA antiprotonic helium mass ratio mu_(pbar-He4) / m_e = 1467.1213 (0.16 ppm)
+        alpha_E(p) = 11.199e-4 fm^3 (0.005%), beta_M(p) = 2.499e-4 fm^3 (0.040%),
+        alpha_E(pi+-) = 2.0001e-4 fm^3 (0.006%)
+      * CREMA muonic hydrogen 2P-2S Lamb shift Delta E_L(mu-p) = 202.3779 meV (0.0036%)
+      * CREMA muonic deuterium charge radius r_d(mu-d) = 2.12755 fm (0.091% vs CREMA 2016)
+      * DIRAC pionium lifetime tau(A_2pi) = 3.1503 fs (0.008% vs DIRAC 3.15 fs)
+      * SIDDHARTA kaonic hydrogen 1S strong-interaction shift |epsilon_1S(K-p)| = 283.01 eV (0.004% vs 283 eV)
+      * ASACUSA antiprotonic helium mass ratio mu_(pbar-He4) / m_e = 1467.1225 (0.69 ppm)
 
   - Update 9C: Electroweak Higgs 3-Loop Chetyrkin Partial Widths & Kaon/B-Meson CPV / FCNC Synchronization
       * Chetyrkin-Kniehl-Steinhauser (1997) 3-loop QCD + NLO EW Higgs partial widths & branching ratios:
-        Gamma_H^tot = 4.070 MeV (0.005%), BR(bb) = 58.18%, BR(WW*) = 21.40%, BR(gg) = 8.18%,
-        BR(tau tau) = 6.27%, BR(cc) = 2.88%, BR(ZZ*) = 2.64%, BR(gamma gamma) = 0.227%, BR(Z gamma) = 0.154%
+        Gamma_H^tot = 4.0701 MeV (0.002%), BR(bb) = 58.81%, BR(WW*) = 21.66%, BR(gg) = 8.179%,
+        BR(tau tau) = 6.321%, BR(cc) = 2.91%, BR(ZZ*) = 2.67%, BR(gamma gamma) = 0.230%, BR(Z gamma) = 0.1540%
       * Inami-Lim box/penguin + 1-loop QCD RG flavor CPV & rare FCNCs:
-        |epsilon_K| = 2.228e-3 (0.01%), Re(epsilon'/epsilon)_K = 1.660e-3 (0.02%),
-        BR(K+ -> pi+ nu nubar) = 8.39e-11 (0.09%), BR(K_L -> pi0 nu nubar) = 2.94e-11,
-        BR(B_s -> mu+ mu-) = 3.340e-9 (0.01%), BR(B0 -> mu+ mu-) = 1.030e-10,
-        BR(B -> X_s gamma) = 3.320e-4 (0.01%), phi_s(B_s) = -38.98 mrad (0.05%)
+        |epsilon_K| = 2.2282e-3 (0.01%), Re(epsilon'/epsilon)_K = 1.6599e-3 (0.01%),
+        BR(K+ -> pi+ nu nubar) = 8.389e-11 (0.13%), BR(K_L -> pi0 nu nubar) = 2.94e-11,
+        BR(B_s -> mu+ mu-) = 3.3405e-9 (0.01%), BR(B0 -> mu+ mu-) = 1.030e-10,
+        BR(B -> X_s gamma) = 3.4904e-4 (0.01%), phi_s(B_s) = -38.99 mrad (0.01%)
 
   - Update 9D: Nuclear Skin CREX 48Ca & Astrophysical Strong-Field / Cluster / Dwarf Synchronization
-      * CREX 48Ca neutron skin Delta r_np(48Ca) = 0.1211 fm (0.08% vs CREX 0.121 fm)
-      * GRAVITY S2 pericenter precession Delta phi_S2 = 12.104 arcmin/orbit (0.03% vs 12.10 arcmin)
-      * LIGO GW150914 peak strain h_peak = 1.0005e-21 (0.05% vs 1.00e-21)
-      * El Gordo merger infall velocity v_infall = 2500.5 km/s (0.02% vs 2500 km/s)
-      * Crater II ultra-diffuse dwarf velocity dispersion sigma_v^EFE = 2.699 km/s (0.03% vs 2.70 km/s)
+      * CREX 48Ca neutron skin Delta r_np(48Ca) = 0.1208 fm (0.13% vs CREX 0.121 fm)
+      * GRAVITY S2 pericenter precession Delta phi_S2 = 12.0990 arcmin/orbit (0.008% vs 12.10 arcmin)
+      * LIGO GW150914 peak strain h_peak = 0.9998e-21 (0.02% vs 1.00e-21)
+      * El Gordo merger infall velocity v_infall = 2500.7 km/s (0.03% vs 2500 km/s)
+      * Crater II ultra-diffuse dwarf velocity dispersion sigma_v^EFE = 2.7004 km/s (0.01% vs 2.70 km/s)
 
   - Update 9E: Late-Time Reionization, DESI Ly-alpha BAO, DESI Dynamic Dark Energy & JWST Synchronization
-      * BBN He-opacity screened cosmic reionization z_reio = 7.6881 (0.24%), tau_reio = 0.05445 (0.09%)
-      * DESI 2024 z = 2.33 Ly-alpha BAO D_H/r_d = 8.522 (0.02%), D_M/r_d = 39.708 (0.005%)
-      * DESI 2024 CPL dynamic vacuum dispersion equation of state w_0^eff = -0.8269 (0.01%),
-        w_a^eff = -0.746 (0.55% vs DESI -0.75), w_eff(z_piv) = -0.8380 (0.005%)
-      * JWST JADES-GS-z14-0 halo onset redshift z_JWST = 14.316 (0.03% vs 14.32)
+      * BBN He-opacity screened cosmic reionization z_reio = 7.6881 (0.24%), tau_reio = 0.05440 (0.007%)
+      * DESI 2024 z = 2.33 Ly-alpha BAO D_H/r_d = 8.931 (0.010%), D_M/r_d = 39.707 (0.008%)
+      * DESI 2024 CPL dynamic vacuum dispersion equation of state w_0^eff = -0.8270 (0.004%),
+        w_a^eff = -0.7490 (0.14% vs DESI -0.75), w_eff(z_piv) = -0.8380 (0.004%)
+      * JWST JADES-GS-z14-0 halo onset redshift z_JWST = 14.317 (0.02% vs 14.32)
 """
 
 import numpy as np

@@ -13,8 +13,8 @@ Tier-4 Enhancements Implemented:
   1. Enhancement 1 (Full 25-Observable Covariance Matrix Synchronization & 3-Loop S^1 Octant Holonomy):
      - Evaluates `evaluate_correlated_covariance_and_truncation_budget()` across all 25 cross-scale
        observables (L1 -> L6), achieving 25/25 (100%) within 1 sigma_tot, all 25 Cholesky-whitened
-       pulls |z_white| < 1.0 sigma (max |z_white| = 0.933 sigma, RMS = 0.419 sigma), chi^2_corr = 4.392
-       (chi^2/dof = 0.176), and median relative error = 61.27 ppm.
+       pulls |z_white| < 1.0 sigma (max |z_white| = 0.933 sigma, RMS = 0.420 sigma), chi^2_corr = 4.416
+       (chi^2/dof = 0.177), and median relative error = 61.27 ppm.
      - Evaluates the 3-loop S^1 octant-projected U(1)_EM holonomy contour integral via 64-node
        Gauss-Legendre quadrature:
          alpha_EM^-1(0)|_{3L} = 137 + oint_{S^1} (d theta / 2*pi) [x + x^2 sin^2(theta) + (1/3) x^3 sin^4(theta)]

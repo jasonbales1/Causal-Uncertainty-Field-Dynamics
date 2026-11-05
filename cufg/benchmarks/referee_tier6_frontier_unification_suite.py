@@ -12,15 +12,15 @@ Addresses five final frontier referee criticisms across all 7 CUFG layers with:
 Tier-6 Updates Implemented:
   1. Update 1 (Cross-Suite Summary Discrepancies Unification in Suites [9], [14], [22], [28], & [30]):
      - Removes the duplicate unnormalized raw ODE growth factor multiplier on `sig8_f65` in Factor F65 (Suite [22]),
-       restoring sigma_8 = 0.7619 and the CMB Lensing B-Mode peak amplitude D_l^{BB,lens}(l=1000)^{1/2} = 4.9491 uK
-       (1.02% error / 0.17 sigma vs SPTpol/ACT/Polarbear 5.00 +/- 0.30 uK, down from 10.8468 uK [116.94% err]).
+       restoring sigma_8 = 0.7619 and the CMB Lensing B-Mode peak amplitude D_l^{BB,lens}(l=1000)^{1/2} = 4.9816 uK
+       (0.37% error / 0.06 sigma vs SPTpol/ACT/Polarbear 5.00 +/- 0.30 uK, down from 10.8468 uK [116.94% err]).
      - Upgrades Positronium 1S HFS (203.3980 GHz, 43.9 ppm error) and ortho-Positronium 3-gamma decay rate
-       (7.0389 us^-1, 175.2 ppm error) in Factor F50 (Suite [9]) to the exact 2-loop QED Karplus-Klein /
+       (7.0390 us^-1, 135.5 ppm error) in Factor F50 (Suite [9]) to the exact 2-loop QED Karplus-Klein /
        Czarnecki-Melnikov-Yelkhovsky and Caswell-Lepage-Sapirstein / Ore-Powell values from Factor F76.
      - Replaces the empirical LambdaCDM Eisenstein-Hu fitting decimals for z_drag in Suite [14] (`z_drag_qso`)
        with the first-principles Compton baryon-drag optical depth condition tau_drag(z_drag) = 1
-       (z_drag = 1060.08, r_d = 147.48 Mpc), unifying Suite [14], Suite [28], and all 5 DESI 2024 Year-1 BAO
-       holdouts in Suite [30] to 0.20%-1.63% error (0.16-0.54 sigma) and reducing the 19-holdout mean error to 0.28%.
+       (z_drag = 1059.01, r_d = 147.64 Mpc), unifying Suite [14], Suite [28], and all 5 DESI 2024 Year-1 BAO
+       holdouts in Suite [30] to 0.09%-1.52% error (0.14-0.50 sigma) and reducing the 19-holdout mean error to 0.176%.
      - Bijective backward inversion: Recovers delta_B,inv = 2/9 = 0.222222 from the CMB lensing B-mode peak.
 
   2. Update 2 (2-Loop QCD/QED Quark Mass Running & 1-Loop Dressed CKM Unification in Suite [9]):
@@ -29,11 +29,11 @@ Tier-6 Updates Implemented:
        strictly preserving the unscreened IR cavity masses (`pred_unscreened_mev`) and 1-loop MS-bar masses (`pred_mev`):
          * m_u^{2L}(2 GeV) = 2.1601 MeV (64.8 ppm vs 0.225% 1L),
          * m_c^{2L}(m_c)   = 1,269.22 MeV (614.1 ppm vs 0.531% 1L),
-         * m_t^{2L}(pole)  = 172,684.61 MeV (31.2 ppm vs 188.2 ppm 1L),
-         * m_d^{2L}(2 GeV) = 4.6702 MeV (41.3 ppm vs 0.428% 1L),
-         * m_s^{2L}(2 GeV) = 93.4102 MeV (109.2 ppm vs 0.170% 1L),
-         * m_b^{2L}(m_b)   = 4,179.91 MeV (21.1 ppm vs 839.4 ppm 1L),
-       reducing the 6-quark mean relative error by 19.1x (from 0.2423% to 0.0127% = 127 ppm).
+         * m_t^{2L}(pole)  = 172,724.33 MeV (198.8 ppm vs 188.2 ppm 1L),
+         * m_d^{2L}(2 GeV) = 4.6702 MeV (41.2 ppm vs 0.428% 1L),
+         * m_s^{2L}(2 GeV) = 93.41 MeV (108.0 ppm vs 0.170% 1L),
+         * m_b^{2L}(m_b)   = 4,180.08 MeV (20.2 ppm vs 839.4 ppm 1L),
+       reducing the 6-quark mean relative error by 13.9x (from 0.2423% to 0.0175% = 174.5 ppm).
      - Evaluates the 1-loop chiral/RG-dressed 3x3 CKM matrix |V_CKM|^{1L}, reducing |V_ub| error from 4.45% (tree)
        to 0.75% (1-loop) and the 9-element CKM mean relative error from 1.26% to 0.62%.
      - Bijective backward inversion: Recovers N_color,inv = 3.000000 and Delta_delta_d,inv = 2/27 = 0.074074.
@@ -52,18 +52,18 @@ Tier-6 Updates Implemented:
      - Upgrades Factor F41's Muon g-2 (a_mu) with the 3-loop (alpha/pi)^3 Adler-Bell-Jackiw pseudoscalar-pole
        (pi^0, eta, eta') Hadronic Light-by-Light (HLbL) contribution (Knecht & Nyffeler 2002, PRD 65, 073034;
        Aoyama et al. 2020, Phys. Rept. 887, 1): a_mu = 0.00116592055 vs Fermilab/BNL world average
-       0.00116592059 +/- 0.00000000041 (Aguillard et al. 2023, PRL 131, 161802; 0.036 ppm error / 0.09 sigma,
-       a 26.0x improvement over the 0.933 ppm HVP-only prediction).
+       0.00116592059 +/- 0.00000000041 (Aguillard et al. 2023, PRL 131, 161802; 0.035 ppm error / 0.10 sigma,
+       a 27.5x improvement over the 0.933 ppm HVP-only prediction).
      - Integrates the Belle II B+ -> K+ nu nubar decay phase space via 64-node Gauss-Legendre quadrature with
        the Inami-Lim (1981) top-W loop function X_0(x_t), NLO QCD factor (Buchalla & Buras 1999), and CUFG's
        S^1 baryon-phase wavepacket coherence factor (1 + pi * delta_B)^2:
          BR(B+ -> K+ nu nubar)_SD   = 4.43e-6 (matching standard short-distance 4.44e-6 to 0.24%),
-         BR(B+ -> K+ nu nubar)_CUFG = 1.28e-5 vs Belle II / world avg (1.30 +/- 0.40)e-5 (Adachi et al. 2024,
-         PRL 133, 161801; 1.75% error / 0.06 sigma).
+         BR(B+ -> K+ nu nubar)_CUFG = 1.311e-5 vs Belle II / world avg (1.30 +/- 0.40)e-5 (Adachi et al. 2024,
+         PRL 133, 161801; 0.86% error / 0.03 sigma).
      - Integrates the LHC Run-3 (sqrt(s) = 13.6 TeV) top-antitop pair production cross section sigma(pp -> t tbar)
        via 64-node Gauss-Legendre Combridge (1979, NPB 151, 429) parton-luminosity quadrature with NNLO+NNLL
        soft/Coulomb-gluon dressing (Czakon, Fiedler & Mitov 2013, PRL 110, 252004):
-         sigma(pp -> t tbar, 13.6 TeV) = 927.3 pb vs NNLO+NNLL 923.6 pb (0.40% error; ATLAS 2023, PLB 848, 138376;
+         sigma(pp -> t tbar, 13.6 TeV) = 925.2 pb vs NNLO+NNLL 923.6 pb (0.17% error; ATLAS 2023, PLB 848, 138376;
          CMS 2023, JHEP 08, 204).
      - Bijective backward inversion: Recovers N_color,inv = 3.000000 from a_mu^HLbL and N_gen,inv = 3.000000 from BR(B+ -> K+ nu nubar).
 
@@ -71,8 +71,8 @@ Tier-6 Updates Implemented:
      - Integrates the Planck blackbody CMB photon energy spectrum via 64-node Gauss-Legendre quadrature to derive
        the Greisen-Zatsepin-Kuzmin (Greisen 1966, PRL 16, 748; Zatsepin & Kuzmin 1966, JETP Lett. 4, 78;
        Stecker 1968, PRL 21, 1016) ultra-high-energy cosmic-ray p + gamma_CMB -> Delta+(1232) flux suppression
-       cutoff energy E_GZK = 49.37 EeV vs Pierre Auger / Telescope Array world average 49.5 +/- 2.5 EeV
-       (Pierre Auger Collaboration 2020, PRD 102, 122005; 0.27% error / 0.05 sigma).
+       cutoff energy E_GZK = 49.71 EeV vs Pierre Auger / Telescope Array world average 49.5 +/- 2.5 EeV
+       (Pierre Auger Collaboration 2020, PRD 102, 122005; 0.42% error / 0.08 sigma).
      - Derives the AMS-02 cosmic-ray positron fraction turnover energy E_peak^{e+} = v_EW*(1 + delta_B/2) = 273.63 GeV
        (vs AMS-02 275 +/- 32 GeV, 0.50% error / 0.04 sigma) and maximum positron fraction
        f_{e+}^{max} = (delta_B / sqrt(2))*(1 + delta_B/(2*pi)) = 0.1627 (vs AMS-02 0.159 +/- 0.006, 0.62 sigma,

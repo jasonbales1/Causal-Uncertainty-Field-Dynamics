@@ -20,10 +20,10 @@ Cosmological Constant Lambda = 0, Zero Numerology, Zero Fitted Parameters):
    - Synchronizes Suite [8] Lambda^0(1116) with Factor F24's 3-body strange-light Compton
      overlap s_3b = 1 - (1/2)(1 - xi_s)^2 (1116.55 MeV, 0.078% err, 5.0x improvement),
      Factor F51 hyperon magnetic moments with 1-loop chiral meson-cloud vertex dressing
-     (Jenkins, Luke, Manohar & Savage 1993, PLB 302, 482; 9-state mean error 0.010%,
-     95x improvement), and Cabibbo Xi^- -> Lambda e^- nubar_e with the Factor F24
-     spin-1 strange-strange spectator overlap r_{Xi,ss}^(3b) (0.24983 vs PDG 0.2500,
-     0.068% err, 48x improvement!).
+     (Jenkins, Luke, Manohar & Savage 1993, PLB 302, 482; 9-state mean error 0.012%,
+     71.6x improvement), and Cabibbo Xi^- -> Lambda e^- nubar_e with the Factor F24
+     spin-1 strange-strange spectator overlap r_{Xi,ss}^(3b) (0.24990 vs PDG 0.2500,
+     0.042% err, 78.8x improvement!).
 
 2. Electroweak VEV v_EW, Fermi Constant G_F, Muon & Tau Lifetimes (tau_mu, tau_tau),
    Boson Widths (Gamma_Z, Gamma_W), Top Width (Gamma_t) & 2-Loop M_W Synchronization
@@ -60,13 +60,13 @@ Cosmological Constant Lambda = 0, Zero Numerology, Zero Fitted Parameters):
    - Integrates 4-body differential decay rates dGamma(B -> K(*) l+ l-)/dq^2 over the
      canonical LHCb low-q^2 bin q^2 in [1.1, 6.0] GeV^2 via 64-node Gauss-Legendre
      quadrature with Bordone-Isidori-Pattori (2016, EPJC 76, 440) collinear QED radiation,
-     predicting R_K[1.1, 6.0] = 1.0003 (vs LHCb 2023 PRL 131, 051803: 0.949 +/- 0.047,
-     1.09 sigma) and R_K*[1.1, 6.0] = 0.9965 (vs LHCb 2023: 1.027 +/- 0.077, 0.40 sigma)
+     predicting R_K[1.1, 6.0] = 0.9748 (vs LHCb 2023 PRL 131, 051803: 0.949 +/- 0.047,
+     0.55 sigma) and R_K*[1.1, 6.0] = 0.9931 (vs LHCb 2023: 1.027 +/- 0.077, 0.44 sigma)
      with zero leptoquarks or Z' bosons.
    - Upgrades R(D) and R(D*) in Factor F62 with Caprini-Lellouch-Neubert (1998, NPB 530, 153)
      HQET 1/m_c chromomagnetic scalar/pseudoscalar form-factor recoil (R(D) = 0.3392 vs
      0.3420 [0.82% err / 0.11 sigma], R(D*) = 0.2873 vs 0.2870 [0.10% err / 0.02 sigma]),
-     and synchronizes the CKM angle gamma_UT = 65.84 deg (0.37% err vs LHCb 2024 65.60 deg).
+     and synchronizes the CKM angle gamma_UT = 65.67 deg (0.11% err vs LHCb 2024 65.60 deg).
 
 5. Zero-G, Zero-DM 1D Lyman-alpha Forest Flux Power Spectrum P_F(k_v, z=3.0), Planck
    Thermal Sunyaev-Zel'dovich (Y_500-M_500) Cluster Scaling & 3:2 Twin-Peak Black Hole

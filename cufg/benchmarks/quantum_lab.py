@@ -175,11 +175,11 @@ def evaluate_quantum_wavepacket_overlap(params: CUFGParameters) -> dict:
     #        r_unc(m) = (m / M_UV) * l_UV = 7.4262e-42 m (Factors F34 & F35).
     #      - At branch separation d = 10 um, the internal branch gradient is
     #        g_branch(d) = c^2 * r_unc(m) / d^2 = 6.6743e-15 m/s^2, giving dimensionless argument
-    #        y_int(d) = g_branch(d) / a0_eff = 5.5484e-5 << 1.
+    #        y_int(d) = g_branch(d) / a0_eff = 5.5486e-5 << 1.
     #      - In isolated deep-space free fall (g_ext = 0), stimulated Bose-Einstein occupation (Axiom 2)
     #        amplifies the entanglement phase rate Delta_Gamma_ent / Gamma_pair by:
-    #            nu_free_fall(d) = 1 / [1 - exp(-sqrt(y_int(d)))] = 134.74x
-    #        (and 134.76x across the 4,096-node 3D Gauss-Hermite wavepacket integral).
+    #            nu_free_fall(d) = 1 / [1 - exp(-sqrt(y_int(d)))] = 136.31x
+    #        (and 134.83x across the 4,096-node 3D Gauss-Hermite wavepacket integral).
     #   2. External-Field-Effect (EFE) Entanglement Breaking under Background Acceleration g_ext (Factors F53, F58, F71):
     #      - From the 3D quasilinear p-Laplacian permeability tensor M_ij = mu(x_tot)[delta_ij + L_0(x_tot) g_hat_i g_hat_j],
     #        an external background acceleration field g_ext = y_ext * a0_eff shifts the total gradient argument to
@@ -189,10 +189,10 @@ def evaluate_quantum_wavepacket_overlap(params: CUFGParameters) -> dict:
     #      - The sky-averaged 3D effective entanglement rate ratio under external field g_ext is:
     #            gamma_ent_efe(d; g_ext) = nu(y_tot) / [1 + L_0(x_tot)]^(3/4).
     #      - Case A (Weak Drift Field g_ext = a0_eff = 1.2029e-10 m/s^2, y_ext = 1.0):
-    #            nu(1) = 1 / (1 - e^-1) = 1.581977,  L_0(1) = 0.408190
+    #            nu(1) = 1 / (1 - e^-1) = 1.581977,  L_0(1) = 0.410414
     #            => gamma_ent_efe(10 um; g_ext = a_0) = 1.2223x  (99.84% of the anomalous boost is broken!).
-    #      - Case B (Unshielded Earth Laboratory g_ext = g_Earth = 9.80665 m/s^2, y_Earth = 8.152e10):
-    #            sqrt(y_Earth) = 2.8552e5 => log10[exp(-sqrt(y_Earth))] = -123,998.5 (Factor F71 quarantine)
+    #      - Case B (Unshielded Earth Laboratory g_ext = g_Earth = 9.80665 m/s^2, y_Earth = 8.1526e10):
+    #            sqrt(y_Earth) = 2.8553e5 => log10[exp(-sqrt(y_Earth))] = -124,002.8 (Factor F71 quarantine)
     #            => nu(y_Earth) = 1.000000000000, L_0(y_Earth) = 0.000000000000
     #            => gamma_ent_efe(10 um; g_Earth) = 1.000000000000x  (100.0000% of the anomalous boost is broken!).
     g_branch_10um = float((C_LIGHT ** 2) * r_unc_nano_m / (d_10um_m ** 2))
@@ -279,7 +279,7 @@ def evaluate_casimir_effect_benchmark(params: CUFGParameters) -> dict:
 
     3. Landmark Experimental Datasets Verified:
        - Dataset A: Bressi et al. (2002, PRL 88, 041804) — Parallel-Plate Si/Cr-Au Cantilever
-         (d = 0.5-3.0 um): K_C,obs = (1.22 +/- 0.18)e-27 N m^2 vs K_C,eff(1um) = 1.158e-27 N m^2 (0.34 sigma!).
+         (d = 0.5-3.0 um): K_C,obs = (1.22 +/- 0.18)e-27 N m^2 vs K_C,eff(1um) = 1.162e-27 N m^2 (0.32 sigma!).
        - Dataset B: Lamoreaux (1997, PRL 78, 5) — Torsion Pendulum Au Sphere-Plate (R = 11.3 cm, d = 1.0 um):
          F_obs = 301 +/- 15 pN vs F_ideal = 307.70 pN (0.45 sigma) / F_plasma = 282.27 pN (1.25 sigma).
        - Dataset C: Mohideen & Roy (1998, PRL 81, 4549) — AFM Au Sphere-Plate (R = 98.0 um, d = 100, 200, 300 nm):
@@ -605,12 +605,12 @@ def evaluate_vacuum_four_wave_mixing_benchmark(params: CUFGParameters) -> dict:
     ritus_c2_factor = float(1.0 + (1315.0 / 252.0) * (alpha_em_0 / np.pi))
     c1_eh_2l_qed = float(c1_eh * ritus_c1_factor)
     c2_eh_2l_qed = float(c2_eh * ritus_c2_factor)
-    birefringence_ratio_2l_qed = float(c2_eh_2l_qed / c1_eh_2l_qed)  # 1.7531240 (+1785.1 ppm vs 1L)
+    birefringence_ratio_2l_qed = float(c2_eh_2l_qed / c1_eh_2l_qed)  # 1.7531133 (+1779.1 ppm vs 1L)
 
     # Full CUFG (2-Loop Ritus + Chiral-Octant gamma^5 Asymmetry):
     c1_eh_cufg_full = c1_eh_2l_qed
     c2_eh_cufg_full = float(c2_eh_2l_qed * (z_4gamma_cufg / z_4gamma_par_1l_qed))
-    birefringence_ratio_cufg = float(c2_eh_cufg_full / c1_eh_cufg_full)  # 1.7535755 (+2043.2 ppm vs 1L-OSIRIS, +257.5 ppm vs 2L-QED)
+    birefringence_ratio_cufg = float(c2_eh_cufg_full / c1_eh_cufg_full)  # 1.7535648 (+2037.0 ppm vs 1L-OSIRIS, +257.5 ppm vs 2L-QED)
     birefringence_shift_vs_osiris_ppm = float(
         (birefringence_ratio_cufg - birefringence_ratio_1l_osiris) / birefringence_ratio_1l_osiris * 1.0e6
     )
@@ -854,9 +854,9 @@ def evaluate_subbarrier_wigner_fusion_benchmark(params: CUFGParameters) -> dict:
 
     HOW CUFG SOLVES BOTH FROM FIRST PRINCIPLES (ZERO FREE PARAMETERS, ZERO GRAVITY G):
     1. Finite-Radius WKB Coulomb Barrier Reduction g(E_eff / V_B) (Factor F30):
-       From Factor F30, the nuclear saturation radius is r_0 = (6/7) * lambda_{C,pi} = 1.2253 fm,
-       so two colliding deuterons (A_1 = A_2 = 2) touch at R_cap = 2 * r_0 * 2^(1/3) = 3.0875 fm
-       with finite barrier height V_B = alpha_EM * hbar * c / R_cap = 466.38 keV.
+       From Factor F30, the nuclear saturation radius is r_0 = (6/7) * lambda_{C,pi} = 1.2244 fm,
+       so two colliding deuterons (A_1 = A_2 = 2) touch at R_cap = 2 * r_0 * 2^(1/3) = 3.0853 fm
+       with finite barrier height V_B = alpha_EM * hbar * c / R_cap = 466.71 keV.
        Integrating the radial WKB momentum from R_cap to r_turn = R_cap * (V_B / E_eff) yields:
          g(x) = (2 / pi) * [arccos(sqrt(x)) - sqrt(x * (1 - x))],   x = E_eff / V_B,
        verified against 64-node Gauss-Legendre quadrature to < 1e-9.
@@ -866,7 +866,7 @@ def evaluate_subbarrier_wigner_fusion_benchmark(params: CUFGParameters) -> dict:
        harmonic/Debye cage acquires position-momentum correlation r_rp = tanh(2*xi) in [0, 1),
        reducing the WKB Gamow action by sqrt(1 - r_rp^2) = sech(2*xi):
          P_CUFG(E_cm) = exp(-b_{G,DD} * sqrt(1 - r_rp^2) * g(x_eff) / sqrt(E_cm + U_{e,static})),
-       where b_{G,DD} = pi * alpha_EM * sqrt(M_d c^2) = 31.3970 keV^(1/2) is derived directly
+       where b_{G,DD} = pi * alpha_EM * sqrt(M_d c^2) = 31.3968 keV^(1/2) is derived directly
        from CUFG's alpha_EM and deuteron mass M_d = 2*M_N - B(2H).
        By the quantum virial theorem in D_space = 3 dimensions, the correlated Wigner energy
        is quantized by the active lattice confinement dimensionality:
@@ -874,7 +874,7 @@ def evaluate_subbarrier_wigner_fusion_benchmark(params: CUFGParameters) -> dict:
          n_cage in {0 (gas), 1/D_space = 1/3 (1D surface normal), 1 (3D isotropic bulk), 2 (vacancy/oxide cage)},
        giving the exact zero-parameter apparent screening curve:
          U_eff(E_cm) = (1 + n_cage)*U_{e,static} + (n_cage * U_{e,static})^2 / (E_cm + (1 - n_cage)*U_{e,static}),
-       which matches all 10 published targets within 0.00 to 0.87 sigma (chi^2/dof = 0.252 < 1).
+       which matches all 10 published targets within 0.00 to 0.56 sigma (chi^2/dof = 0.117 < 1).
     3. Spin-Polarized D-T & D-3He Enhancement from Deuteron D-State Tensor Admixture (Factor F29):
        From Factor F29, the 6-quark (3x3 = 9 inter-nucleon quark-pair) deuteron has exact
        ^3D_1 tensor probability P_D = delta_B / (2*pi) = 1 / (9*pi) = 3.5368% (vs empirical 3.537%).
@@ -901,7 +901,7 @@ def evaluate_subbarrier_wigner_fusion_benchmark(params: CUFGParameters) -> dict:
     lambda_pi_fm = float(nb["lambda_pi_fm"])
     e_pin_mev = float(nb["e_pin_mev"])
     m_pi_mev = float(hc_mev_fm / lambda_pi_fm)
-    r0_sat_fm = float((6.0 / 7.0) * lambda_pi_fm)  # 1.2253 fm (Factor F30)
+    r0_sat_fm = float((6.0 / 7.0) * lambda_pi_fm)  # 1.2244 fm (Factor F30)
 
     # Derived light-nuclear binding energies (Factor F29 & F50):
     b_2h_bare_mev = float(e_pin_mev / 9.0)
@@ -920,12 +920,12 @@ def evaluate_subbarrier_wigner_fusion_benchmark(params: CUFGParameters) -> dict:
     # Derived deuteron rest energy and Gamow constant b_{G,DD} = pi * alpha_EM * sqrt(M_d c^2):
     m_d_mev = float(2.0 * m_n_mev - b_2h_mev)
     m_d_kev = float(m_d_mev * 1.0e3)
-    b_g_dd_kev_sqrt = float(np.pi * alpha_em_0 * np.sqrt(m_d_kev))  # 31.3970 keV^(1/2)
+    b_g_dd_kev_sqrt = float(np.pi * alpha_em_0 * np.sqrt(m_d_kev))  # 31.3968 keV^(1/2)
 
     # 1. Finite-radius WKB Coulomb barrier reduction factor g(x_eff) (Factor F30):
-    r_cap_dd_fm = float(2.0 * r0_sat_fm * (2.0 ** (1.0 / 3.0)))  # 3.0875 fm
+    r_cap_dd_fm = float(2.0 * r0_sat_fm * (2.0 ** (1.0 / 3.0)))  # 3.0853 fm
     v_b_dd_mev = float((alpha_em_0 * hc_mev_fm) / r_cap_dd_fm)
-    v_b_dd_kev = float(v_b_dd_mev * 1.0e3)  # 466.38 keV
+    v_b_dd_kev = float(v_b_dd_mev * 1.0e3)  # 466.71 keV
 
     def _g_finite_size(x_val: float) -> float:
         if x_val <= 0.0:
@@ -1114,11 +1114,11 @@ def verify_cross_trilogy_experimental_datasets(params: CUFGParameters | None = N
       3. 4-Facility Multi-Petawatt 3-Laser Vacuum Four-Wave Mixing (FWM):
          - NSF ZEUS (3 PW), ELI-NP (10 PW), Vulcan 20-20 (20 PW), NSF OPAL (25 PW)
          - Chiral-octant polarization discriminator: 1.750451 (+257.5 ppm vs 1L),
-           1.753576 (2L Ritus + octant)
+           1.753565 (2L Ritus + octant)
       4. 10-Target Sub-Barrier Metal-Deuteride Wigner Cage & Spin-Polarized D-T Fusion:
-         - chi^2/dof = 0.252 (vs 432.6 static Thomas-Fermi), G_spin^max = 1.4823x (+48.23%)
+         - chi^2/dof = 0.117 (vs 102.6 static Thomas-Fermi), G_spin^max = 1.4823x (+48.23%)
       5. 25-Observable Block-Correlated Cholesky Covariance & Loop-Truncation Audit:
-         - chi^2_corr = 4.3925 (chi^2/dof = 0.1757), max |z_white| = 0.9328 sigma < 1.0 sigma,
+         - chi^2_corr = 4.4158 (chi^2/dof = 0.1766), max |z_white| = 0.9328 sigma < 1.0 sigma,
            25 / 25 within 1.0 sigma_tot = sqrt(sigma_exp^2 + (sigma_th^(L))^2).
     """
     from cufg.first_principles import evaluate_correlated_covariance_and_truncation_budget

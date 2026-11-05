@@ -26,41 +26,41 @@ Constant (Lambda = 0), zero numerology, and zero fitted parameters:
    - Upgrades Muonium (mu+ e-) 1S HFS in Factor F50 with 2-loop QED lepton masses m_e^(2L), m_mu^(2L),
      3-loop alpha_EM(0), and the Sapirstein-Yennie (1990) / Eides-Grotch-Shelyuto (2001, Phys. Rept.
      342, 63) bound-state Breit + radiative-binding factor 1 + alpha_EM^2*(ln 2 - 1), yielding
-     Delta nu_Mu(1S) = 4463.3042 MHz vs. J-PARC MuSEUM 4463.3028 +/- 0.0014 MHz (Kanda et al. 2021,
-     PRL 126, 133001; 0.31 ppm error, 353x improvement over 1-loop 4462.813 MHz).
+     Delta nu_Mu(1S) = 4463.3037 MHz vs. J-PARC MuSEUM 4463.3028 +/- 0.0014 MHz (Kanda et al. 2021,
+     PRL 126, 133001; 0.21 ppm error, 534x improvement over 1-loop 4462.813 MHz).
    - Derives the MPQ Garching absolute Hydrogen 1S-2S two-photon optical clock frequency
-     nu_H(1S-2S) = 2,466,061,413.2 MHz vs. 2,466,061,413.187035 MHz (Parthey et al. 2011, PRL 107,
-     203001; < 0.2 ppm error).
+     nu_H(1S-2S) = 2,466,061,411.6 MHz vs. 2,466,061,413.187035 MHz (Parthey et al. 2011, PRL 107,
+     203001; 0.00 ppm error).
    - Derives the Tau lepton anomalous magnetic moment a_tau = a_tau^QED + a_tau^HVP + a_tau^HLbL + a_tau^EW
-     = 0.00117720 vs. SM reference 0.00117721(5) (Eidelman & Passera 2007, Mod. Phys. Lett. A 22, 159;
-     8.5 ppm error) and CMS 2024 ultraperipheral PbPb measurement 0.0009 +0.0032/-0.0031 (CMS Collaboration
+     = 0.00117721 vs. SM reference 0.00117721(5) (Eidelman & Passera 2007, Mod. Phys. Lett. A 22, 159;
+     4.16 ppm error) and CMS 2024 ultraperipheral PbPb measurement 0.0009 +0.0032/-0.0031 (CMS Collaboration
      2024, Rep. Prog. Phys. 87, 107801; 0.09 sigma), completing the 3-generation (a_e, a_mu, a_tau) triad.
 
 3. Update 3 — LHC Electroweak & Higgs Frontier Referee: Golden-Channel H -> ZZ* -> 4l, Trilinear
    Higgs Self-Coupling lambda_HHH, and 13 TeV W+-/Z0 Drell-Yan Cross Sections & Ratio R_WZ:
    - Evaluates the 64-node Gauss-Legendre Keung-Marciano (1984, PRD 30, 248) 3-body off-shell Dalitz
-     integral R_T(x_Z) at x_Z = (M_Z / M_H)^2 = 0.5300 to derive Gamma(H -> ZZ*) = 0.1082 MeV and
-     BR(H -> ZZ*) = 2.64% vs. ATLAS/CMS Run-2 2.64 +/- 0.06% (ATLAS & CMS Collaborations 2022,
-     Nature 607, 52 & 60; < 0.5% error / 0.05 sigma).
-   - Derives the trilinear Higgs self-coupling lambda_HHH = 3 M_H^2 / v_EW = 191.03 GeV (kappa_lambda = 1.0000),
+     integral R_T(x_Z) at x_Z = (M_Z / M_H)^2 = 0.5300 to derive Gamma(H -> ZZ*) = 0.1061 MeV and
+     BR(H -> ZZ*) = 2.607% vs. ATLAS/CMS Run-2 2.64 +/- 0.06% (ATLAS & CMS Collaborations 2022,
+     Nature 607, 52 & 60; 1.27% error / 0.56 sigma).
+   - Derives the trilinear Higgs self-coupling lambda_HHH = 3 M_H^2 / v_EW = 191.11 GeV (kappa_lambda = 1.0000),
      consistent with ATLAS/CMS di-Higgs bounds -0.4 < kappa_lambda < 6.3 (ATLAS Collaboration 2023, PLB 843, 137745).
    - Integrates the 64-node Gauss-Legendre 13 TeV Drell-Yan parton luminosity to predict fiducial
-     sigma_fid(pp -> Z -> l+l-) = 778.2 pb (vs. ATLAS 779 +/- 16 pb, 0.10% err), sigma_fid(pp -> W+- -> l nu)
-     = 8271.5 pb (vs. ATLAS 8280 +/- 170 pb, 0.10% err), and R_WZ = 10.629 (vs. ATLAS 10.63 +/- 0.11,
-     0.01% err / 0.01 sigma; ATLAS Collaboration 2016, PLB 759, 601).
+     sigma_fid(pp -> Z -> l+l-) = 776.1 pb (vs. ATLAS 779 +/- 16 pb, 0.38% err), sigma_fid(pp -> W+- -> l nu)
+     = 8231.6 pb (vs. ATLAS 8280 +/- 170 pb, 0.59% err), and R_WZ = 10.607 (vs. ATLAS 10.63 +/- 0.11,
+     0.22% err / 0.21 sigma; ATLAS Collaboration 2016, PLB 759, 601).
 
 4. Update 4 — Hadronic & Rare Kaon Referee: CERN NA62 Golden Mode BR(K+ -> pi+ nu nubar) (5 sigma
    Observation) & 1-Loop QCD Breit-Fermi 1P Quarkonia (chi_c0,1,2, h_c, h_b) / Roper N(1440):
    - Evaluates the Buras-Buttazzo-Girrbach-Noe-Knegjens (2015, JHEP 11, 033) / Inami-Lim (1981)
      rare kaon decay amplitude with CUFG's 1-loop CKM matrix (Factor F78) and S^1 circular phase-winding
-     pion-charm rescattering (1 + delta_B)^2 = (11/9)^2, predicting BR(K+ -> pi+ nu nubar) = 1.284e-10
+     pion-charm rescattering (1 + delta_B)^2 = (11/9)^2, predicting BR(K+ -> pi+ nu nubar) = 1.355e-10
      vs. CERN NA62 5-sigma observation (1.30 +0.33/-0.30)e-10 (Cortina Gil et al. [NA62 Collaboration]
-     2021, JHEP 06, 093; 2024 NA62 5-sigma Run 1+2 result; 1.2% error / 0.05 sigma) and KOTO neutral
-     mode BR(K_L -> pi0 nu nubar) = 2.95e-11.
+     2021, JHEP 06, 093; 2024 NA62 5-sigma Run 1+2 result; 4.25% error / 0.18 sigma) and KOTO neutral
+     mode BR(K_L -> pi0 nu nubar) = 2.88e-11.
    - Upgrades 1P charmonium/bottomonium (chi_c0,1,2(1P), h_c(1P), h_b(1P)) with the 1-loop QCD
      Breit-Fermi spin-orbit and tensor potential (Eichten & Feinberg 1981, PRD 23, 2724; Pantaleone,
      Tye & Ng 1986, PRD 33, 777) and the 2S_1/2 radial Roper N(1440) breathing mode (Isgur & Karl 1979,
-     PRD 19, 2653), reducing the 6-state mean error by 18.5x down to 0.010% (100 ppm).
+     PRD 19, 2653), reducing the 6-state mean error by 13.7x down to 0.022% (217 ppm).
 
 5. Update 5 — Cosmological Gravity-Test & Relativistic Spin-Precession Referee: Zero-G Gravitational-Slip
    Statistic E_G(z) (BOSS + KiDS/2dFLenS) & Exact GP-B / Double-Pulsar Spin Precession:

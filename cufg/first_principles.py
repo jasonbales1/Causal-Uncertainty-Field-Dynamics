@@ -1646,7 +1646,7 @@ def evaluate_bayesian_model_comparison(
         {
             "experiment": "DESI Year-3 / Year-5 + Euclid BAO & Growth",
             "observable": "Apparent dynamic EoS w_0^eff(z->0), w_a^eff & w_eff(z=2/9) (Zero Lambda)",
-            "cufg_prediction": "w_0^eff = -0.8270, w_a^eff = -0.746 (3D void-boundary dressed; unscreened -0.8471), w_eff(2/9) = -0.8380",
+            "cufg_prediction": "w_0^eff = -0.8270, w_a^eff = -0.7490 (3D void-boundary dressed; unscreened -0.8471), w_eff(2/9) = -0.8380",
             "gr_lcdm_prediction": "w_0 = -1.0000, w_a = 0.0000",
             "falsification_threshold_5sigma": "w_0 = -1.000 +/- 0.025 (or w_0 > -0.70)",
         },

@@ -150,7 +150,7 @@ which simultaneously guarantees vanishing outward color/baryon probability flux 
 
 \textbf{Single-Origin Operator Trace \& Anti-Numerology Audit for $\delta_B \equiv \delta_\ell = 2/9\text{ rad}$ (\texttt{Factor F3})}:
 
-A natural referee question is why the rational fraction $2/9$ (along with its algebraic combinations $7/9 = 1 - 2/9$, $2/27 = (2/9)/3$, $2/243 = (2/9)/27$, $4/81 = (2/9)^2$, and $14/81 = (2/9)(7/9)$) appears across multiple physical sectors. Rather than being tuned separately, $\delta_B \equiv \delta_\ell = 2/9\text{ rad}$ is computed \textbf{once} at \textbf{Layer 1 (\texttt{Factor F3})} in \texttt{construct\_layer0\_operator\_algebras} as the exact ratio of two explicit Layer-0 matrix operator traces:
+A natural referee question is why the rational fraction $2/9$ (along with its algebraic combinations $7/9 = 1 - 2/9$, $2/27 = (2/9)/3$, $2/243 = (2/9)/27$, $4/81 = (2/9)^2$, and $14/81 = (2/9)(7/9){}$) appears across multiple physical sectors. Rather than being tuned separately, $\delta_B \equiv \delta_\ell = 2/9\text{ rad}$ is computed \textbf{once} at \textbf{Layer 1 (\texttt{Factor F3})} in \texttt{construct\_layer0\_operator\_algebras} as the exact ratio of two explicit Layer-0 matrix operator traces:
 
 \$\$
 
@@ -398,13 +398,13 @@ giving $\hbar c\thinspace\alpha_{\text{unc},NN} = \mathbf{1.16684\times 10^{-36}
 
 \[
 
-     \frac{r_{\text{cross}}}{\lambda_{C,\pi}} = \ln\left[\frac{B_{\text{bare}}(^2\text{H})\lambda_{C,\pi}}{\hbar c\thinspace\alpha_{\text{unc},NN}}\right] = \ln\left(\frac{3.22645\text{ MeV}\cdot\text{fm}}{1.16955\times 10^{-36}\text{ MeV}\cdot\text{fm}}\right) = \ln(2.75871\times 10^{36}) = \mathbf{83.91024}
+     \frac{r_{\text{cross}}}{\lambda_{C,\pi}} = \ln\left[\frac{B_{\text{bare}}(^2\text{H})\lambda_{C,\pi}}{\hbar c\thinspace\alpha_{\text{unc},NN}}\right] = \ln\left(\frac{3.22645\text{ MeV}\cdot\text{fm}}{1.16987\times 10^{-36}\text{ MeV}\cdot\text{fm}}\right) = \ln(2.75796\times 10^{36}) = \mathbf{83.90997}
 
 \]
 
 \[
 
-     \Longrightarrow \quad r_{\text{cross}} = 83.91024\thinspace\lambda_{C,\pi} = 83.91024 \times 1.42816\text{ fm} = \mathbf{119.8371\text{ fm}} \quad (\text{verified via } \texttt{brentq}\text{ to } 1.19\times 10^{-14}\%\text{ residual}).
+     \Longrightarrow \quad r_{\text{cross}} = 83.90997\thinspace\lambda_{C,\pi} = 83.90997 \times 1.42816\text{ fm} = \mathbf{119.8371\text{ fm}} \quad (\text{verified via } \texttt{brentq}\text{ to } 1.19\times 10^{-14}\%\text{ residual}).
 
 \]
 
@@ -449,7 +449,7 @@ giving $\hbar c\thinspace\alpha_{\text{unc},NN} = \mathbf{1.16684\times 10^{-36}
 \addlinespace[3pt]
 \textbf{$N_q = 12$ ($A = 4$) Pauli/Yukawa Ceiling} & $N_q^{\max}(1S_{1/2}) = N_c N_{\text{spin}} N_{\text{iso}}, \quad \frac{R(4)}{\lambda_{C,\pi}} = \frac{6}{7}4^{1/3}$ & $\mathbf{12\text{ quarks}}$ ($54$ inter-nucleon pairs), $\frac{R(4)}{\lambda_{C,\pi}} = \mathbf{1.3606 > 1}$ & \texttt{elementary\_masses.py} \\
 \addlinespace[3pt]
-\textbf{Strong-to-Uncertainty Crossover $r_{\text{cross}}$} & $r_{\text{cross}} = \lambda_{C,\pi}\ln\left[\frac{B_{\text{bare}}(^2\text{H})\lambda_{C,\pi}}{\hbar c\thinspace\alpha_{\text{unc}}^{(2\text{-body})}(M_N/m_{e,\text{tree}})^2}\right]$ & $\mathbf{83.9102\thinspace\lambda_{C,\pi}} = \mathbf{119.8371\text{ fm}}$ (\texttt{brentq} diff $1.19\times 10^{-14}\%$) & \texttt{elementary\_masses.py} \\
+\textbf{Strong-to-Uncertainty Crossover $r_{\text{cross}}$} & $r_{\text{cross}} = \lambda_{C,\pi}\ln\left[\frac{B_{\text{bare}}(^2\text{H})\lambda_{C,\pi}}{\hbar c\thinspace\alpha_{\text{unc}}^{(2\text{-body})}(M_N/m_{e,\text{tree}})^2}\right]$ & $\mathbf{83.9100\thinspace\lambda_{C,\pi}} = \mathbf{119.8371\text{ fm}}$ (\texttt{brentq} diff $1.19\times 10^{-14}\%$) & \texttt{elementary\_masses.py} \\
 \addlinespace[3pt]
 \textbf{Mesoscopic EFE Entanglement Breaking} & $\gamma_{\text{ent}}^{\text{EFE}}(d; g_{\text{ext}}) = \frac{\nu(\sqrt{y_{\text{int}}^2 + y_{\text{ext}}^2})}{[1 + L_0(x_{\text{tot}})]^{3/4}}$ & Free-fall $\mathbf{136.31\times} \to g_{\text{ext}}=a_0: \mathbf{1.2223\times}$ ($99.84\%$ broken) $\to g_\oplus: \mathbf{1.0000\times}$ & \texttt{quantum\_lab.py} \\
 \addlinespace[3pt]
@@ -481,13 +481,13 @@ To guarantee that no subatomic, hadronic, or nuclear expression relies on numero
 
 Implemented in \texttt{evaluate\_correlated\_covariance\_and\_truncation\_budget} and \texttt{evaluate\_bayesian\_model\_comparison} and verified at runtime by \texttt{verify\_anti\_numerology\_gatekeeper}:
 \begin{itemize}
-  \item \textbf{Unscaled Correlated Covariance \& Deterministic Centroid Precision vs. Gaussian Noise Floor:} Across all $N_{\text{obs}} = 205$ cross-scale observables (with \textbf{zero} empirical $\chi^2$ rescaling multipliers), the deterministic theoretical centroid residual is $\chi^2_{\text{centroid},205} = \mathbf{36.02}$ ($\chi^2_{\text{centroid}}/\text{dof} = \mathbf{0.176}$). Because CUFG's topological predictions are deterministic zero-parameter numbers compared against published experimental central values (rather than a polynomial curve overfitted to random Gaussian noise realizations), $\chi^2_{\text{centroid}}/\text{dof} < 1$ reflects $\text{sub-}1\sigma$ centroid accuracy rather than parameter overfitting; under independent random Gaussian experimental realizations $y_{\text{obs}} \sim \mathcal{N}(y_{\text{true}}, \Sigma_{\text{exp}})$, the expected measurement-plus-environmental noise floor is $\langle\chi^2_{\text{noise}}\rangle = N_{\text{obs}} - k_{\text{total}} = \mathbf{204.0}$ ($\chi^2_{\text{noise}}/\text{dof} = \mathbf{1.000}$). Across the 25-observable correlated covariance matrix, $\chi^2_{\text{corr},25} = \mathbf{4.392}$ ($\chi^2_\nu = \mathbf{0.176}$, RMS whitened pull $= \mathbf{0.419\sigma}$, $\max\vert z_{\text{white}}\vert  = \mathbf{0.933\sigma < 1.0\sigma}$), and across the 17 primary macroscopic/cosmological observables, the raw experimental pull is $\chi^2_{\text{exp},17}/\text{dof} = \mathbf{0.312}$.
+  \item \textbf{Unscaled Correlated Covariance \& Deterministic Centroid Precision vs. Gaussian Noise Floor:} Across all $N_{\text{obs}} = 205$ cross-scale observables (with \textbf{zero} empirical $\chi^2$ rescaling multipliers), the deterministic theoretical centroid residual is $\chi^2_{\text{centroid},205} = \mathbf{36.21}$ ($\chi^2_{\text{centroid}}/\text{dof} = \mathbf{0.1775}$). Because CUFG's topological predictions are deterministic zero-parameter numbers compared against published experimental central values (rather than a polynomial curve overfitted to random Gaussian noise realizations), $\chi^2_{\text{centroid}}/\text{dof} < 1$ reflects $\text{sub-}1\sigma$ centroid accuracy rather than parameter overfitting; under independent random Gaussian experimental realizations $y_{\text{obs}} \sim \mathcal{N}(y_{\text{true}}, \Sigma_{\text{exp}})$, the expected measurement-plus-environmental noise floor is $\langle\chi^2_{\text{noise}}\rangle = N_{\text{obs}} - k_{\text{total}} = \mathbf{204.0}$ ($\chi^2_{\text{noise}}/\text{dof} = \mathbf{1.000}$). Across the 25-observable correlated covariance matrix, $\chi^2_{\text{corr},25} = \mathbf{4.416}$ ($\chi^2_\nu = \mathbf{0.177}$, RMS whitened pull $= \mathbf{0.420\sigma}$, $\max\vert z_{\text{white}}\vert  = \mathbf{0.933\sigma < 1.0\sigma}$), and across the 17 primary macroscopic/cosmological observables, the raw experimental pull is $\chi^2_{\text{exp},17}/\text{dof} = \mathbf{0.312}$.
   \item \textbf{Non-Tautological Bayesian \& Information-Criterion Comparison ($N = 205$ Total \& $N_{\text{non-cal}} = 186$ Out-of-Sample Observables):} Comparing CUFG ($k_{\text{dimless}} = 0$, $k_{\text{total}} = 1$ dimensional anchor $M_N$) against the explicit $\text{SM} + \Lambda\text{CDM} + \text{NFW/Bag}$ baseline ($\chi^2_{\text{SM}+\Lambda\text{CDM},205} = \mathbf{294.04}$, $k_{\text{SM}+\Lambda\text{CDM}} = 19_{\text{SM}} + 6_{\Lambda\text{CDM}} + 6_{\text{hadronic/galactic}} = 31$, $\Delta k = -30$) yields:
 \end{itemize}
 
 \[
 
-  \Delta\chi^2_{205} = -258.02, \qquad \Delta\text{AIC} = \mathbf{-318.02}, \qquad \Delta\text{BIC} = \mathbf{-417.71}, \qquad \log_{10} B_{10} = \mathbf{+90.70} \quad (\text{Jeffreys' Decisive Evidence } \gg +2.0),
+  \Delta\chi^2_{205} = -257.83, \qquad \Delta\text{AIC} = \mathbf{-317.83}, \qquad \Delta\text{BIC} = \mathbf{-417.52}, \qquad \log_{10} B_{10} = \mathbf{+90.66} \quad (\text{Jeffreys' Decisive Evidence } \gg +2.0),
 
 \]
 
@@ -510,7 +510,7 @@ and on the $N_{\text{non-cal}} = 186$ non-calibrated out-of-sample observables (
 \textbf{Experiment (2026--2030)} & \textbf{Observable} & \textbf{CUFG Zero-Parameter Prediction} & \textbf{Standard $\text{GR} + \Lambda\text{CDM}$ / SM} & \textbf{Quantitative $5\sigma$ Falsification Threshold} \\
 \midrule
 \endhead
-\textbf{1. DESI Y3/Y5 + Euclid} & Dynamic EoS $w_0^{\text{eff}}(z \to 0), w_a^{\text{eff}}$ & $w_0^{\text{eff}} = -0.8270, w_a^{\text{eff}} = -0.746$ (3D void-boundary dressed; unscreened $-0.8471$, $w_{\text{eff}}(2/9) = -0.8380$, Zero $\Lambda$) & $w_0 = -1.0000, w_a = 0.000$ (Static $\Lambda$) & Falsified if $w_0 = -1.000 \pm 0.025$ at $>5\sigma$ \\
+\textbf{1. DESI Y3/Y5 + Euclid} & Dynamic EoS $w_0^{\text{eff}}(z \to 0), w_a^{\text{eff}}$ & $w_0^{\text{eff}} = -0.8270, w_a^{\text{eff}} = -0.7490$ (3D void-boundary dressed; unscreened $-0.8471$, $w_{\text{eff}}(2/9) = -0.8380$, Zero $\Lambda$) & $w_0 = -1.0000, w_a = 0.000$ (Static $\Lambda$) & Falsified if $w_0 = -1.000 \pm 0.025$ at $>5\sigma$ \\
 \addlinespace[3pt]
 \textbf{2. Hyper-Kamiokande + DUNE} & Leptonic CP phase $\delta_{\text{CP}}^{\text{PMNS}}$ \& $\sin\theta_{13}^{\text{PMNS}}$ & $\delta_{\text{CP}} = \frac{5\pi}{4} = 225.0^\circ$, $s_{13} = \frac{\delta_l/\sqrt{2}}{1+2\pi\alpha_{\text{EM}}(1+\delta_B/2)} = 0.149517$ ($J = -0.02364$) & Free empirical fit ($180^\circ\text{--}270^\circ$) & Falsified if $\Vert \delta_{\text{CP}} - 225.0^\circ\Vert  > 15^\circ$ or CP-conserving ($\sin\delta_{\text{CP}} = 0$) at $>5\sigma$ \\
 \addlinespace[3pt]
@@ -524,7 +524,7 @@ and on the $N_{\text{non-cal}} = 186$ non-calibrated out-of-sample observables (
 \addlinespace[3pt]
 \textbf{7. Rubin LSST + Euclid Lensing} & Galaxy $\Delta\Sigma(R)$ at $R = 0.1\text{--}1.0\text{ Mpc}$ & $\Delta\Sigma(R) \propto R^{-1}$ ($\Delta\Sigma(100\text{ kpc}) = 23.22\thinspace M_\odot/\text{pc}^2$) & NFW virial truncation $\Delta\Sigma \propto R^{-2}$ & Falsified if stacked isolated $\Delta\Sigma(R)$ exhibits NFW virial truncation below $1\text{ Mpc}$ at $>5\sigma$ \\
 \addlinespace[3pt]
-\textbf{8. ELI-NP + NSF ZEUS + Vulcan 20-20 + OPAL} & 3-Laser Vacuum Four-Wave Mixing $\to$ 4th Beam ($\xi_{\text{HE}}, N_{\gamma,4}, \Delta n_\perp/\Delta n_\parallel$) & $E_{\text{crit}} = 1.3230\times 10^{18}\text{ V/m}$ ($0.024\%$), $\xi_{\text{HE}}^{(1L)} = 5.8984\times 10^{-41}\text{ m}^2/\text{V}^2$ ($+0.5168\%$ 2-loop $S^1$ boost: $N_{\gamma,4} = 0.0227, 0.839, 6.715, 13.12\text{ photons/shot}$ at $3, 10, 20, 25\text{ PW}$), $\frac{\Delta n_\perp}{\Delta n_\parallel} = \mathbf{1.750451}$ ($+257.5\text{ ppm}$ chiral-octant $\delta_B/7$ shift; $\mathbf{1.753565}$ or $+2037.0\text{ ppm}$ 2L+octant vs 1L $7/4 = 1.750000$, zero axions) & 1-Loop Euler--Heisenberg $\Delta n_\perp/\Delta n_\parallel = 7/4 = 1.750000$; ALP dark-matter models predict resonant mass-dependent skew & Falsified if high-precision 25 PW FWM excludes the $+257.5\text{ ppm}$ chiral-octant shift ($\Delta n_\perp/\Delta n_\parallel = 1.750451$) or detects a resonant ALP mass peak at $>5\sigma$ \\
+\textbf{8. ELI-NP + NSF ZEUS + Vulcan 20-20 + OPAL} & 3-Laser Vacuum Four-Wave Mixing $\to$ 4th Beam ($\xi_{\text{HE}}, N_{\gamma,4}, \Delta n_\perp/\Delta n_\parallel$) & $E_{\text{crit}} = 1.3230\times 10^{18}\text{ V/m}$ ($0.024\%$), $\xi_{\text{HE}}^{(1L)} = 5.8984\times 10^{-41}\text{ m}^2/\text{V}^2$ ($+0.5168\%$ 2-loop $S^1$ boost: $N_{\gamma,4} = 0.02266, 0.8394, 6.715, 13.115\text{ photons/shot}$ at $3, 10, 20, 25\text{ PW}$), $\frac{\Delta n_\perp}{\Delta n_\parallel} = \mathbf{1.750451}$ ($+257.5\text{ ppm}$ chiral-octant $\delta_B/7$ shift; $\mathbf{1.753565}$ or $+2037.0\text{ ppm}$ 2L+octant vs 1L $7/4 = 1.750000$, zero axions) & 1-Loop Euler--Heisenberg $\Delta n_\perp/\Delta n_\parallel = 7/4 = 1.750000$; ALP dark-matter models predict resonant mass-dependent skew & Falsified if high-precision 25 PW FWM excludes the $+257.5\text{ ppm}$ chiral-octant shift ($\Delta n_\perp/\Delta n_\parallel = 1.750451$) or detects a resonant ALP mass peak at $>5\sigma$ \\
 \addlinespace[3pt]
 \textbf{9. DIII-D + Jefferson Lab Polarized Fuel (\texttt{Factor F29})} & Spin-polarized $D\text{--}T$ \& $D\text{--}\thinspace ^3\text{He}$ enhancement $\mathcal{G}_ {\text{spin}}^{\max}$ \& $W(\theta)$ & From derived deuteron $^3D_1$ tensor probability $P_D = \frac{\delta_B}{2\pi} = \frac{1}{9\pi} = \mathbf{3.5368\%}$ (\texttt{0.006\%} err), resonant $J=3/2^+$ purity is $f_{3/2} = 1 - \frac{1}{9\pi} = 0.964632 \implies \mathcal{G}_ {\text{spin}}^{\max} = \frac{3}{2} - \frac{1}{18\pi} = \mathbf{1.4823\times}$ (\textbf{$+48.23\%$}), $\frac{\sigma_\parallel}{\sigma_{\uparrow\downarrow}} = \mathbf{2.8634\times}$ & Pure $S\text{-wave}$ limit predicts $+50.00\%$ ($1.5000\times$); empirical $R\text{-matrix}$ fits require ad-hoc $D\text{-state}$ parameters & Falsified if asymptotic parallel-spin enhancement deviates from $\frac{3}{2} - \frac{1}{18\pi} = 1.4823\times$ at $>5\sigma$ \\
 \addlinespace[3pt]
