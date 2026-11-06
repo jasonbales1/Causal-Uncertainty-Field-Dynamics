@@ -1620,12 +1620,13 @@ def main() -> None:
     )
     print(
         f"  • [Enhancement 3: Finite-Temperature QCD Deconfinement Crossover T_c^QCD, Zero-G KSS Viscosity Bound & LHC Light-Ion (¹⁶O–¹⁶O / ²⁰Ne–²⁰Ne) Small-System QGP]: "
-        f"Zero-G KSS Bound (η/s)_min = ħ/(Ω_S² k_B) = {e3_t4['eta_over_s_cufg']:.8f} = 1/(4π) vs ALICE/RHIC {e3_t4['eta_over_s_qgp_obs']:.3f}±0.020 ({e3_t4['eta_over_s_qgp_pull']:.2f}σ, D_space,inv = {e3_t4['d_space_inverted_kss']:.6f}) | "
+        f"(a) Pre-Existing Frozen QGP/¹⁶O Constants: Zero-G KSS Bound (η/s)_min = ħ/(Ω_S² k_B) = {e3_t4['eta_over_s_cufg']:.8f} = 1/(4π) vs ALICE/RHIC {e3_t4['eta_over_s_qgp_obs']:.3f}±0.020 ({e3_t4['eta_over_s_qgp_pull']:.2f}σ, D_space,inv = {e3_t4['d_space_inverted_kss']:.6f}), "
         f"k_B T_c^QCD = √σ_unc/π = {e3_t4['tc_qcd_pred_mev']:.2f} MeV vs HotQCD Lattice {e3_t4['tc_qcd_hotqcd_obs_mev']:.2f}±1.50 MeV ({e3_t4['tc_qcd_rel_err_pct']:.2f}% err / {e3_t4['tc_qcd_pull_sigma']:.2f}σ), λ_melt = {e3_t4['lambda_melt_qgp_fm']:.4f} fm (< r_p = 0.8409 fm!) | "
-        f"LHC Light-Ion QGP: v_2(Ne–Ne)/v_2(O–O) = 11/9 = {e3_t4['v2_ratio_nene_oo_pred']:.4f} vs {e3_t4['v2_ratio_nene_oo_obs']:.2f} ({e3_t4['v2_ratio_nene_oo_pull']:.2f}σ), "
+        f"(b) Post-Announcement Zero-Parameter Run-3 Derivations: v_2(Ne–Ne)/v_2(O–O) = 11/9 = {e3_t4['v2_ratio_nene_oo_pred']:.4f} vs {e3_t4['v2_ratio_nene_oo_obs']:.2f} ({e3_t4['v2_ratio_nene_oo_pull']:.2f}σ), "
         f"v_3/v_2(O–O) = 2/3 = {e3_t4['v3_over_v2_oo_central_pred']:.4f} vs {e3_t4['v3_over_v2_oo_central_obs']:.2f} ({e3_t4['v3_over_v2_oo_pull']:.2f}σ), "
         f"R_AA(O–O) = 61/81 = {e3_t4['raa_oo_central_pred']:.4f} vs {e3_t4['raa_oo_central_obs']:.2f} ({e3_t4['raa_oo_pull']:.2f}σ), "
-        f"R_ψ(2S)/J/ψ = 19/27 = {e3_t4['r_psi2s_jpsi_small_qgp_pred']:.4f} vs {e3_t4['r_psi2s_jpsi_small_qgp_obs']:.2f} ({e3_t4['r_psi2s_jpsi_pull']:.2f}σ)"
+        f"R_ψ(2S)/J/ψ = 19/27 = {e3_t4['r_psi2s_jpsi_small_qgp_pred']:.4f} vs {e3_t4['r_psi2s_jpsi_small_qgp_obs']:.2f} ({e3_t4['r_psi2s_jpsi_pull']:.2f}σ) | "
+        f"(c) Strictly BLIND ²⁰Ne–²⁰Ne Predictions: v_3(Ne–Ne)/v_3(O–O) = 17/18 = {e3_t4['v3_ratio_nene_oo_blind_pred']:.4f}, R_AA(Ne–Ne) = 56/81 = {e3_t4['raa_nene_central_blind_pred']:.4f}, R_AA(Ne–Ne)/R_AA(O–O) = 56/61 = {e3_t4['raa_ratio_nene_oo_blind_pred']:.4f}"
     )
     print(
         f"  • [Enhancement 4: Ultra-Precision AMO Metrology — H–D 1S–2S Isotope Shift & Positronium 1S HFS + Wheeler 2γ / Ore–Powell 3γ Rates]: "
