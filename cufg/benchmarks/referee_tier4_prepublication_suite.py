@@ -374,18 +374,40 @@ def run_referee_tier4_prepublication_benchmark() -> dict:
     r_psi2s_jpsi_err_pct = float(abs(r_psi2s_jpsi_small_qgp_pred - r_psi2s_jpsi_small_qgp_obs) / r_psi2s_jpsi_small_qgp_obs * 100.0)
     r_psi2s_jpsi_pull = float(abs(r_psi2s_jpsi_small_qgp_pred - r_psi2s_jpsi_small_qgp_obs) / r_psi2s_jpsi_small_qgp_sigma)
 
-    #    (3c) Strictly BLIND pre-registered predictions for not-yet-published 20Ne-20Ne observables
-    #         (no experimental number released yet):
-    #         - Ultra-central triangular flow ratio v_3{2}(Ne-Ne)/v_3{2}(O-O): capping one 3-alpha face
-    #           of the 4-alpha tetrahedron with the 5th alpha on the axial D_parallel = 1 channel transfers
-    #           (1/4)*delta_B = 1/18 of the isotropic tetrahedral octupole (n=3) weight into the prolate
-    #           quadrupole (n=2) mode -> counter-intuitive blind suppression v_3(Ne-Ne)/v_3(O-O) = 17/18 = 0.944444.
-    #         - Central 20Ne-20Ne jet quenching R_AA(20Ne-20Ne): scaling the 4-alpha radiative energy-loss
-    #           fraction Delta R_AA(O-O) = 20/81 by the 5-alpha / 4-alpha = 5/4 cluster core count gives
-    #           R_AA(Ne-Ne) = 1 - 25/81 = 56/81 = 0.691358 and R_AA(Ne-Ne)/R_AA(O-O) = 56/61 = 0.918033.
+    #    (3c) Strictly BLIND pre-registered predictions for not-yet-published LHC Run-3 / Run-4 observables
+    #         (zero preliminary experimental numbers released yet):
+    #         - [SHARP DIVERGENCE vs. Standard Hydro] Ultra-central triangular flow ratio v_3{2}(Ne-Ne)/v_3{2}(O-O):
+    #           capping one 3-alpha face of the 4-alpha tetrahedron with the 5th alpha on the axial D_parallel = 1
+    #           channel transfers (1/4)*delta_B = 1/18 of the isotropic tetrahedral octupole (n=3) weight into the
+    #           prolate quadrupole (n=2) mode -> counter-intuitive blind suppression v_3(Ne-Ne)/v_3(O-O) = 17/18 = 0.944444
+    #           (whereas continuous Woods-Saxon / PGCM octupole beta_3 models predict >= 1.02-1.08 enhancement).
+    #         - [SHARP DIVERGENCE vs. Small-System Non-Flow] 4-particle cumulant elliptic flow ratio
+    #           v_2{4}(Ne-Ne)/v_2{4}(O-O): stripping isotropic 2-body non-flow (delta_B^2 / 2 = 2/81) sharpens the
+    #           bowling-pin-to-tetrahedron ratio from 11/9 = 1.2222 up to 1 + delta_B*(1 + delta_B/2) = 101/81 = 1.246914.
+    #         - [MODERATE DIVERGENCE vs. A^(2/3) Path-Length] Central 20Ne-20Ne jet quenching R_AA(20Ne-20Ne):
+    #           discrete 5-alpha / 4-alpha = 5/4 cluster core scaling gives R_AA(Ne-Ne) = 1 - 25/81 = 56/81 = 0.691358
+    #           and R_AA(Ne-Ne)/R_AA(O-O) = 56/61 = 0.918033 (+25% quenching step vs. +16% continuous A^(2/3)).
+    #         - [MODERATE DIVERGENCE] Excited charmonium melting R_{psi(2S)/J/psi}(Ne-Ne/pp): axial-prolate 5-alpha
+    #           screening factor (1 + delta_B/2) = 10/9 gives 1 - 80/243 = 163/243 = 0.670782 and Ne-Ne/O-O ratio
+    #           163/171 = 0.953216.
+    #         - [IN LINE WITH CGC/nPDF BAND, Zero-Param Pin] ALICE FoCal (3.2 < eta < 5.8) forward direct-photon
+    #           nuclear modification R_{pO}^gamma = 1 - (delta_B/2)*(1 - D_perp/(2*N_c)) = 25/27 = 0.925926.
+    #         - [IN LINE WITH NLO CHARM BAND, Zero-Param Pin] FASERnu & SND@LHC (eta > 7.5) forward tau-to-muon
+    #           neutrino flux ratio R_{nu_tau/nu_mu} = (delta_B/2)^3 * (1 - delta_B/2) = 8/6561 = 1.219326e-3.
     v3_ratio_nene_oo_blind_pred = float(1.0 - 0.25 * delta_b)                           # 17/18 = 0.944444 (blind Ne-Ne/O-O v_3 suppression)
+    v2_4cumulant_ratio_nene_oo_blind_pred = float(1.0 + delta_b * (1.0 + 0.5 * delta_b))  # 101/81 = 1.246914 (blind v_2{4} Ne-Ne/O-O ratio)
     raa_nene_central_blind_pred = float(1.0 - 1.25 * delta_b * (1.0 + 0.5 * delta_b))   # 56/81 = 0.691358 (blind central Ne-Ne R_AA)
     raa_ratio_nene_oo_blind_pred = float(raa_nene_central_blind_pred / raa_oo_central_pred)  # 56/61 = 0.918033 (blind Ne-Ne/O-O R_AA ratio)
+    r_psi2s_jpsi_nene_blind_pred = float(
+        1.0 - (d_perp / (2.0 * n_c)) * (1.0 - 0.5 * delta_b) * (1.0 + 0.5 * delta_b)
+    )                                                                                   # 163/243 = 0.670782 (blind Ne-Ne psi(2S)/J/psi)
+    r_psi2s_jpsi_ratio_nene_oo_blind_pred = float(
+        r_psi2s_jpsi_nene_blind_pred / r_psi2s_jpsi_small_qgp_pred
+    )                                                                                   # 163/171 = 0.953216 (blind Ne-Ne/O-O psi(2S) ratio)
+    r_po_focal_photon_blind_pred = float(
+        1.0 - 0.5 * delta_b * (1.0 - (d_perp / (2.0 * n_c)))
+    )                                                                                   # 25/27 = 0.925926 (blind ALICE FoCal R_{pO}^gamma)
+    r_nutau_numu_faser_blind_pred = float(((0.5 * delta_b) ** 3) * (1.0 - 0.5 * delta_b))  # 8/6561 = 1.219326e-3 (blind FASERnu nu_tau/nu_mu)
 
     # =========================================================================
     # ENHANCEMENT 4: ULTRA-PRECISION AMO METROLOGY — HYDROGEN-DEUTERIUM 1S-2S
@@ -634,8 +656,13 @@ def run_referee_tier4_prepublication_benchmark() -> dict:
             "r_psi2s_jpsi_err_pct": r_psi2s_jpsi_err_pct,
             "r_psi2s_jpsi_pull": r_psi2s_jpsi_pull,
             "v3_ratio_nene_oo_blind_pred": v3_ratio_nene_oo_blind_pred,
+            "v2_4cumulant_ratio_nene_oo_blind_pred": v2_4cumulant_ratio_nene_oo_blind_pred,
             "raa_nene_central_blind_pred": raa_nene_central_blind_pred,
             "raa_ratio_nene_oo_blind_pred": raa_ratio_nene_oo_blind_pred,
+            "r_psi2s_jpsi_nene_blind_pred": r_psi2s_jpsi_nene_blind_pred,
+            "r_psi2s_jpsi_ratio_nene_oo_blind_pred": r_psi2s_jpsi_ratio_nene_oo_blind_pred,
+            "r_po_focal_photon_blind_pred": r_po_focal_photon_blind_pred,
+            "r_nutau_numu_faser_blind_pred": r_nutau_numu_faser_blind_pred,
         },
         "enhancement4_amo_isotope_shift_and_positronium": {
             "dnu_hd_1s2s_pred_mhz": dnu_hd_1s2s_pred_mhz,

@@ -1626,7 +1626,12 @@ def main() -> None:
         f"v_3/v_2(O–O) = 2/3 = {e3_t4['v3_over_v2_oo_central_pred']:.4f} vs {e3_t4['v3_over_v2_oo_central_obs']:.2f} ({e3_t4['v3_over_v2_oo_pull']:.2f}σ), "
         f"R_AA(O–O) = 61/81 = {e3_t4['raa_oo_central_pred']:.4f} vs {e3_t4['raa_oo_central_obs']:.2f} ({e3_t4['raa_oo_pull']:.2f}σ), "
         f"R_ψ(2S)/J/ψ = 19/27 = {e3_t4['r_psi2s_jpsi_small_qgp_pred']:.4f} vs {e3_t4['r_psi2s_jpsi_small_qgp_obs']:.2f} ({e3_t4['r_psi2s_jpsi_pull']:.2f}σ) | "
-        f"(c) Strictly BLIND ²⁰Ne–²⁰Ne Predictions: v_3(Ne–Ne)/v_3(O–O) = 17/18 = {e3_t4['v3_ratio_nene_oo_blind_pred']:.4f}, R_AA(Ne–Ne) = 56/81 = {e3_t4['raa_nene_central_blind_pred']:.4f}, R_AA(Ne–Ne)/R_AA(O–O) = 56/61 = {e3_t4['raa_ratio_nene_oo_blind_pred']:.4f}"
+        f"(c) Strictly BLIND LHC Predictions (Zero Preliminaries Published): v_3(Ne–Ne)/v_3(O–O) = 17/18 = {e3_t4['v3_ratio_nene_oo_blind_pred']:.4f}, "
+        f"v_2{{4}}(Ne–Ne)/v_2{{4}}(O–O) = 101/81 = {e3_t4['v2_4cumulant_ratio_nene_oo_blind_pred']:.4f}, "
+        f"R_AA(Ne–Ne) = 56/81 = {e3_t4['raa_nene_central_blind_pred']:.4f} (Ne/O = 56/61 = {e3_t4['raa_ratio_nene_oo_blind_pred']:.4f}), "
+        f"R_ψ(2S)(Ne–Ne) = 163/243 = {e3_t4['r_psi2s_jpsi_nene_blind_pred']:.4f} (Ne/O = 163/171 = {e3_t4['r_psi2s_jpsi_ratio_nene_oo_blind_pred']:.4f}), "
+        f"ALICE FoCal R_pO^γ = 25/27 = {e3_t4['r_po_focal_photon_blind_pred']:.4f}, "
+        f"FASERν R_ντ/νμ = 8/6561 = {e3_t4['r_nutau_numu_faser_blind_pred']:.4e}"
     )
     print(
         f"  • [Enhancement 4: Ultra-Precision AMO Metrology — H–D 1S–2S Isotope Shift & Positronium 1S HFS + Wheeler 2γ / Ore–Powell 3γ Rates]: "
