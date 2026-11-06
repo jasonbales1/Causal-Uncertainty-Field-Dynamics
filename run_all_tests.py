@@ -1063,15 +1063,16 @@ def main() -> None:
             f"  • {mm_item['name']:<46} Derived = {mm_item['pred']:>8.4f} | "
             f"Obs = {mm_item['obs']:>8.4f} | Err = {mm_item['rel_err_pct']:.4f}%"
         )
-    print("  --- Layer 6: Multi-Cluster Pair Combinatorics & Alpha-Cluster Bridge (5He/5Li Pauli Crevasse -> 8Be -> 12C -> 16O Tetrahedron) & Exotic Atoms (F50) ---")
+    print("  --- Layer 6: Multi-Cluster Pair Combinatorics & Alpha-Cluster Bridge (5He/5Li Pauli Crevasse -> 8Be -> 12C -> 16O Tetrahedron -> 20Ne Bowling-Pin) & Exotic Atoms (F50) ---")
     m5_16 = nb["mass5_to_16_alpha_bridge"]
     b16_err_pct = abs(m5_16["b_16o_ground_pred_mev"] - 127.6193) / 127.6193 * 100.0
+    b20_err_pct = abs(m5_16["b_20ne_ground_pred_mev"] - 160.6448) / 160.6448 * 100.0
     print(
         f"  • [Referee Item 4: Alpha-Cluster Bridge Above N_q=12 Pauli Ceiling]: "
         f"⁵He S_n = {m5_16['sn_5he_pred_mev']:+.4f} MeV (Obs -0.798 MeV) | "
         f"⁵Li S_p = {m5_16['sp_5li_pred_mev']:+.4f} MeV (Obs -1.690 MeV, Both Unbound={m5_16['mass5_strictly_unbound']}) | "
-        f"¹⁶O (N_α=4 Tetrahedron, C(4,2)=6 bonds) B = {m5_16['b_16o_ground_pred_mev']:.4f} MeV "
-        f"(Obs 127.6193 MeV, Err = {b16_err_pct:.4f}%!)"
+        f"¹⁶O (N_α=4 Tetrahedron, C(4,2)=6 bonds) B = {m5_16['b_16o_ground_pred_mev']:.4f} MeV (Obs 127.6193 MeV, Err = {b16_err_pct:.4f}%) | "
+        f"²⁰Ne (N_α=5 Bowling-Pin) B = {m5_16['b_20ne_ground_pred_mev']:.4f} MeV (Obs 160.6448 MeV, Err = {b20_err_pct:.4f}%!)"
     )
     for ac_item in elem_res["alpha_cluster_nuclei"]:
         print(
@@ -1618,9 +1619,13 @@ def main() -> None:
         f"Binet Geodesic p_RK4 = {e2_t4['p_order_rk4']:.3f} (Res = {e2_t4['rk4_richardson_residual']:.2e}), GL64-GL32 = {e2_t4['gl_diff_32_64']:.2e}"
     )
     print(
-        f"  • [Enhancement 3: Finite-Temperature QCD Deconfinement Crossover T_c^QCD & Zero-G Kovtun–Son–Starinets (KSS) Viscosity Bound]: "
+        f"  • [Enhancement 3: Finite-Temperature QCD Deconfinement Crossover T_c^QCD, Zero-G KSS Viscosity Bound & LHC Light-Ion (¹⁶O–¹⁶O / ²⁰Ne–²⁰Ne) Small-System QGP]: "
         f"Zero-G KSS Bound (η/s)_min = ħ/(Ω_S² k_B) = {e3_t4['eta_over_s_cufg']:.8f} = 1/(4π) vs ALICE/RHIC {e3_t4['eta_over_s_qgp_obs']:.3f}±0.020 ({e3_t4['eta_over_s_qgp_pull']:.2f}σ, D_space,inv = {e3_t4['d_space_inverted_kss']:.6f}) | "
-        f"k_B T_c^QCD = √σ_unc/π = {e3_t4['tc_qcd_pred_mev']:.2f} MeV vs HotQCD Lattice {e3_t4['tc_qcd_hotqcd_obs_mev']:.2f}±1.50 MeV ({e3_t4['tc_qcd_rel_err_pct']:.2f}% err / {e3_t4['tc_qcd_pull_sigma']:.2f}σ)"
+        f"k_B T_c^QCD = √σ_unc/π = {e3_t4['tc_qcd_pred_mev']:.2f} MeV vs HotQCD Lattice {e3_t4['tc_qcd_hotqcd_obs_mev']:.2f}±1.50 MeV ({e3_t4['tc_qcd_rel_err_pct']:.2f}% err / {e3_t4['tc_qcd_pull_sigma']:.2f}σ), λ_melt = {e3_t4['lambda_melt_qgp_fm']:.4f} fm (< r_p = 0.8409 fm!) | "
+        f"LHC Light-Ion QGP: v_2(Ne–Ne)/v_2(O–O) = 11/9 = {e3_t4['v2_ratio_nene_oo_pred']:.4f} vs {e3_t4['v2_ratio_nene_oo_obs']:.2f} ({e3_t4['v2_ratio_nene_oo_pull']:.2f}σ), "
+        f"v_3/v_2(O–O) = 2/3 = {e3_t4['v3_over_v2_oo_central_pred']:.4f} vs {e3_t4['v3_over_v2_oo_central_obs']:.2f} ({e3_t4['v3_over_v2_oo_pull']:.2f}σ), "
+        f"R_AA(O–O) = 61/81 = {e3_t4['raa_oo_central_pred']:.4f} vs {e3_t4['raa_oo_central_obs']:.2f} ({e3_t4['raa_oo_pull']:.2f}σ), "
+        f"R_ψ(2S)/J/ψ = 19/27 = {e3_t4['r_psi2s_jpsi_small_qgp_pred']:.4f} vs {e3_t4['r_psi2s_jpsi_small_qgp_obs']:.2f} ({e3_t4['r_psi2s_jpsi_pull']:.2f}σ)"
     )
     print(
         f"  • [Enhancement 4: Ultra-Precision AMO Metrology — H–D 1S–2S Isotope Shift & Positronium 1S HFS + Wheeler 2γ / Ore–Powell 3γ Rates]: "
