@@ -247,6 +247,12 @@ Why does mass source an attractive $1/r^2$ uncertainty field that is $\sim 10^{4
    g_{\text{pair}}(r) = \frac{c^2 r_{\text{unc}}(M)}{r^2} = \left(\frac{M}{M_{\text{UV}}}\right)\frac{c^2\ell_{\text{UV}}}{r^2} \quad \left(\text{from } E_{\text{grad}}^{(AB)} = +U_{AB} \text{ plus } E_{\text{int}}^{(AB)} = -\int(\rho_A\psi_B+\rho_B\psi_A)c^2 d^3x = -2U_{AB} \implies E_{\text{pot,net}}^{(AB)} = +U_{AB} - 2U_{AB} = -U_{AB} = -\frac{M_B c^2 r_{\text{unc}}(M_A)}{r}\right), \qquad \kappa_{\text{unc}} \equiv \frac{\ell_{\text{UV}}}{M_{\text{UV}}c^2}
    $$
 
+   > [!TIP]
+   > **Visualizing the Mechanism in Plain Terms (Speed-$c$ Bottleneck & Probability-Average Drift):**  
+   > Formally, the equation above writes gravitation as a variational energy balance ($+U_{AB} - 2U_{AB} = -U_{AB}$), but physically it describes a simple two-part process in $3+1\text{D}$ space:
+   > 1. **The Speed-$c$ Informational Bottleneck:** Mass $A$ continuously sources quantum phase-space uncertainty that can only clear outward at the maximum causal speed $c$ through concentric 3D spheres of area $4\pi r^2$. Smaller spheres closer to $A$ create a radial clearing bottleneck with choke-point radius $r_{\text{unc}}(M_A)$, clearing time $T_{\text{unc}} = r_{\text{unc}}/c$, flux $\vert \nabla\psi_A\vert  = r_{\text{unc}}/r^2$, and accumulated backlog $\psi_A(r) = r_{\text{unc}}/r$.
+   > 2. **Recalculating the Average Position of Overlapping Probability Clouds:** Object $B$ is a quantum probability cloud $\vert \Psi_B\vert ^2$ whose macroscopic location is its average (most-likely) center $\langle \mathbf{x}_ B \rangle$. Because $A$'s bottleneck is stronger on the near side of $B$ than on the far side, the overlap increases the local phase-space weight ($n = e^{2\psi_A}$) on the side facing $A$. Every time the average position $\langle \mathbf{x}_ B \rangle$ is updated at speed $c$, that lopsided probability weight shifts the recalculated center inward toward $A$ with acceleration $g_{\text{pair}}(r) = c^2 r_{\text{unc}}(M_A)/r^2$.
+
 ---
 
 ### Part IV: Covariant Action, Hyperbolic Wave Equation at Speed $c$, and Optical Refractive Metric
@@ -295,7 +301,7 @@ Four foundational relativistic equations follow immediately:
 
    this accounts for the entirety of Mercury's observed $+575.15''/\text{cy}$ inertial precession.
 4. **UV Planck-Sphere Core Saturation, Tortoise Echo Isolation ($\Delta t_{\text{echo}}/\tau_{220} = 30.03$) & Surface Redshift Suppression (`Factors F34, F55, F70`)**:  
-   When local density approaches $\rho_{\text{UV}} = \frac{M_{\text{UV}}}{\frac{4}{3}\pi\ell_{\text{UV}}^3} = 1.231\times 10^{96}\text{ kg/m}^3$, Heisenberg exclusion saturates $\vert \nabla\psi\vert  \le 1/\ell_{\text{UV}}$:
+   When local density approaches $\rho_{\text{UV}} = \frac{M_{\text{UV}}}{\frac{4}{3}\pi\ell_{\text{UV}}^3} = 1.231\times 10^{96}\text{ kg/m}^3$, Heisenberg exclusion saturates $\vert \nabla\psi\vert  \le 1/\ell_{\text{UV}}$ *(intuitively, once this uncertainty density is reached, the speed-$c$ informational bottleneck hits its 100% bandwidth ceiling $M_{\text{UV}}$ per Planck cell $\ell_{\text{UV}}$ and prevents the core from ever clearing or compressing a central core sphere, halting collapse without a $r = 0$ point singularity; while the interior is time-frozen by the exponential backlog [$d\tau/dt = e^{-\psi}$, $n_{\text{opt}} = e^{2\psi}$], the bottleneck slowly clears at the outer edges via Hawking radiation [`Factor F59`], causing the internal sphere to shrink and—via the core braking factor $\Theta_{\text{core}} = [1 - (M_{\text{UV}}/M)^2]^2 \to 0$ in `Factor F77`—gradually slow down until it settles into the single minimal Planck sphere $r_{\text{unc}}(M_{\text{UV}}) = \ell_{\text{UV}}$)*:
 
    $$
    g_{\text{eff}}(r) = g_{\text{pair}}(r)\thinspace\nu\left(\frac{g_{\text{pair}}}{a_0}\right)\left[1 - \frac{\rho(r)}{\rho_{\text{UV}}}\right]

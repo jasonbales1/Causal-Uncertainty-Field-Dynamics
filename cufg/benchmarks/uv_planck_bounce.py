@@ -770,12 +770,14 @@ def evaluate_uv_and_nucleon_bounce(params: CUFGParameters, elem_bundle: dict | N
     #     Therefore, the MINIMUM physical volume of any collapsed core is the Planck sphere:
     #         V_core,min = (4 / 3) * pi * l_UV^3 = 1.76885e-104 m^3.
     #
-    # (C) Exact Planck-Sphere Core + Macroscopic Refractive Halo & BBH Merger (GW150914):
-    #     Pinched from above by R_core <= l_UV and from below by V_core >= (4/3)*pi*l_UV^3,
-    #     EVERY black hole's physical matter core (M >= M_UV) is locked at exact Planck-sphere
-    #     radius R_core = l_UV and exact Planck-sphere volume V_core = (4/3)*pi*l_UV^3, while
-    #     its macroscopic km-to-AU "shadow" (R_shadow = 3*sqrt(3)*R_unc(M)) is purely the external
-    #     exponential phase-space refractive index halo n_opt(r) = exp(2*psi(r))!
+    # (C) Frozen UV-Saturated Core Sphere + Macroscopic Refractive Halo & BBH Merger (GW150914):
+    #     Because each unit Planck cell (radius l_UV, volume 4/3 * pi * l_UV^3) has a strict speed-c
+    #     clearing ceiling M_UV (critical density rho_UV = M_UV / (4/3 * pi * l_UV^3) = 1.231e96 kg/m^3),
+    #     a macroscopic black hole (M >> M_UV) halts collapse at a finite, time-frozen saturated core sphere
+    #     (R_{core,sat}(M) = (M / M_UV)^(1/3) * l_UV) surrounded by its macroscopic external exponential
+    #     phase-space refractive index halo n_opt(r) = exp(2*psi(r)), which shrinks from the outer edges
+    #     via Hawking radiation (Factor F59) and slows via Theta_core = [1 - (M_UV/M)^2]^2 -> 0 (Factor F77)
+    #     until it settles into the single minimal Planck sphere (R_core(M_UV) = l_UV, V_core,min = (4/3)*pi*l_UV^3)!
     #     During a Binary Black Hole (BBH) interaction (e.g., GW150914: M_1 = 36 M_sun,
     #     M_2 = 29 M_sun -> M_f = 62 M_sun, Delta E_rad = 3 M_sun c^2):
     #     1. Refractive Halo Merger Peak Frequency: The two macroscopic photon spheres touch at

@@ -67,6 +67,20 @@ The central thesis of CUFG (\texttt{cufg/theory.py}) is that \textbf{there is no
 
 Specifically, CUFG operates through four tightly coupled physical mechanisms governed by $\hbar$ and $c$:
 
+\begin{quote}
+\textbf{[TIP]} 
+
+\textbf{Intuitive Physical Picture --- How the Speed-$c$ Informational Bottleneck \& Probability-Average Drift Produce Gravity:}
+
+Before stepping through the formal $3+1\text{D}$ variational integrals below, it helps to picture what the equations are physically doing from three equivalent camera angles:
+
+1. \textbf{Around a Single Mass (The Speed-$c$ Informational Bottleneck):} Every localized mass $M$ continuously generates quantum phase-space uncertainty ($\Delta x\Delta p \ge \hbar/2$, $\Delta E\Delta t \ge \hbar/2$) that must be resolved outward into surrounding 3D space. Because no physical state update can clear faster than the speed of light $c$, this outward flow must pass through concentric spherical shells of surface area $4\pi r^2$. Near the mass (small $r$), the narrower shell area creates a radial \textbf{informational bottleneck} whose clearing flux drops off with surface area as $1/(4\pi r^2)$ ($\vert \nabla\psi\vert  = r_{\text{unc}}/r^2$) and whose accumulated queue depth piles up as $\psi(r) = r_{\text{unc}}(M)/r$, where $r_{\text{unc}}(M)$ and $\tau_{\text{unc}}(M) = r_{\text{unc}}(M)/c$ are the characteristic choke-point radius and clearing time.
+
+2. \textbf{Between Two Masses (Recalculating the Most-Likely Probability Center):} A second object $B$ is not a classical point, but a quantum probability cloud $\vert \Psi_B(\mathbf{x}, t)\vert ^2$ whose observed location is its expectation value ("average most-likely position") $\langle \mathbf{x}_ B \rangle$. When $B$'s probability cloud overlaps $A$'s bottleneck, the side of $B$ facing $A$ sits in deeper congestion ($n(\mathbf{x}) = e^{2\psi_A(\mathbf{x})}$, slower local clock rate $e^{-\psi_A}$), increasing the probability weight on the near side relative to the far side. Each time nature recalculates the average position $\langle \mathbf{x}_ B \rangle$ at speed $c$ (Ehrenfest's theorem, $\frac{d^2\langle \mathbf{x}_ B\rangle}{dt^2} = +c^2\langle\nabla\psi_A\rangle$), the center of $B$'s probability cloud drifts inward toward $A$ at $\mathbf{a}_ {\text{pair}} = -\frac{c^2 r_{\text{unc}}(M_A)}{R^2}\hat{\mathbf{R}}$.
+
+3. \textbf{Across All of 3D Space (The Variational Energy Balance Sheet):} When the two objects move closer and share a common $4\pi r^2$ clearing shell, the global Hamiltonian records the field-stiffness cost ($+U_{AB}$) against the shared overlap savings ($-2U_{AB}$) as a net variational energy reduction $+U_{AB} - 2U_{AB} = -U_{AB}$.
+\end{quote}
+
 \begin{enumerate}
   \item \textbf{Mechanism 1 --- Emergent $1/r^2$ Attraction from the Quadratic Cross-Term of Overlapping Uncertainties (\texttt{cufg/theory.py} \& \#L1320-L1356)}: Every localized mass $M$ pinches surrounding 4D phase space across its zero-gravity uncertainty localization radius $r_{\text{unc}}(M) = (M/M_{\text{UV}})\ell_{\text{UV}}$, sourcing a positive dimensionless uncertainty potential $\psi(\mathbf{x}) = +r_{\text{unc}}(M)/\vert \mathbf{x} - \mathbf{x}_ 0\vert  > 0$. From the static field Lagrangian $L_{\text{stat}}[\psi] = \int_{\mathbb{R}^3}\left[-\frac{M_{\text{UV}}c^2}{8\pi\ell_{\text{UV}}}\vert \nabla\psi\vert ^2 + \rho c^2\psi\right]d^3x$ (whose Euler--Lagrange variation gives $\nabla^2\psi = -\frac{4\pi\ell_{\text{UV}}}{M_{\text{UV}}}\rho$), the canonical static Hamiltonian energy functional is $E_{\text{stat}}[\psi] = \int_{\mathbb{R}^3}\left[+\frac{M_{\text{UV}}c^2}{8\pi\ell_{\text{UV}}}\vert \nabla\psi\vert ^2 - \rho c^2\psi\right]d^3x$. When two bodies $A$ and $B$ are present ($\psi_{\text{tot}} = \psi_A + \psi_B$, $\rho_{\text{tot}} = \rho_A + \rho_B$), expanding $E_{\text{stat}}[\psi_A + \psi_B]$ yields the field-gradient cross-energy $E_{\text{grad}}^{(AB)} = +\frac{M_{\text{UV}}c^2}{4\pi\ell_{\text{UV}}}\int_{\mathbb{R}^3}\nabla\psi_A\cdot\nabla\psi_B\thinspace d^3x = +U_{AB} > 0$ and the matter-coupling cross-energy $E_{\text{int}}^{(AB)} = -\int_{\mathbb{R}^3}(\rho_A\psi_B + \rho_B\psi_A)c^2\thinspace d^3x = -2U_{AB} < 0$:
 \end{enumerate}
@@ -417,6 +431,23 @@ Implemented and verified in \texttt{cufg/benchmarks/quantum\_lab.py} (\texttt{ev
 
 
 \subsection{4.1 Horizonless Exponential-Metric Photon Spheres, Exact All-Orders Carter-Separable Rotating Exponential Metric, ISCOs, LIGO Ringdowns (\texttt{GW150914}, \texttt{GW190412}), Optical Tortoise Trap, and EHT Shadows (\texttt{Sgr A*}, \texttt{M87*})}
+
+\begin{quote}
+\textbf{[TIP]} 
+
+\textbf{Intuitive Picture --- Why the Speed-$c$ Bottleneck Prevents a Black Hole Point Singularity and Governs Its Lifecycle:}
+
+In classical gravity, $1/r$ diverges to infinity at $r = 0$ because space is treated as having infinite information capacity at a single point. In CUFG, the entire black hole lifecycle follows directly from the speed-$c$ informational bottleneck:
+
+1. \textbf{Core Saturation (No Point Singularity):} Because quantum uncertainty can only clear outward at the maximum speed of light $c$, each Planck cell of radius $\ell_{\text{UV}}$ has a strict \textbf{100\% clearing-bandwidth ceiling} ($M_{\text{UV}}$ per $\frac{4}{3}\pi\ell_{\text{UV}}^3$, i.e., $\rho_{\text{UV}} = 1.231\times 10^{96}\text{ kg/m}^3$). Once a collapsing star hits that density, the bottleneck prevents it from clearing or compressing a central core sphere ($1 - \rho/\rho_{\text{UV}} \to 0$), halting collapse at a finite core instead of a zero-volume point singularity.
+
+2. \textbf{Time-Frozen Interior:} Deep inside the surrounding uncertainty backlog ($\psi = r_{\text{unc}}/r \gg 1$), local clocks slow by $d\tau/dt = e^{-\psi}$ and local coordinate wave speed drops to $c_{\text{coord}} = c\thinspace e^{-2\psi}$ ($n_{\text{opt}} = e^{2\psi}$), leaving the central sphere effectively frozen in time relative to the outside universe.
+
+3. \textbf{Clearing from the Edges via Hawking Radiation:} Because the interior core is time-frozen by the bottleneck, the uncertainty backlog can only clear \textbf{at the outer edges} of the trapping halo ($r_H = 2r_{\text{unc}}(M)$, surface area $A_H = 4\pi r_H^2$) through Hawking quantum leakage ($k_B T_H = \frac{\hbar c}{8\pi r_{\text{unc}}(M)}$, \texttt{Factor F59}).
+
+4. \textbf{Shrinking and Slowing into the Minimal Planck Sphere:} As the bottleneck clears from the outside edge, the sphere shrinks; however, unlike standard GR (where evaporation accelerates into a runaway $M \to 0$ explosion), the UV core saturation factor $\Theta_{\text{core}} = \left[1 - (M_{\text{UV}}/M)^2\right]^2 \to 0$ in the Hawking--Page ODE (\texttt{Factor F77}) \textbf{slows the evaporation to a gentle stop} ($dM/dt \to 0$) as $M \to M_{\text{UV}}$, leaving the remnant stably trapped in the single minimal Planck sphere ($R_{\text{core}} = r_{\text{unc}}(M_{\text{UV}}) = \ell_{\text{UV}} = 1.616\times 10^{-35}\text{ m}$, $M_{\text{UV}} = 21.76\thinspace\mu\text{g}$).
+\end{quote}
+
 Implemented in \texttt{cufg/benchmarks/uv\_planck\_bounce.py}, \texttt{cufg/benchmarks/referee\_tier2\_multisector\_suite.py}, and \texttt{cufg/theory.py} (\texttt{verify\_all\_orders\_rotating\_exponential\_metric\_and\_efe\_quadrupole}):
 \begin{enumerate}
   \item \textbf{Horizonless Static Exponential Metric \& Exact Photon Sphere ($r_{\text{ph}}^{\text{iso}} = 2 r_{\text{unc}}, b_{\text{crit}}^{\text{exp}} = 2 e \thinspace  r_{\text{unc}}$, $+4.63\%$ Above Schwarzschild)}: Because CUFG's covariant 4D phase-space metric $ds^2 = -e^{-2\psi}c^2 dt^2 + 2 g_{0i}c\thinspace dt\thinspace dx^i + e^{+2\psi}(dr^2 + r^2 d\Omega^2)$ ($\psi(r) = r_{\text{unc}}(M)/r \equiv u$, optical refractive index $n_{\text{opt}}(r) = e^{2u}$) has $g_{00} = -e^{-2u} \ne 0$ everywhere outside the UV Planck-sphere bounce core ($\rho_{\text{UV}} = \frac{M_{\text{UV}}}{\frac{4}{3}\pi\ell_{\text{UV}}^3} = 1.231\times 10^{96}\text{ kg/m}^3$), \textbf{there is no classical event horizon ($g_{00} = 0$)}. Consequently, classical horizon-pole formulas do not apply; all strong-field observables are derived directly from the exponential uncertainty metric itself:
