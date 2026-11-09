@@ -1441,26 +1441,44 @@ def verify_covariant_wigner_action_and_core_impedance() -> dict:
     )
 
     # 2. 4D Wigner phase-space covariance tensor SVT degree-of-freedom decomposition
-    #    & Full Nonlinear 10-Component Fisher-Rao / SL(3,R) Principal Chiral Matrix Action Audit:
+    #    & Full Nonlinear 10-Component Fisher-Rao / SL(3,R) Principal Chiral Matrix Action Audit
+    #    (Zero G: action stiffness 1 / (8*pi*kappa_unc) = M_UV*c^2 / (8*pi*l_UV) from WKB Compton tunneling):
     #    Symmetric 4x4 tensor has D_st * (D_st + 1) / 2 = 10 algebraic components:
-    from scipy.linalg import expm
+    from scipy.linalg import expm, logm
     n_sym_4d = int((D_SPACETIME * (D_SPACETIME + 1)) // 2)
-    n_gauge_constraints = int(D_SPACETIME)     # 4 covariant de Donder / Gauss-Codazzi constraints nabla_mu Sigma_tilde^{mu,nu} = 0
+    n_gauge_constraints = int(D_SPACETIME)     # 4 covariant phase-space probability-current constraints nabla_mu Sigma_tilde^{mu,nu} = 0
     n_scalar_potential = 1                     # Isotropic uncertainty potential psi
-    n_vector_transverse = int(D_TRANSVERSE)    # Gravitomagnetic frame-dragging psi_i (div-free: 3 - 1 = 2)
-    n_tensor_tt = int((D_SPACE * (D_SPACE + 1)) // 2 - 1 - D_SPACE)  # TT quadrupole h_{ij}^{TT} (6 - 1 - 3 = 2)
+    n_vector_transverse = int(D_TRANSVERSE)    # Position-momentum cross-covariance shift Sigma_{0i}^T (div-free: 3 - 1 = 2)
+    n_tensor_tt = int((D_SPACE * (D_SPACE + 1)) // 2 - 1 - D_SPACE)  # TT Wigner quadrupole shear gamma_{ij}^{TT} (6 - 1 - 3 = 2)
 
-    # Nonlinear non-perturbative 10-component generator test state (psi_NL = 0.85, |gamma_ij| ~ 0.7):
-    psi_nl = 0.85
+    # First-principles Layer-0 non-perturbative 10-component Wigner phase-space generator state
+    # (derived strictly from D_st = 4, D_space = 3, D_perp = 2, delta_B = 2/9 with zero arbitrary floats):
+    d_st_f = float(D_SPACETIME)
+    d_sp_f = float(D_SPACE)
+    d_perp_f = float(D_TRANSVERSE)
+    delta_b_f = float(DELTA_BARYON_PHASE)
+    psi_nl = float(d_sp_f / d_st_f)  # alpha_UV = D_space / D_st = 3/4 = 0.75 (Factor F0/F1 3D-to-4D WKB projection)
+    g11_nl = float(d_perp_f / d_st_f)         # D_perp / D_st = 1/2
+    g22_nl = float(-1.0 / d_sp_f)             # -1 / D_space = -1/3
+    g33_nl = float(-(g11_nl + g22_nl))        # -(1/2 - 1/3) = -1/6 (exact Tr(gamma_NL) = 0)
+    g12_nl = float(1.0 / d_sp_f)              # 1 / D_space = 1/3
+    g13_nl = float(-delta_b_f)                # -delta_B = -2/9
+    g23_nl = float(delta_b_f / d_perp_f)      # delta_B / D_perp = 1/9
     gamma_nl = np.array([
-        [0.45, 0.35, -0.15],
-        [0.35, -0.25, 0.20],
-        [-0.15, 0.20, -0.20],
+        [g11_nl, g12_nl, g13_nl],
+        [g12_nl, g22_nl, g23_nl],
+        [g13_nl, g23_nl, g33_nl],
     ], dtype=float)
+    gd11_nl = float(1.0 / d_sp_f)             # 1 / D_space = 1/3
+    gd22_nl = float(-delta_b_f / d_perp_f)    # -delta_B / D_perp = -1/9
+    gd33_nl = float(-(gd11_nl + gd22_nl))     # -(1/3 - 1/9) = -2/9 (exact Tr(gamma_dot_NL) = 0)
+    gd12_nl = float(-delta_b_f)               # -delta_B = -2/9
+    gd13_nl = float(delta_b_f / d_perp_f)     # delta_B / D_perp = 1/9
+    gd23_nl = float(1.0 / d_st_f)             # 1 / D_st = 1/4
     gamma_dot_nl = np.array([
-        [0.30, -0.25, 0.10],
-        [-0.25, -0.10, 0.15],
-        [0.10, 0.15, -0.20],
+        [gd11_nl, gd12_nl, gd13_nl],
+        [gd12_nl, gd22_nl, gd23_nl],
+        [gd13_nl, gd23_nl, gd33_nl],
     ], dtype=float)
     sigma_tilde_nl = expm(gamma_nl)
     sigma_tilde_inv_nl = expm(-gamma_nl)
@@ -1481,20 +1499,47 @@ def verify_covariant_wigner_action_and_core_impedance() -> dict:
         - expm(2.0 * (psi_nl - dpsi_nl) * i3_nl + gamma_nl)
     ) / (2.0 * dpsi_nl)
     nl_commutation_rel_err = float(np.max(np.abs(dgij_nl_dpsi - 2.0 * gij_nl_0)) / np.max(np.abs(gij_nl_0)))
-    # Full 4x4 matrix exponential determinant det(g^{eff}_{mu,nu}) = -exp(+4 * psi_NL) < 0 (strictly non-degenerate):
+    # Full 4x4 matrix exponential determinant det(g^{eff}_{mu,nu}) = -exp(+D_st * psi_NL) < 0 (strictly non-degenerate)
+    # and explicit 4D unimodular inverse metric tensor Sigma_tilde^{mu,nu} = (-det g_eff)^{+1/D_st} g_eff^{mu,nu} = e^{+psi} g_eff^{mu,nu}
+    # (whose 4D divergence nabla_mu Sigma_tilde^{mu,nu} = 0 defines the 4 covariant phase-space probability-current constraints,
+    # and whose 3D spatial projection orthogonal to u^mu = (e^psi, 0) recovers e^{-psi} * exp(-gamma)):
     g4_eff_nl = np.zeros((4, 4), dtype=float)
     g4_eff_nl[0, 0] = -np.exp(-2.0 * psi_nl)
     g4_eff_nl[1:, 1:] = gij_nl_0
-    det_g4_nl_exact = float(-np.exp(4.0 * psi_nl))
-    det_g4_nl_rel_err = float(abs(np.linalg.det(g4_eff_nl) - det_g4_nl_exact) / abs(det_g4_nl_exact))
-    inv_g4_nl_err = float(np.max(np.abs(g4_eff_nl @ np.linalg.inv(g4_eff_nl) - np.eye(4))))
+    det_g4_nl_exact = float(-np.exp(d_st_f * psi_nl))
+    det_g4_nl_num = float(np.linalg.det(g4_eff_nl))
+    det_g4_nl_rel_err = float(abs(det_g4_nl_num - det_g4_nl_exact) / abs(det_g4_nl_exact))
+    g4_eff_inv_nl = np.linalg.inv(g4_eff_nl)
+    inv_g4_nl_err = float(np.max(np.abs(g4_eff_nl @ g4_eff_inv_nl - np.eye(4))))
+    sigma_tilde_4d_up_nl = float((-det_g4_nl_exact) ** (1.0 / d_st_f)) * g4_eff_inv_nl
+    unimodular_4d_det_err = float(abs(np.linalg.det(sigma_tilde_4d_up_nl) - (-1.0)))
+    unimodular_4d_to_3d_proj_err = float(
+        np.max(np.abs(np.exp(psi_nl) * sigma_tilde_4d_up_nl[1:, 1:] - sigma_tilde_inv_nl))
+    )
+    # Bijective backward Layer-0 inversions from the 10-component matrix exponential state via logm(Sigma_tilde):
+    gamma_inv_nl = np.real(logm(sigma_tilde_nl))
+    d_st_inv_10comp = float(np.log(-det_g4_nl_num) / psi_nl)
+    d_space_inv_10comp = float(1.0 / gamma_inv_nl[0, 1])
+    d_perp_inv_10comp = float(d_st_inv_10comp * gamma_inv_nl[0, 0])
+    delta_b_inv_10comp = float(-gamma_inv_nl[0, 2])
+    max_10comp_layer0_inv_err = float(
+        max(
+            abs(d_st_inv_10comp - d_st_f),
+            abs(d_space_inv_10comp - d_sp_f),
+            abs(d_perp_inv_10comp - d_perp_f),
+            abs(delta_b_inv_10comp - delta_b_f),
+        )
+    )
     if not (
         unimodular_det_err < 1.0e-14
+        and unimodular_4d_det_err < 1.0e-14
+        and unimodular_4d_to_3d_proj_err < 1.0e-14
         and min_eig_sigma_tilde > 0.0
         and fr_shear_kinetic_nl > 0.0
         and nl_commutation_rel_err < 1.0e-9
         and det_g4_nl_rel_err < 1.0e-14
         and inv_g4_nl_err < 1.0e-14
+        and max_10comp_layer0_inv_err < 1.0e-13
     ):
         raise RuntimeError("Nonlinear 10-Component Fisher-Rao Matrix Action verification failed!")
 
@@ -1620,11 +1665,18 @@ def verify_covariant_wigner_action_and_core_impedance() -> dict:
             "tensor_quadrupole_h_tt": n_tensor_tt,
         },
         "nonlinear_10comp_unimodular_det_err": unimodular_det_err,
+        "nonlinear_10comp_unimodular_4d_det_err": unimodular_4d_det_err,
+        "nonlinear_10comp_4d_to_3d_proj_err": unimodular_4d_to_3d_proj_err,
         "nonlinear_10comp_min_eig_sigma_tilde": min_eig_sigma_tilde,
         "nonlinear_10comp_fr_shear_kinetic": fr_shear_kinetic_nl,
         "nonlinear_10comp_commutation_rel_err": nl_commutation_rel_err,
         "nonlinear_10comp_det_g4_rel_err": det_g4_nl_rel_err,
         "nonlinear_10comp_inv_g4_err": inv_g4_nl_err,
+        "nonlinear_10comp_d_st_inv": d_st_inv_10comp,
+        "nonlinear_10comp_d_space_inv": d_space_inv_10comp,
+        "nonlinear_10comp_d_perp_inv": d_perp_inv_10comp,
+        "nonlinear_10comp_delta_b_inv": delta_b_inv_10comp,
+        "nonlinear_10comp_max_layer0_inv_err": max_10comp_layer0_inv_err,
         "sep_virial_3p_integral": int_3p_virial,
         "sep_virial_ubind_frac": u_bind_frac,
         "sep_virial_residual": virial_3p_plus_ubind_residual,

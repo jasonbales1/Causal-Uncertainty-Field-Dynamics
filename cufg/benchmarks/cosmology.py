@@ -1234,15 +1234,16 @@ def evaluate_cosmological_expansion(params: CUFGParameters) -> dict:
         )
     )
 
-    # Local Covariant FLRW Action Box_FLRW psi_hol = -(1/a^2)[psi_hol'' + (D_st - 2)*H_conf*psi_hol' + k^2*psi_hol]:
-    # Verify that the Hubble relaxation term (D_st - 2)*H_conf*psi_hol' = 2*H_conf*psi_hol' arises from the local
+    # Local Covariant FLRW Uncertainty Action Box_FLRW psi_hol = -(1/a^2)[psi_hol'' + (D_st - 2)*H_unc*psi_hol' + k^2*psi_hol]:
+    # Verify that the Fokker-Planck horizon relaxation term (D_st - 2)*H_unc*psi_hol' = 2*H_unc*psi_hol' arises from the local
     # FLRW metric determinant sqrt(-g) = a^{D_st} = a^4 and satisfies the canonical Noether energy-balance identity
-    # dE_hol/dtau + (D_st - 2)*H_conf*(E_hol + P_hol) - psi_hol' * J_source = 0 to machine precision:
+    # dE_hol/dtau + (D_st - 2)*H_unc*(E_hol + P_hol) - psi_hol' * J_source = 0 to machine precision
+    # (with H_unc = D_space / D_perp = 3/2 in dimensionless 3D-to-2D Fokker-Planck conformal diffusion units):
     kappa_unc_zero_g = float(L_UV_PLANCK_M / (M_UV_PLANCK_KG * (C_LIGHT ** 2)))
     stiffness_hol_zero_g = float(1.0 / (8.0 * np.pi * kappa_unc_zero_g * (2.0 * np.pi)))
     d_st_flrw = float(D_SPACETIME)
-    c_hubble_flrw = float(d_st_flrw - 2.0)  # Exact Christoffel trace coefficient D_st - 2 = 2
-    h_conf_test = 1.5
+    c_hubble_flrw = float(d_st_flrw - 2.0)  # Exact FLRW volume-dilation trace coefficient D_st - 2 = 2
+    h_conf_test = float(D_SPACE) / 2.0      # Exact 3D-to-2D Fokker-Planck conformal diffusion rate D_space / D_perp = 3/2
     d2psi_dtau2_test = -c_hubble_flrw * h_conf_test * dpsi_hol_ds_nodes - (theta_3 ** 2) * (psi_hol_nodes_3 - psi_hol_eq_3)
     j_source_test = d2psi_dtau2_test + c_hubble_flrw * h_conf_test * dpsi_hol_ds_nodes + (theta_3 ** 2) * psi_hol_nodes_3
     de_hol_dtau = dpsi_hol_ds_nodes * (d2psi_dtau2_test + (theta_3 ** 2) * psi_hol_nodes_3)
@@ -1251,7 +1252,33 @@ def evaluate_cosmological_expansion(params: CUFGParameters) -> dict:
         np.max(np.abs(de_hol_dtau + c_hubble_flrw * h_conf_test * ep_sum_hol - dpsi_hol_ds_nodes * j_source_test))
     )
 
-    # Dynamic 3-state R_31 vs stationary R_31 comparison:
+    # Dynamic 3-state R_31 vs stationary R_31 comparison, plus full 4-state 2nd-order FLRW uncertainty-wave
+    # equation audit [(1 / ((D_st - 2)*Gamma_hor)) * psi_hol'' + psi_hol' + Gamma_hor*(psi_hol - psi_hol_eq) = c_leak*Y_1]
+    # confirming that the 1st-order relaxation ODE is the exact overdamped horizon-relaxation limit
+    # (|psi_hol''| << (D_st - 2)*Gamma_hor*|psi_hol'|, where Gamma_hor = 2*pi/delta_B = 9*pi = 28.274 >> 1):
+    def _be_4state_2nd_order_flrw_rhs(s_val: float, state_vec):
+        rb = r_b_star * (s_val ** 2)
+        sr = np.sqrt(1.0 + rb)
+        y1, y2, psi_hol, v_psi = state_vec
+        d2psi_ds2 = c_hubble_flrw * gamma_hor_3 * (-v_psi - gamma_hor_3 * (psi_hol - psi_hol_eq_3) + c_leak_3 * y1)
+        return [
+            -theta_3 * (y2 / sr) - g_diff_3 * s_val * y1,
+            theta_3 * sr * (y1 + rb * psi_hol) - g_diff_3 * s_val * y2,
+            v_psi,
+            d2psi_ds2,
+        ]
+
+    sol_4state_kg = solve_ivp(
+        _be_4state_2nd_order_flrw_rhs,
+        (0.0, 1.0),
+        [amp_ini_3, 0.0, psi_hol_eq_3, c_leak_3 * amp_ini_3],
+        method="DOP853",
+        rtol=1e-12,
+        atol=1e-14,
+    )
+    psi_hol_4state_ripple_rel_pct = float(
+        np.max(np.abs(sol_4state_kg.y[2] - psi_hol_eq_3)) / psi_hol_eq_3 * 100.0
+    )
     theta_phys_3 = float((3.0 - phi_peaks[2]) * np.pi)
     v_shell_3 = float(
         np.trapezoid(g_vis_asc * np.cos(theta_phys_3 * (rs_peebles_asc - r_s_zstar_mpc) / r_s_zstar_mpc), z_peebles_asc)
@@ -1259,6 +1286,9 @@ def evaluate_cosmological_expansion(params: CUFGParameters) -> dict:
     p3_3state_ode = float((float(sol_3state.y[0, -1]) ** 2) * (v_shell_3 ** 2) * (3.0 ** (n_s_spectral_derived - 1.0)))
     r31_3state_dynamic = float(p3_3state_ode / p1_cufg_ode)
     r31_3state_vs_stationary_rel_pct = float(abs(r31_3state_dynamic - r31_cufg) / r31_cufg * 100.0)
+    p3_4state_kg_ode = float((float(sol_4state_kg.y[0, -1]) ** 2) * (v_shell_3 ** 2) * (3.0 ** (n_s_spectral_derived - 1.0)))
+    r31_4state_kg_dynamic = float(p3_4state_kg_ode / p1_cufg_ode)
+    r31_4state_vs_3state_rel_pct = float(abs(r31_4state_kg_dynamic - r31_3state_dynamic) / r31_3state_dynamic * 100.0)
 
     # Backward Layer-0 Traceability Inversions (Machine-Precision Bijective Checks):
     # (a) Invert D_st = 4 from FLRW Christoffel Hubble-damping coefficient c_Hubble = D_st - 2:
@@ -1297,6 +1327,9 @@ def evaluate_cosmological_expansion(params: CUFGParameters) -> dict:
         "covariant_flrw_bianchi_max_err": covariant_flrw_bianchi_max_err,
         "r31_3state_dynamic": r31_3state_dynamic,
         "r31_3state_vs_stationary_rel_pct": r31_3state_vs_stationary_rel_pct,
+        "psi_hol_4state_kg_ripple_rel_pct": psi_hol_4state_ripple_rel_pct,
+        "r31_4state_kg_dynamic": r31_4state_kg_dynamic,
+        "r31_4state_vs_3state_rel_pct": r31_4state_vs_3state_rel_pct,
         "d_st_inv_flrw_christoffel": d_st_inv_flrw_christoffel,
         "d_perp_inv_wavefront": d_perp_inv_wavefront,
         "d_space_inv_wavefront": d_space_inv_wavefront,

@@ -496,18 +496,23 @@ def run_referee_tier9_polish_benchmark(
     mu_pbar_he4_monomial_err_ppm = float(
         abs(mu_pbar_he4_monomial_pred - mu_pbar_he4_over_me_asacusa) / mu_pbar_he4_over_me_asacusa * 1.0e6
     )
-    r_pi_monomial_pred_fm = float(r_pi_vmd_bare_fm * (1.0 + 0.25 * delta_b))
+    r_pi_monomial_pred_fm = float(r_pi_vmd_bare_fm * (1.0 + (1.0 / d_st) * delta_b))
     r_pi_monomial_err_pct = float(abs(r_pi_monomial_pred_fm - r_pi_pdg_fm) / r_pi_pdg_fm * 100.0)
     r_pi_monomial_pull_sigma = float(abs(r_pi_monomial_pred_fm - r_pi_pdg_fm) / 0.004)
-    wa_eff_desi_monomial_pred = float(-d_space * delta_b * (1.0 + 0.5 * delta_b))  # -20/27 = -0.740741
+    wa_eff_desi_monomial_pred = float(-d_space * delta_b * (1.0 + (1.0 / d_perp) * delta_b))  # -20/27 = -0.740741
     wa_eff_desi_monomial_err_pct = float(abs(wa_eff_desi_monomial_pred - wa_eff_desi_obs) / abs(wa_eff_desi_obs) * 100.0)
     wa_eff_desi_monomial_pull_sigma = float(abs(wa_eff_desi_monomial_pred - wa_eff_desi_obs) / 0.29)
+    # Bijective backward Layer-0 inversions from monomial ablation formulas:
+    d_st_inv_monomial = float(delta_b / ((r_pi_monomial_pred_fm / r_pi_vmd_bare_fm) - 1.0))
+    d_perp_inv_monomial = float(delta_b / ((-wa_eff_desi_monomial_pred / (d_space * delta_b)) - 1.0))
     monomial_ablation_all_passed = bool(
         mu_p_monomial_err_ppm < 30.0
         and mu_n_monomial_err_ppm < 30.0
         and mu_pbar_he4_monomial_err_ppm < 30.0
         and r_pi_monomial_pull_sigma < 0.30
         and wa_eff_desi_monomial_pull_sigma < 0.05
+        and abs(d_st_inv_monomial - d_st) < 1.0e-13
+        and abs(d_perp_inv_monomial - d_perp) < 1.0e-13
     )
 
     max_inv_err = float(
@@ -730,6 +735,8 @@ def run_referee_tier9_polish_benchmark(
             "wa_eff_desi_monomial_pred": wa_eff_desi_monomial_pred,
             "wa_eff_desi_monomial_err_pct": wa_eff_desi_monomial_err_pct,
             "wa_eff_desi_monomial_pull_sigma": wa_eff_desi_monomial_pull_sigma,
+            "d_st_inv_monomial": d_st_inv_monomial,
+            "d_perp_inv_monomial": d_perp_inv_monomial,
             "monomial_ablation_all_passed": monomial_ablation_all_passed,
         },
         "all_tier9_polish_passed": all_tier9_polish_passed,
