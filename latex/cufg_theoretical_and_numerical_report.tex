@@ -100,13 +100,13 @@ U_{\text{overlap}}(R) = -\frac{M_B c^2 r_{\text{unc}}(M_A)}{\vert \mathbf{r}_ A 
 
 \]
 
-When overlapping uncertainty fields from distributed matter fall into the weak-gradient regime ($y \equiv \vert \mathbf{g}_ {\text{pair}}\vert /a_{0,\text{eff}} \lesssim 1$), stimulated Bose-Einstein phase-space interference amplifies the effective gradient by the overlap factor \texttt{overlap\_amplification\_factor}:
-
 \begin{quote}
 \textbf{[TIP]} 
 
 \textbf{Physical Visualization (Speed-$c$ Informational Bottleneck \& Probability-Center Drift):} Intuitively, every mass $M$ generates quantum phase-space uncertainty that can only clear outward at the maximum causal speed $c$ through concentric 3D spherical shells of area $4\pi r^2$, creating a radial clearing bottleneck with choke-point radius $r_{\text{unc}}(M)$, clearing time $\tau_{\text{unc}}(M) = r_{\text{unc}}(M)/c$, flux $\vert \nabla\psi\vert  = r_{\text{unc}}/r^2$, and accumulated backlog $\psi(r) = r_{\text{unc}}/r$. When a second quantum wavepacket $B$ ($\vert \Psi_B\vert ^2$) overlaps this bottleneck, the higher phase-space weight ($n = e^{2\psi_A}$, slower local clock rate $e^{-\psi_A}$) on the near side biases $B$'s probability cloud toward $A$; continuously recalculating $B$'s average most-likely position $\langle \mathbf{x}_ B \rangle$ at speed $c$ produces the inward drift $\mathbf{a}_ {\text{pair}} = -c^2 r_{\text{unc}}(M_A)/R^2\thinspace\hat{\mathbf{R}}$ that the global field integral records as $-U_{AB}$.
 \end{quote}
+
+When overlapping uncertainty fields from distributed matter fall into the weak-gradient regime ($y \equiv \vert \mathbf{g}_ {\text{pair}}\vert /a_{0,\text{eff}} \lesssim 1$), stimulated Bose-Einstein phase-space interference amplifies the effective gradient by the overlap factor \texttt{overlap\_amplification\_factor}:
 
 \[
 

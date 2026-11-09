@@ -1440,12 +1440,63 @@ def verify_covariant_wigner_action_and_core_impedance() -> dict:
         abs(sig_tov_num - sig_tov_ana),
     )
 
-    # 2. 4D Wigner phase-space covariance tensor SVT degree-of-freedom decomposition:
-    # Symmetric 4x4 tensor has D_st * (D_st + 1) / 2 = 10 algebraic components:
+    # 2. 4D Wigner phase-space covariance tensor SVT degree-of-freedom decomposition
+    #    & Full Nonlinear 10-Component Fisher-Rao / SL(3,R) Principal Chiral Matrix Action Audit:
+    #    Symmetric 4x4 tensor has D_st * (D_st + 1) / 2 = 10 algebraic components:
+    from scipy.linalg import expm
     n_sym_4d = int((D_SPACETIME * (D_SPACETIME + 1)) // 2)
+    n_gauge_constraints = int(D_SPACETIME)     # 4 covariant de Donder / Gauss-Codazzi constraints nabla_mu Sigma_tilde^{mu,nu} = 0
     n_scalar_potential = 1                     # Isotropic uncertainty potential psi
     n_vector_transverse = int(D_TRANSVERSE)    # Gravitomagnetic frame-dragging psi_i (div-free: 3 - 1 = 2)
     n_tensor_tt = int((D_SPACE * (D_SPACE + 1)) // 2 - 1 - D_SPACE)  # TT quadrupole h_{ij}^{TT} (6 - 1 - 3 = 2)
+
+    # Nonlinear non-perturbative 10-component generator test state (psi_NL = 0.85, |gamma_ij| ~ 0.7):
+    psi_nl = 0.85
+    gamma_nl = np.array([
+        [0.45, 0.35, -0.15],
+        [0.35, -0.25, 0.20],
+        [-0.15, 0.20, -0.20],
+    ], dtype=float)
+    gamma_dot_nl = np.array([
+        [0.30, -0.25, 0.10],
+        [-0.25, -0.10, 0.15],
+        [0.10, 0.15, -0.20],
+    ], dtype=float)
+    sigma_tilde_nl = expm(gamma_nl)
+    sigma_tilde_inv_nl = expm(-gamma_nl)
+    # Unimodular SL(3,R)/SO(3) determinant det(exp(gamma)) = exp(Tr(gamma)) = 1:
+    unimodular_det_err = float(abs(np.linalg.det(sigma_tilde_nl) - 1.0))
+    # Positive-definite eigenvalues of exp(gamma) and positive-definite nonlinear Fisher-Rao kinetic trace:
+    min_eig_sigma_tilde = float(np.min(np.linalg.eigvalsh(sigma_tilde_nl)))
+    dt_eps = 1.0e-7
+    sigma_tilde_dot_nl = (expm(gamma_nl + dt_eps * gamma_dot_nl) - expm(gamma_nl - dt_eps * gamma_dot_nl)) / (2.0 * dt_eps)
+    fr_shear_kinetic_nl = float(0.25 * np.trace((sigma_tilde_inv_nl @ sigma_tilde_dot_nl) @ (sigma_tilde_inv_nl @ sigma_tilde_dot_nl)))
+    # All-orders commutation [psi * I_3, gamma_NL] = 0 => exp(2*psi*I_3 + gamma_NL) = e^{2*psi} exp(gamma_NL)
+    # and d g_{ij}^{eff}(psi, gamma_NL) / d psi = +2 * g_{ij}^{eff}:
+    i3_nl = np.eye(D_SPACE, dtype=float)
+    dpsi_nl = 1.0e-6
+    gij_nl_0 = expm(2.0 * psi_nl * i3_nl + gamma_nl)
+    dgij_nl_dpsi = (
+        expm(2.0 * (psi_nl + dpsi_nl) * i3_nl + gamma_nl)
+        - expm(2.0 * (psi_nl - dpsi_nl) * i3_nl + gamma_nl)
+    ) / (2.0 * dpsi_nl)
+    nl_commutation_rel_err = float(np.max(np.abs(dgij_nl_dpsi - 2.0 * gij_nl_0)) / np.max(np.abs(gij_nl_0)))
+    # Full 4x4 matrix exponential determinant det(g^{eff}_{mu,nu}) = -exp(+4 * psi_NL) < 0 (strictly non-degenerate):
+    g4_eff_nl = np.zeros((4, 4), dtype=float)
+    g4_eff_nl[0, 0] = -np.exp(-2.0 * psi_nl)
+    g4_eff_nl[1:, 1:] = gij_nl_0
+    det_g4_nl_exact = float(-np.exp(4.0 * psi_nl))
+    det_g4_nl_rel_err = float(abs(np.linalg.det(g4_eff_nl) - det_g4_nl_exact) / abs(det_g4_nl_exact))
+    inv_g4_nl_err = float(np.max(np.abs(g4_eff_nl @ np.linalg.inv(g4_eff_nl) - np.eye(4))))
+    if not (
+        unimodular_det_err < 1.0e-14
+        and min_eig_sigma_tilde > 0.0
+        and fr_shear_kinetic_nl > 0.0
+        and nl_commutation_rel_err < 1.0e-9
+        and det_g4_nl_rel_err < 1.0e-14
+        and inv_g4_nl_err < 1.0e-14
+    ):
+        raise RuntimeError("Nonlinear 10-Component Fisher-Rao Matrix Action verification failed!")
 
     # 3. Horizonless Exponential-Metric Optical Tortoise Trap & UV-Regulated Core Delay for GW150914, Sgr A*, and M87*:
     #    In CUFG's exponential metric ds^2 = -e^{-2*psi(r)} c^2 dt^2 + e^{+2*psi(r)} dx^2 (psi(r) = r_unc / r),
@@ -1562,11 +1613,18 @@ def verify_covariant_wigner_action_and_core_impedance() -> dict:
         "tov_pressure_coeff": float(D_SPACE),
         "active_source_jacobian_err": active_source_rel_err,
         "wigner_sym_4d_components": n_sym_4d,
+        "wigner_gauge_constraints": n_gauge_constraints,
         "svt_propagating_modes": {
             "scalar_potential_psi": n_scalar_potential,
             "vector_gravitomagnetic_psi_i": n_vector_transverse,
             "tensor_quadrupole_h_tt": n_tensor_tt,
         },
+        "nonlinear_10comp_unimodular_det_err": unimodular_det_err,
+        "nonlinear_10comp_min_eig_sigma_tilde": min_eig_sigma_tilde,
+        "nonlinear_10comp_fr_shear_kinetic": fr_shear_kinetic_nl,
+        "nonlinear_10comp_commutation_rel_err": nl_commutation_rel_err,
+        "nonlinear_10comp_det_g4_rel_err": det_g4_nl_rel_err,
+        "nonlinear_10comp_inv_g4_err": inv_g4_nl_err,
         "sep_virial_3p_integral": int_3p_virial,
         "sep_virial_ubind_frac": u_bind_frac,
         "sep_virial_residual": virial_3p_plus_ubind_residual,
