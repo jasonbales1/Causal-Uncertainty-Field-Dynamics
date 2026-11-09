@@ -8,7 +8,7 @@ authors:
 repository-code: "https://github.com/jasonbales1/Causal-Uncertainty-Field-Dynamics"
 url: "https://github.com/jasonbales1/Causal-Uncertainty-Field-Dynamics"
 version: "1.0.0"
-date-released: "2026-11-05"
+date-released: "2026-11-09"
 license: "MIT AND CC-BY-4.0"
 keywords:
   - gravitation
@@ -27,6 +27,9 @@ abstract: >-
   cosmological, and subatomic observations without postulating classical/quantum
   spin-2 gravity (G_bare = 0), Dark Matter, Dark Energy (Lambda = 0), scalar inflatons,
   or Peccei-Quinn axions, modeling these effects via an Effective Uncertainty Field
-  propagating at the speed of light c. Enforces 16 programmatic Referee Gates across
-  85 causal factors (F0-F81) and 1,011 directed edges with zero free dimensionless
-  parameters and zero numerology.
+  propagating at the speed of light c. Includes a nonlinear 10-component symmetric
+  4D Wigner phase-space covariance tensor action (Sigma_munu), 1st-order covariant
+  FLRW stress-energy conservation (nabla_mu T^munu = 0) for the S^1 holonomy memory
+  kernel, an Ab-Initio (Tiers 1-5) vs. Multi-Loop (Tiers 6-9) Monomial Selection-Rule
+  Ablation, and 16 programmatic Referee Gates across 85 causal factors (F0-F81) and
+  1,011 directed edges with zero free dimensionless parameters and zero numerology.
