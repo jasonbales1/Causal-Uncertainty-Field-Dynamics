@@ -19,5 +19,5 @@
     "nuclear binding energy",
     "reproducible computational physics"
   ],
-  "notes": "Software code (*.py) is licensed under the MIT License; theoretical manuscripts (*.md), figures (output/*.png), and datasets (output/*.json, output/*.html) are licensed under CC-BY-4.0. Run `python -B run_all_tests.py` to execute all 40 benchmark suites and 16 Referee Gates."
+  "notes": "Software code (*.py) is licensed under the MIT License; theoretical manuscripts (*.md, latex/*.tex), figures (output/*.png), and repository-generated verification outputs (output/*.json, output/*.html) are licensed under CC-BY-4.0. Public third-party observational datasets in cufg/data/ belong to their original collaborations: SPARC (Lelli, McGaugh & Schombert 2016, AJ 152, 157, VizieR J/AJ/152/157) and X-COP (Ettori et al. 2019, A&A 621, A39; Eckert et al. 2019, A&A 621, A40; University of Geneva X-COP archive). Run `python -B run_all_tests.py` to execute all 40 benchmark suites and 16 Referee Gates."
 }

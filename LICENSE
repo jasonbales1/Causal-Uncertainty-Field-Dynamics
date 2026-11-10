@@ -1,8 +1,9 @@
-Dual License for Software and Scientific Manuscripts/Datasets
-=============================================================
+Dual License for Software and Scientific Manuscripts & Third-Party Data Attribution
+===================================================================================
 
 1. Software & Source Code (`*.py`): MIT License
-2. Scientific Manuscripts (`*.md`), Figures (`output/*.png`), and Datasets (`output/*.json`, `output/*.html`): Creative Commons Attribution 4.0 International (CC-BY-4.0)
+2. Scientific Manuscripts (`*.md`, `latex/*.tex`), Figures (`output/*.png`), and Repository-Generated Verification Outputs (`output/*.json`, `output/*.html`): Creative Commons Attribution 4.0 International (CC-BY-4.0)
+3. Third-Party Observational Datasets (`cufg/data/*`): Public astronomical catalog data credited to their original collaborations (SPARC and X-COP; see Part 3 below). No copyright or original authorship is claimed by this repository over third-party observational data.
 
 ------------------------------------------------------------------------------
 PART 1: MIT LICENSE (Software & Numerical Benchmark Suite)
@@ -30,12 +31,13 @@ SOFTWARE.
 
 ------------------------------------------------------------------------------
 PART 2: CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL (CC-BY-4.0)
-(Theoretical Manuscripts, Figures, and Verification Datasets)
+(Theoretical Manuscripts, Figures, and Repository-Generated Verification Outputs)
 ------------------------------------------------------------------------------
 
-All markdown manuscripts (`*.md`), figures (`output/*.png`), and exported
-verification datasets (`output/*.json`, `output/*.html`) in this repository
-are licensed under the Creative Commons Attribution 4.0 International License.
+All original markdown manuscripts (`*.md`), LaTeX exports (`latex/*.tex`),
+figures (`output/*.png`), and repository-generated verification outputs
+(`output/*.json`, `output/*.html`) in this repository are licensed under the
+Creative Commons Attribution 4.0 International License.
 
 You are free to:
   - Share: copy and redistribute the material in any medium or format
@@ -46,3 +48,50 @@ Under the following terms:
   - Attribution: You must give appropriate credit, provide a link to the
     license (https://creativecommons.org/licenses/by/4.0/), and indicate if
     changes were made.
+
+------------------------------------------------------------------------------
+PART 3: THIRD-PARTY OBSERVATIONAL DATA ATTRIBUTION (`cufg/data/`)
+------------------------------------------------------------------------------
+
+The observational astronomy tables and FITS profiles stored in `cufg/data/` are
+publicly released scientific datasets produced by external research groups.
+They are included solely for offline reproducibility of the benchmark suite and
+remain the intellectual work of their respective authors, to whom all credit
+and citations belong:
+
+1. SPARC (Spitzer Photometry and Accurate Rotation Curves) Database
+   - Files: `cufg/data/sparc_table1_galaxies.csv`, `cufg/data/sparc_table2_massmodels.csv`
+   - Authors & Credit: Federico Lelli, Stacy S. McGaugh, and James M. Schombert
+   - Primary Citations:
+     * Lelli, F., McGaugh, S. S., & Schombert, J. M. (2016), "SPARC: Mass Models
+       for 175 Disk Galaxies with Spitzer Photometry and Accurate Rotation Curves,"
+       The Astronomical Journal, 152, 157 (doi:10.3847/0004-6256/152/6/157;
+       arXiv:1606.09251).
+     * McGaugh, S. S., Lelli, F., & Schombert, J. M. (2016), "Radial Acceleration
+       Relation in Rotationally Supported Galaxies," Physical Review Letters,
+       117, 201101 (doi:10.1103/PhysRevLett.117.201101; arXiv:1609.05917).
+   - Source Archive: CDS VizieR Catalog J/AJ/152/157
+     (https://cdsarc.cds.unistra.fr/viz-bin/cat/J/AJ/152/157) and the SPARC
+     Project Archive (http://astroweb.cwru.edu/SPARC/).
+
+2. X-COP (XMM-Newton Cluster Outskirts Project) Galaxy Cluster Data Products
+   - Files: `cufg/data/xcop_fits/*.fits`, `cufg/data/xcop_12clusters_radial_profiles.csv`,
+     `cufg/data/xcop_ettori2019_table1.csv`, `cufg/data/xcop_eckert2019_table2.csv`
+   - Authors & Credit: The X-COP Collaboration (Dominique Eckert, Stefano Ettori,
+     Vittorio Ghirardini, et al.)
+   - Primary Citations:
+     * Ettori, S., Ghirardini, V., Eckert, D., Pointecouteau, E., Gastaldello, F.,
+       Sereno, M., Gaspari, M., Ghizzardi, S., Bourdin, H., & Rossetti, M. (2019),
+       "Hydrostatic mass profiles in X-COP galaxy clusters," Astronomy & Astrophysics,
+       621, A39 (doi:10.1051/0004-6361/201833323; arXiv:1805.00035).
+     * Eckert, D., Ghirardini, V., Ettori, S., Rasia, E., Biffi, V., Pointecouteau, E.,
+       Rossetti, M., Molendi, S., Vazza, F., Gastaldello, F., Gaspari, M., De Grandi, S.,
+       Ghizzardi, S., Bourdin, H., Tchernin, C., & Roncarelli, M. (2019),
+       "Non-thermal pressure support in X-COP galaxy clusters," Astronomy & Astrophysics,
+       621, A40 (doi:10.1051/0004-6361/201833324; arXiv:1805.00034).
+     * Ghirardini, V., Eckert, D., Ettori, S., et al. (2019), "Universal thermodynamic
+       properties of the intracluster medium over two decades in radius in the X-COP
+       sample," Astronomy & Astrophysics, 621, A41 (doi:10.1051/0004-6361/201833325).
+   - Source Archive: University of Geneva X-COP Public Data Release
+     (https://dominiqueeckert.wixsite.com/xcop/data-products) and arXiv source
+     packages arXiv:1805.00034 / arXiv:1805.00035.

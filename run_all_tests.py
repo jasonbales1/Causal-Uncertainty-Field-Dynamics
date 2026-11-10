@@ -246,11 +246,12 @@ def main() -> None:
     )
     rar175 = gal_res["sparc_175_rar_envelope"]
     print(
-        f"  • [Referee Upgrade: 11-Bin Ensemble RAR Envelope (representing 2,693 SPARC points across 175 galaxies, McGaugh, Lelli & Schombert 2016, Zero G, Zero DM)]: "
+        f"  • [Referee Upgrade: Real SPARC Catalog J/AJ/152/157 ({rar175['n_data_points_sparc']:,d} Quality-Cut Points Across {rar175['n_galaxies_quality_cut']}/{rar175['n_galaxies_sparc']} Galaxies, Lelli et al. 2016; McGaugh et al. 2016, Zero G, Zero DM)]: "
         f"Exact Algebraic Identity ||ν_BE(y) - ν_MLS(y)||_∞ = {rar175['be_vs_mls_max_rel_diff']:.2e} | "
-        f"Derived a₀ = cH₀/(π√3) = {rar175['a0_cufg_ms2']:.6e} vs SPARC g_† = {rar175['g_dagger_mls_obs_ms2']:.2e} ± {rar175['g_dagger_mls_sigma_ms2']:.2e} m/s² "
-        f"(Err {rar175['a0_vs_g_dagger_err_pct']:.3f}%, {rar175['a0_vs_g_dagger_pull_sigma']:.2f}σ) | "
-        f"11-Bin Envelope: Baryon-Only χ²_ν = {rar175['chi2_red_baryon_only']:.1f} -> CUFG Zero-Parameter χ²_ν = {rar175['chi2_red_cufg_rar']:.4f} "
+        f"Derived a₀ = {rar175['a0_cufg_ms2']:.6e} vs SPARC g_† = {rar175['g_dagger_mls_obs_ms2']:.2e} ± {rar175['g_dagger_mls_sigma_ms2']:.2e}(rand) ± {rar175['g_dagger_mls_sys_ms2']:.2e}(sys) m/s² "
+        f"(Err {rar175['a0_vs_g_dagger_err_pct']:.3f}%, {rar175['a0_vs_g_dagger_pull_sigma']:.2f}σ_rand / {rar175['a0_vs_g_dagger_sys_pull_sigma']:.3f}σ_sys; alt cH₀/(2π) at {rar175['a0_alt_2pi_sys_pull_sigma']:.2f}σ_sys) | "
+        f"Pointwise (N={rar175['n_data_points_sparc']:,d}): Mean = {rar175['pointwise_mean_dex']:+.4f} dex, SD = {rar175['pointwise_sd_dex']:.4f} dex, χ²_ν = {rar175['pointwise_chi2_red_cufg']:.3f} | "
+        f"11-Bin RAR: Baryon-Only χ²_ν = {rar175['chi2_red_baryon_only']:.1f} -> CUFG χ²_ν(SD) = {rar175['chi2_red_cufg_rar']:.4f}, χ²_ν(SEM=σ/√N) = {rar175['chi2_red_rar_cufg_sem']:.3f} "
         f"(RMS = {rar175['rms_residual_dex']:.4f} dex) | "
         f"Inversions: a₀,inv = {rar175['a0_inv_from_rar_ms2']:.6e} m/s², e_inv = {rar175['e_euler_inv_from_rar']:.8f}, D_space,inv = {rar175['d_space_inv_from_rar']:.6f}"
     )
@@ -1872,11 +1873,15 @@ def main() -> None:
         f"Breit–Pauli ⁴He = {cov_a['sigma_th_breit_pauli_he4_ppm']:.1f} ppm -> "
         f"{cov_a['n_within_1sigma_tot']}/{cov_a['n_observables']} within 1σ_tot, {cov_a['n_within_2sigma_tot']}/{cov_a['n_observables']} within 2σ_tot"
     )
+    xcop_cl = cosmo_res["cluster_radial_profile_and_sparc_morphology"]
     print(
-        f"  • [Gate 4: 11-Bin Ensemble RAR Envelope (representing 175-Galaxy, 2,693-Point SPARC Sample) & Identity] "
+        f"  • [Gate 4: Real SPARC J/AJ/152/157 ({rar175['n_data_points_sparc']:,d} Pts, {rar175['n_galaxies_quality_cut']}/{rar175['n_galaxies_sparc']} Galaxies) & 12-Cluster Official X-COP FITS Profile] "
         f"||ν_BE(y) - ν_MLS(y)||_∞ = {rar175['be_vs_mls_max_rel_diff']:.2e} | "
-        f"a₀ = cH₀/(π√3) = {rar175['a0_cufg_ms2']:.6e} m/s² vs SPARC g_† (Err {rar175['a0_vs_g_dagger_err_pct']:.3f}%, {rar175['a0_vs_g_dagger_pull_sigma']:.2f}σ) | "
-        f"Baryon-Only χ²_ν = {rar175['chi2_red_baryon_only']:.1f} -> CUFG Zero-Parameter χ²_ν = {rar175['chi2_red_cufg_rar']:.4f} (RMS = {rar175['rms_residual_dex']:.4f} dex)"
+        f"a₀ = {rar175['a0_cufg_ms2']:.6e} m/s² vs SPARC g_† ({rar175['a0_vs_g_dagger_pull_sigma']:.2f}σ_rand / {rar175['a0_vs_g_dagger_sys_pull_sigma']:.3f}σ_sys) | "
+        f"SPARC Pointwise χ²_ν = {rar175['pointwise_chi2_red_cufg']:.3f} (Mean {rar175['pointwise_mean_dex']:+.4f} dex), 11-Bin χ²_ν(SD) = {rar175['chi2_red_cufg_rar']:.4f}, χ²_ν(SEM) = {rar175['chi2_red_rar_cufg_sem']:.3f} | "
+        f"12-Cluster X-COP FITS (0.1..1.5 R₅₀₀): MOND χ²_ν = {xcop_cl['chi2_red_cluster_mond_sd']:.2f}(SD)/{xcop_cl['chi2_red_cluster_mond']:.2f}(tot) -> "
+        f"Old CUFG χ²_ν = {xcop_cl['chi2_red_cluster_cufg_old_sd']:.3f}(SD)/{xcop_cl['chi2_red_cluster_cufg_old']:.3f}(tot), "
+        f"Helmholtz Virial-Screened χ²_ν = {xcop_cl['chi2_red_cluster_cufg_helm_sd']:.3f}(SD)/{xcop_cl['chi2_red_cluster_cufg']:.3f}(tot)"
     )
     print(
         f"  • [Gate 5: 3-Laser Vacuum FWM Chiral-Octant Polarization Discriminator] "

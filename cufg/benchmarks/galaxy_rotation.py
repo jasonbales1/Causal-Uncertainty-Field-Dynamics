@@ -4,6 +4,8 @@ Tully-Fisher Relation (BTFR) from Overlapping Uncertainty Fields (Zero Dark Matt
 ===================================================================================
 """
 
+import csv
+import os
 import numpy as np
 from scipy.special import i0, i1, j1, k0, k1
 from cufg.theory import (
@@ -236,7 +238,7 @@ def evaluate_galaxy_rotation_curves(params: CUFGParameters, y_p_bbn: float | Non
     r_out_m = 25.0 * KPC_METER * ((mass_msun_grid / 5.0e10) ** 0.3)
     v_out_newton_kms = np.sqrt((C_LIGHT ** 2) * (mass_msun_grid * R_SUN_UNC_M) / r_out_m) / 1.0e3
 
-    # --- 4. [REFEREE SCRUTINY UPGRADE 4] 11-Bin Ensemble RAR Envelope (representing 2,693 SPARC points
+    # --- 4. [REFEREE SCRUTINY UPGRADE 4] Direct SPARC Catalog RAR (2,696 quality-cut / 3,391 raw points from J/AJ/152/157
     #        across 175 galaxies, McGaugh, Lelli & Schombert 2016, PRL 117, 201101) + 7-Galaxy Multi-Mass Suite
     #        & Exact Bose-Einstein vs. Empirical MLS Algebraic Identity Verification (Zero G, Zero DM!) ---
     # [DERIVATION & COMPONENT TRACEABILITY LEDGER]:
@@ -260,31 +262,95 @@ def evaluate_galaxy_rotation_curves(params: CUFGParameters, y_p_bbn: float | Non
     a0_cufg_si = float(params.a0_effective)
     g_dag_sparc_obs_si = 1.20e-10
     g_dag_sparc_err_si = 0.02e-10
+    g_dag_sparc_sys_si = 0.24e-10  # McGaugh et al. (2016, PRL 117, 201101) +/- 0.24e-10 m/s^2 (20% systematic)
+    g_dag_sparc_tot_si = float(np.sqrt(g_dag_sparc_err_si ** 2 + g_dag_sparc_sys_si ** 2))
     g_dag_sparc_sigma_si = g_dag_sparc_err_si
     a0_vs_sparc_rel_err_pct = float(abs(a0_cufg_si - g_dag_sparc_obs_si) / g_dag_sparc_obs_si * 100.0)
     a0_vs_sparc_sigma = float(abs(a0_cufg_si - g_dag_sparc_obs_si) / g_dag_sparc_err_si)
+    a0_vs_sparc_sys_sigma = float(abs(a0_cufg_si - g_dag_sparc_obs_si) / g_dag_sparc_tot_si)
+    # Alternative horizon projection c * H_0 / (2 * pi) comparison against full systematic uncertainty:
+    a0_alt_2pi_si = float((C_LIGHT * H0_SI) / (2.0 * np.pi))
+    a0_alt_2pi_vs_sparc_sys_sigma = float(abs(a0_alt_2pi_si - g_dag_sparc_obs_si) / g_dag_sparc_tot_si)
 
-    # 11 Binned SPARC Radial Acceleration Relation (RAR) benchmarks spanning 2,693 points across 175 galaxies
-    # (McGaugh, Lelli & Schombert 2016, PRL 117, 201101, Fig. 3; Lelli et al. 2017, ApJ 836, 152):
-    # Columns: (log10_g_bar [m/s^2], log10_g_obs_sparc [m/s^2], sigma_tot_dex [dex], n_points_bin)
-    sparc_175_rar_bins_raw = [
-        (-11.75, -10.831, 0.120, 112),
-        (-11.45, -10.678, 0.115, 218),
-        (-11.15, -10.521, 0.110, 345),
-        (-10.85, -10.358, 0.108, 412),
-        (-10.55, -10.185, 0.105, 438),
-        (-10.25, -9.998,  0.105, 389),
-        (-9.95,  -9.790,  0.102, 312),
-        (-9.65,  -9.555,  0.100, 224),
-        (-9.35,  -9.293,  0.098, 132),
-        (-9.05,  -9.010,  0.095,  71),
-        (-8.75,  -8.722,  0.095,  40),
-    ]
+    # Load real SPARC catalog directly from cufg/data/ (VizieR J/AJ/152/157/table1 & table2;
+    # Lelli, McGaugh & Schombert 2016, AJ 152, 157; McGaugh, Lelli & Schombert 2016, PRL 117, 201101):
+    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+    sparc_t1_path = os.path.join(data_dir, "sparc_table1_galaxies.csv")
+    sparc_t2_path = os.path.join(data_dir, "sparc_table2_massmodels.csv")
+
+    gal_meta = {}
+    with open(sparc_t1_path, mode="r", encoding="utf-8") as f1:
+        for row in csv.DictReader(f1):
+            name = row["Name"].strip()
+            gal_meta[name] = {
+                "Type": int(row["Type"]),
+                "Qual": int(row["Qual"]),
+                "i": float(row["i"]),
+            }
+
+    pts_lgb, pts_lgo, pts_sig_tot, pts_gal = [], [], [], []
+    ups_disk_sparc = 0.50
+    ups_bul_sparc = 0.70
+    with open(sparc_t2_path, mode="r", encoding="utf-8") as f2:
+        for row in csv.DictReader(f2):
+            name = row["Name"].strip()
+            if name not in gal_meta:
+                continue
+            gm = gal_meta[name]
+            vobs = float(row["Vobs"])
+            evobs = float(row["e_Vobs"])
+            rad_kpc = float(row["Rad"])
+            # Standard McGaugh et al. (2016) quality cuts: Qual <= 2, i >= 30 deg, e_Vobs / Vobs < 0.10
+            if gm["Qual"] > 2 or gm["i"] < 30.0 or vobs <= 0.0 or rad_kpc <= 0.0 or (evobs / vobs) >= 0.10:
+                continue
+            vgas = float(row["Vgas"])
+            vdisk = float(row["Vdisk"])
+            vbul = float(row["Vbulge"])
+            vbar2 = np.sign(vgas) * (vgas ** 2) + ups_disk_sparc * (vdisk ** 2) + ups_bul_sparc * (vbul ** 2)
+            if vbar2 <= 0.0:
+                continue
+            r_m = rad_kpc * KPC_METER
+            g_obs_pt = ((vobs * 1.0e3) ** 2) / r_m
+            g_bar_pt = (vbar2 * 1.0e6) / r_m
+            sig_v_dex = (2.0 * (evobs / vobs)) / np.log(10.0)
+            sig_tot_pt = float(np.sqrt(sig_v_dex ** 2 + 0.10 ** 2))
+            pts_lgb.append(float(np.log10(g_bar_pt)))
+            pts_lgo.append(float(np.log10(g_obs_pt)))
+            pts_sig_tot.append(sig_tot_pt)
+            pts_gal.append(name)
+
+    pts_lgb_arr = np.array(pts_lgb)
+    pts_lgo_arr = np.array(pts_lgo)
+    pts_sig_arr = np.array(pts_sig_tot)
+    pts_gb_si = 10.0 ** pts_lgb_arr
+    pts_nu_cufg = overlap_amplification_factor(pts_gb_si, params)
+    pts_lgo_cufg = np.log10(pts_gb_si * pts_nu_cufg)
+    pts_res_dex = pts_lgo_cufg - pts_lgo_arr
+
+    n_galaxies_sparc_total = len(gal_meta)
+    n_galaxies_sparc_qual = len(set(pts_gal))
+    n_points_sparc_qual = len(pts_lgb_arr)
+    pointwise_mean_dex = float(np.mean(pts_res_dex))
+    pointwise_median_dex = float(np.median(pts_res_dex))
+    pointwise_sd_dex = float(np.std(pts_res_dex, ddof=1))
+    pointwise_chi2_red_cufg = float(np.mean((pts_res_dex / pts_sig_arr) ** 2))
+
+    # 11 Binned SPARC Radial Acceleration Relation (RAR) benchmarks computed directly from the real SPARC
+    # J/AJ/152/157 catalog across [-11.90, -8.60] (11 equal 0.30-dex bins centered at -11.75 .. -8.75),
+    # reporting BOTH the per-point bin scatter sigma_SD and the Standard Error of the Mean SEM = sigma_SD / sqrt(N):
+    bin_edges = np.linspace(-11.90, -8.60, 12)
     rar_bin_results = []
     chi2_rar_cufg_sum = 0.0
+    chi2_rar_cufg_sem_sum = 0.0
     chi2_rar_baryon_only_sum = 0.0
     abs_dex_residuals = []
-    for log_gb, log_go_obs, sig_dex, n_pts in sparc_175_rar_bins_raw:
+    for b_idx in range(11):
+        mask_b = (pts_lgb_arr >= bin_edges[b_idx]) & (pts_lgb_arr < bin_edges[b_idx + 1])
+        n_pts = int(np.sum(mask_b))
+        log_gb = float(np.mean(pts_lgb_arr[mask_b]))
+        log_go_obs = float(np.mean(pts_lgo_arr[mask_b]))
+        sig_dex = float(np.std(pts_res_dex[mask_b], ddof=1))
+        sem_dex = float(sig_dex / np.sqrt(n_pts))
         gb_si = 10.0 ** log_gb
         nu_val = float(overlap_amplification_factor(np.array([gb_si]), params)[0])
         go_cufg_si = float(gb_si * nu_val)
@@ -292,18 +358,24 @@ def evaluate_galaxy_rotation_curves(params: CUFGParameters, y_p_bbn: float | Non
         dex_res = float(log_go_cufg - log_go_obs)
         abs_dex_residuals.append(abs(dex_res))
         chi2_rar_cufg_sum += float((dex_res / sig_dex) ** 2)
+        chi2_rar_cufg_sem_sum += float((dex_res / sem_dex) ** 2)
         chi2_rar_baryon_only_sum += float(((log_gb - log_go_obs) / sig_dex) ** 2)
         rar_bin_results.append({
+            "bin_center_log10_g_bar": float(0.5 * (bin_edges[b_idx] + bin_edges[b_idx + 1])),
             "log10_g_bar": log_gb,
             "log10_g_obs_cufg": log_go_cufg,
             "log10_g_obs_sparc": log_go_obs,
             "dex_residual": dex_res,
             "sigma_dex": sig_dex,
+            "sem_dex": sem_dex,
+            "pull_sd_sigma": float(dex_res / sig_dex),
+            "pull_sem_sigma": float(dex_res / sem_dex),
             "n_points": n_pts,
         })
 
-    n_rar_bins = len(sparc_175_rar_bins_raw)
-    chi2_red_rar_cufg = float(chi2_rar_cufg_sum / n_rar_bins)  # Zero fitted parameters -> dof = n_rar_bins = 11
+    n_rar_bins = len(rar_bin_results)
+    chi2_red_rar_cufg = float(chi2_rar_cufg_sum / n_rar_bins)          # Per-point scatter error bars
+    chi2_red_rar_cufg_sem = float(chi2_rar_cufg_sem_sum / n_rar_bins)  # Strict SEM = sigma_SD / sqrt(N) error bars
     chi2_red_rar_baryon_only = float(chi2_rar_baryon_only_sum / n_rar_bins)
     mean_abs_dex_residual = float(np.mean(abs_dex_residuals))
     rms_dex_residual = float(np.sqrt(np.mean(np.array(abs_dex_residuals) ** 2)))
@@ -361,8 +433,9 @@ def evaluate_galaxy_rotation_curves(params: CUFGParameters, y_p_bbn: float | Non
             "v_out_newton_kms": v_out_newton_kms,
         },
         "sparc_175_rar_envelope": {
-            "n_galaxies_sparc": 175,
-            "n_data_points_sparc": 2693,
+            "n_galaxies_sparc": n_galaxies_sparc_total,
+            "n_galaxies_quality_cut": n_galaxies_sparc_qual,
+            "n_data_points_sparc": n_points_sparc_qual,
             "n_bins": n_rar_bins,
             "bose_einstein_vs_mls_max_rel_diff": bose_einstein_vs_mls_max_rel_diff,
             "be_vs_mls_max_rel_diff": bose_einstein_vs_mls_max_rel_diff,
@@ -371,12 +444,22 @@ def evaluate_galaxy_rotation_curves(params: CUFGParameters, y_p_bbn: float | Non
             "g_dag_sparc_obs_si": g_dag_sparc_obs_si,
             "g_dagger_mls_obs_ms2": g_dag_sparc_obs_si,
             "g_dagger_mls_sigma_ms2": g_dag_sparc_sigma_si,
+            "g_dagger_mls_sys_ms2": g_dag_sparc_sys_si,
+            "g_dagger_mls_tot_sigma_ms2": g_dag_sparc_tot_si,
             "a0_vs_sparc_rel_err_pct": a0_vs_sparc_rel_err_pct,
             "a0_vs_g_dagger_err_pct": a0_vs_sparc_rel_err_pct,
             "a0_vs_sparc_sigma": a0_vs_sparc_sigma,
             "a0_vs_g_dagger_pull_sigma": a0_vs_sparc_sigma,
+            "a0_vs_g_dagger_sys_pull_sigma": a0_vs_sparc_sys_sigma,
+            "a0_alt_2pi_ms2": a0_alt_2pi_si,
+            "a0_alt_2pi_sys_pull_sigma": a0_alt_2pi_vs_sparc_sys_sigma,
+            "pointwise_mean_dex": pointwise_mean_dex,
+            "pointwise_median_dex": pointwise_median_dex,
+            "pointwise_sd_dex": pointwise_sd_dex,
+            "pointwise_chi2_red_cufg": pointwise_chi2_red_cufg,
             "chi2_red_rar_cufg": chi2_red_rar_cufg,
             "chi2_red_cufg_rar": chi2_red_rar_cufg,
+            "chi2_red_rar_cufg_sem": chi2_red_rar_cufg_sem,
             "chi2_red_rar_baryon_only": chi2_red_rar_baryon_only,
             "chi2_red_baryon_only": chi2_red_rar_baryon_only,
             "mean_abs_dex_residual": mean_abs_dex_residual,
