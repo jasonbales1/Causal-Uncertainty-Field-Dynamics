@@ -277,27 +277,19 @@ def run_referee_tier3_completions_benchmark() -> dict:
     #    2nd-order quadrupole-to-octupole (Theta_2 -> Theta_3) radiative dispersion shift:
     #      C_2nd_TC(l) = 1 + (delta_B / D_space) * (l / l_Silk)^2 / [1 + (l / (2 * l_Silk))^2]
     #    accounts for the finite-mean-free-path high-l tail without any free parameters!
-    l_silk_tight = 1352.4
-    high_l_peaks_spec = [
-        (4, 1139.8, 1204.5, 1238.4, 12.0),
-        (5, 1457.8, 764.4, 799.1, 10.0),
-        (6, 1770.0, 366.3, 395.0, 9.0),
-        (7, 2079.1, 193.6, 208.0, 8.0),
-    ]
-    # Non-equilibrium visibility-shell Silk cumulant & 2nd-order tight-coupling octupole dressing:
-    # Across the Kramers-Peebles visibility shell (sigma_z / (1 + z_*) = delta_B / (2*pi) = 0.03537),
-    # the 2nd cumulant (variance) of the damping exponent 2*(l/l_Silk)^2 + 2nd-order octupole shear
-    # relaxation in the chiral baryon-photon fluid (1 - delta_B) gives:
-    #   C_2nd_TC(l) = exp[ (1 - delta_B) * (delta_B / D_space) * (l / l_Silk)^2 / (1 + (1 / D_space) * (l / l_Silk)^2) ]:
+    from cufg.benchmarks.cosmology import run_cufg_camb_boltzmann
+
+    camb_pk_high_l = run_cufg_camb_boltzmann()["tt_peaks_l2500"]
     high_l_peaks_results = []
-    for m_idx, l_pk, dl_1st, dl_obs, sig_obs in high_l_peaks_spec:
-        x_silk = float(l_pk / l_silk_tight)
-        c_2nd_tc = float(
-            np.exp(((1.0 - delta_b) * (delta_b / d_space) * (x_silk ** 2)) / (1.0 + (1.0 / d_space) * (x_silk ** 2)))
-        )
-        dl_2nd = float(dl_1st * c_2nd_tc)
-        err_1st_pct = float(abs(dl_1st - dl_obs) / dl_obs * 100.0)
-        err_2nd_pct = float(abs(dl_2nd - dl_obs) / dl_obs * 100.0)
+    for pk in camb_pk_high_l[3:7]:
+        m_idx = int(pk["m"])
+        l_pk = float(pk["l_pred"])
+        dl_1st = float(pk["dl_tt_1st_order_uk2"])
+        dl_2nd = float(pk["dl_tt_2nd_order_uk2"])
+        dl_obs = float(pk["dl_tt_obs_uk2"])
+        sig_obs = float(pk["dl_tt_sigma_uk2"])
+        err_1st_pct = float(pk["dl_err_1st_order_pct"])
+        err_2nd_pct = float(pk["dl_err_2nd_order_pct"])
         pull_2nd = float((dl_2nd - dl_obs) / sig_obs)
         high_l_peaks_results.append({
             "peak_m": m_idx,

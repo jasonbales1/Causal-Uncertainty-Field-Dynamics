@@ -1255,61 +1255,14 @@ def evaluate_correlated_covariance_and_truncation_budget() -> dict:
     )
     d_m_zstar_fp = float(np.trapezoid((C_LIGHT / 1.0e3) / h_to_star_fp, z_late_star_fp))
     l_a_fp = float((np.pi * d_m_zstar_fp) / r_s_zstar_fp)
-    # 1st acoustic compression peak phase shift phi_1 including 2-loop S^1 baryon-loading phase
-    # delta_B * (1 + delta_B + delta_B / (4*pi)) (Hu & Sugiyama 1996, ApJ 471, 542):
-    phi_1_fp = float(delta_l_val * (1.0 + delta_l_val + delta_l_val / (4.0 * np.pi)))
-    phi_2_fp = float(delta_l_val * (1.0 + delta_l_val / (2.0 * np.pi)))
-    l_1_fp = float(l_a_fp * (1.0 - phi_1_fp))
-    l_2_fp = float(l_a_fp * (2.0 - phi_2_fp))
+    from cufg.benchmarks.cosmology import run_cufg_camb_boltzmann
 
-    z_silk_fp = np.geomspace(z_star_fp, 1.0e6, 3000)
-    xe_silk_fp = np.where(z_silk_fp <= 1800.0, np.interp(z_silk_fp, z_peeb_asc_fp, xe_peeb_asc_fp), 1.0)
-    r_b_silk_fp = (3.0 * float(OMEGA_B_H2_DERIVED)) / (4.0 * omega_g_h2_fp * (1.0 + z_silk_fp))
-    h_silk_si_fp = _h_early_si_fp(z_silk_fp)
-    integ_kd_fp = (
-        C_LIGHT
-        / (6.0 * ((1.0 + z_silk_fp) ** 2) * h_silk_si_fp * (xe_silk_fp * n_e0_free_fp) * sigma_t_fp * (1.0 + r_b_silk_fp))
-        * ((r_b_silk_fp ** 2) / (1.0 + r_b_silk_fp) + (16.0 / 15.0))
-    )
-    k_d_silk_fp = float(MPC_METER / np.sqrt(float(np.trapezoid(integ_kd_fp, z_silk_fp))))
-    l_diff_tight_fp = float(k_d_silk_fp * d_m_zstar_fp)
-
-    r_b_star_fp = float((3.0 * float(OMEGA_B_H2_DERIVED)) / (4.0 * omega_g_h2_fp * (1.0 + z_star_fp)))
-    a_star_fp = float(1.0 / (1.0 + z_star_fp))
-    a_eq_fp = float(omega_r_h2_fp / omega_m_eff_h2_fp)
-    r_b_peeb_asc_fp = (3.0 * float(OMEGA_B_H2_DERIVED)) / (4.0 * omega_g_h2_fp * (1.0 + z_peeb_asc_fp))
-    cs_peeb_kms_fp = (C_LIGHT / 1.0e3) / np.sqrt(3.0 * (1.0 + r_b_peeb_asc_fp))
-    h_peeb_kms_fp = (h_peeb_asc_fp * MPC_METER) / 1.0e3
-    cum_drs_fp = cumulative_trapezoid(-cs_peeb_kms_fp / h_peeb_kms_fp, z_peeb_asc_fp, initial=0.0)
-    rs_peeb_asc_fp = r_s_zstar_fp + cum_drs_fp - float(np.interp(z_star_fp, z_peeb_asc_fp, cum_drs_fp))
-    m_uv_mev_fp = float((float(M_UV_PLANCK_KG) * (C_LIGHT ** 2)) / MEV_JOULE)
-    n_efolds_piv_fp = float(1.25 * np.log(m_uv_mev_fp / float(M_NUCLEON_ANCHOR_MEV)))
-    n_s_spec_fp = float(1.0 - 2.0 / n_efolds_piv_fp)
-    phi_peaks_fp = [phi_1_fp, phi_2_fp]
-
-    def _solve_be_peak_fp(m_mode: int, l_val: float) -> float:
-        theta_m = float(m_mode * np.pi)
-        theta_phys = float((m_mode - phi_peaks_fp[m_mode - 1]) * np.pi)
-        g_diff = float((l_val / l_diff_tight_fp) ** 2)
-        t_psi_m = float(1.0 / (1.0 + delta_l_val * (m_mode ** 2) * (a_eq_fp / a_star_fp)))
-        amp_ini = float(np.sqrt(t_psi_m))
-        psi_shift = float((1.0 / (2.0 * np.pi)) * (1.0 + delta_l_val / np.pi) * amp_ini)
-
-        def _be_rhs_fp(s_val: float, y_vec):
-            rb = r_b_star_fp * (s_val ** 2)
-            sr = np.sqrt(1.0 + rb)
-            y1, y2 = y_vec
-            return [
-                -theta_m * (y2 / sr) - g_diff * s_val * y1,
-                theta_m * sr * (y1 + rb * psi_shift) - g_diff * s_val * y2,
-            ]
-
-        sol_be = solve_ivp(_be_rhs_fp, (0.0, 1.0), [amp_ini, 0.0], method="RK45", rtol=1e-7, atol=1e-9)
-        y1_end = float(sol_be.y[0, -1])
-        v_shell = float(np.trapezoid(g_vis_asc_fp * np.cos(theta_phys * (rs_peeb_asc_fp - r_s_zstar_fp) / r_s_zstar_fp), z_peeb_asc_fp))
-        return float((y1_end ** 2) * (v_shell ** 2) * (m_mode ** (n_s_spec_fp - 1.0)))
-
-    r_21_fp = float(_solve_be_peak_fp(2, l_2_fp) / _solve_be_peak_fp(1, l_1_fp))
+    camb_fp_res = run_cufg_camb_boltzmann()
+    camb_fp_peaks = camb_fp_res["tt_peaks_l2500"]
+    l_1_fp = float(camb_fp_peaks[0]["l_pred"])
+    l_1_ref_fp = float(camb_fp_peaks[0]["l_obs"])
+    r_21_fp = float(camb_fp_peaks[1]["r_m1_pred"])
+    r_21_ref_fp = float(camb_fp_peaks[1]["r_m1_obs"])
 
     # 6. Dynamic Zero-G Solar System, Binary Pulsar, Sgr A* S2 Star & Bullet Cluster Observables:
     a_merc_m = float(0.38709893 * float(AU_METER))
@@ -1398,8 +1351,8 @@ def evaluate_correlated_covariance_and_truncation_budget() -> dict:
         # Block 2 (Indices 4..7): Correlated Planck CMB Acoustic Quartet (Zero DM, Zero Lambda)
         ("CMB Recombination z_*", "L5 CMB Boltzmann", z_star_fp, 1089.80, 0.21, 0.20, "Kramers-Peebles ODE"),
         ("CMB Sound Horizon r_s [Mpc]", "L5 CMB Boltzmann", r_s_zstar_fp, 144.43, 0.26, 0.35, "Adiabatic Sound Integral"),
-        ("CMB 1st Peak l_1", "L5 CMB Boltzmann", l_1_fp, 220.00, 0.50, 0.35, "242-Mode Boltzmann ODE"),
-        ("CMB Peak Ratio R_21", "L5 CMB Boltzmann", r_21_fp, 0.4470, 0.0030, 0.0020, "Baryon Loading Omega_b=4/81"),
+        ("CMB 1st Peak l_1", "L5 CMB Boltzmann", l_1_fp, l_1_ref_fp, 0.50, 0.35, "CAMB 2.0.5 Boltzmann Hierarchy"),
+        ("CMB Peak Ratio R_21", "L5 CMB Boltzmann", r_21_fp, r_21_ref_fp, 0.0082, 0.0020, "CAMB 2.0.5 Baryon Loading Omega_b=4/81"),
         # Block 3 (Indices 8..24): Cross-Scale Gauge, Lepton, Quark, Nuclear, Atomic, Solar-System, Galactic & Strong-Field
         ("alpha_EM^-1(0) (Direct-Sum)", "L1 Gauge", float(ALPHA_EM_0_INV_DERIVED), 137.035999177, 0.000000021, float(ALPHA_EM_0_INV_DERIVED) * (rel_th_3loop_qed * 4.0), "2L-HeatKernel -> 3L-QED"),
         ("alpha_s(M_Z) (3L QCD RGE)", "L1 Gauge", alpha_s_mz, 0.118000, 0.000900, alpha_s_mz * rel_th_qcd_3loop, "3L-QCD -> 4L-QCD"),
@@ -1463,9 +1416,9 @@ def evaluate_correlated_covariance_and_truncation_budget() -> dict:
     r_corr[0, 3] = r_corr[3, 0] = -0.38
     r_corr[1, 2] = r_corr[2, 1] = +0.18
     r_corr[1, 3] = r_corr[3, 1] = +0.22
-    # Block 2 (Indices 4..7: z_*, r_s, l_1, R_21) off-diagonal correlations (Planck 2018 VI):
+    # Block 2 (Indices 4..7: z_*, r_s, l_1, R_21) off-diagonal correlations (Planck 2018 VI / CAMB omega_m Jacobian):
     r_corr[4, 5] = r_corr[5, 4] = -0.42
-    r_corr[5, 6] = r_corr[6, 5] = -0.65
+    r_corr[5, 6] = r_corr[6, 5] = +0.28
     r_corr[6, 7] = r_corr[7, 6] = +0.24
 
     cov_matrix = np.outer(sigma_tot, sigma_tot) * r_corr

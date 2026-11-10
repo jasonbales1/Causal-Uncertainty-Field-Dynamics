@@ -24,3 +24,16 @@ All observational data files in `cufg/data/` are publicly released astronomical 
   - Eckert, D., Ghirardini, V., Ettori, S., et al. (2019), *"Non-thermal pressure support in X-COP galaxy clusters,"* Astronomy & Astrophysics, **621**, A40 (`doi:10.1051/0004-6361/201833324`, `arXiv:1805.00034`).
   - Ghirardini, V., Eckert, D., Ettori, S., et al. (2019), *"Universal thermodynamic properties of the intracluster medium over two decades in radius in the X-COP sample,"* Astronomy & Astrophysics, **621**, A41 (`doi:10.1051/0004-6361/201833325`).
 - **Original Archive:** University of Geneva X-COP Public Data Release (`https://dominiqueeckert.wixsite.com/xcop/data-products`).
+
+## 3. Planck 2018 (PR3) Cosmic Microwave Background Power Spectra
+- **Files:**
+  - `planck2018/COM_PowerSpect_CMB-TT-binned_R3.01.txt` (`83` binned $TT$ bandpowers across $30 \le \ell \le 2500$)
+  - `planck2018/COM_PowerSpect_CMB-TE-binned_R3.02.txt` (`66` binned $TE$ bandpowers across $30 \le \ell \le 1996$)
+  - `planck2018/COM_PowerSpect_CMB-EE-binned_R3.02.txt` (`66` binned $EE$ bandpowers across $30 \le \ell \le 1996$)
+  - `planck2018/COM_PowerSpect_CMB-TT-full_R3.01.txt` (`2,507` unbinned $TT$ multipoles across $2 \le \ell \le 2508$)
+  - `planck2018/COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt` (`2,507` multipoles of the official Planck 2018 PR3 reference $TT, TE, EE, BB, PP$ spectra)
+- **Authors & Credit:** The Planck Collaboration (ESA / Planck Science Team)
+- **Required Citations:**
+  - Planck Collaboration (Aghanim, N., et al.) (2020), *"Planck 2018 results. V. CMB power spectra and likelihoods,"* Astronomy & Astrophysics, **641**, A5 (`doi:10.1051/0004-6361/201936386`, `arXiv:1907.12875`).
+  - Planck Collaboration (Aghanim, N., et al.) (2020), *"Planck 2018 results. VI. Cosmological parameters,"* Astronomy & Astrophysics, **641**, A6 (`doi:10.1051/0004-6361/201833910`, `arXiv:1807.06209`).
+- **Original Archive:** ESA Planck Legacy Archive (`http://pla.esac.esa.int`) and NASA/IPAC Infrared Science Archive (IRSA) Planck Release 3 Ancillary Data (`https://irsa.ipac.caltech.edu/data/Planck/release_3/ancillary-data/cosmoparams/`).

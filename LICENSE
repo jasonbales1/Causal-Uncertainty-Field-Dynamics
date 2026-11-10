@@ -3,7 +3,7 @@ Dual License for Software and Scientific Manuscripts & Third-Party Data Attribut
 
 1. Software & Source Code (`*.py`): MIT License
 2. Scientific Manuscripts (`*.md`, `latex/*.tex`), Figures (`output/*.png`), and Repository-Generated Verification Outputs (`output/*.json`, `output/*.html`): Creative Commons Attribution 4.0 International (CC-BY-4.0)
-3. Third-Party Observational Datasets (`cufg/data/*`): Public astronomical catalog data credited to their original collaborations (SPARC and X-COP; see Part 3 below). No copyright or original authorship is claimed by this repository over third-party observational data.
+3. Third-Party Observational Datasets (`cufg/data/*`): Public astronomical catalog data credited to their original collaborations (SPARC, X-COP, and Planck Collaboration; see Part 3 below). No copyright or original authorship is claimed by this repository over third-party observational data.
 
 ------------------------------------------------------------------------------
 PART 1: MIT LICENSE (Software & Numerical Benchmark Suite)
@@ -95,3 +95,21 @@ and citations belong:
    - Source Archive: University of Geneva X-COP Public Data Release
      (https://dominiqueeckert.wixsite.com/xcop/data-products) and arXiv source
      packages arXiv:1805.00034 / arXiv:1805.00035.
+
+3. Planck 2018 (PR3) Cosmic Microwave Background Power Spectra
+   - Files: `cufg/data/planck2018/COM_PowerSpect_CMB-TT-binned_R3.01.txt`,
+     `cufg/data/planck2018/COM_PowerSpect_CMB-TE-binned_R3.02.txt`,
+     `cufg/data/planck2018/COM_PowerSpect_CMB-EE-binned_R3.02.txt`,
+     `cufg/data/planck2018/COM_PowerSpect_CMB-TT-full_R3.01.txt`,
+     `cufg/data/planck2018/COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt`
+   - Authors & Credit: The Planck Collaboration (ESA / Planck Science Team)
+   - Primary Citations:
+     * Planck Collaboration (Aghanim, N., et al.) (2020), "Planck 2018 results.
+       V. CMB power spectra and likelihoods," Astronomy & Astrophysics, 641, A5
+       (doi:10.1051/0004-6361/201936386; arXiv:1907.12875).
+     * Planck Collaboration (Aghanim, N., et al.) (2020), "Planck 2018 results.
+       VI. Cosmological parameters," Astronomy & Astrophysics, 641, A6
+       (doi:10.1051/0004-6361/201833910; arXiv:1807.06209).
+   - Source Archive: ESA Planck Legacy Archive (http://pla.esac.esa.int) and
+     NASA/IPAC Infrared Science Archive (IRSA) Planck Release 3 Ancillary Data
+     (https://irsa.ipac.caltech.edu/data/Planck/release_3/ancillary-data/cosmoparams/).

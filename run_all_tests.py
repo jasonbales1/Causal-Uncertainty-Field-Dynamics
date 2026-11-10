@@ -333,31 +333,39 @@ def main() -> None:
     sw_err_pct = abs(cc25["dl_sw_l10_pred_uk2"] - cc25["dl_sw_l10_obs_uk2"]) / cc25["dl_sw_l10_obs_uk2"] * 100.0
     tr1_err_pct = abs(cc25["dl_trough1_pred_uk2"] - cc25["dl_trough1_obs_uk2"]) / cc25["dl_trough1_obs_uk2"] * 100.0
     print(
-        f"  • CAMB/CLASS-Architecture Multipole Uncertainty-Boltzmann Hierarchy [2 <= l <= 2500, Zero G, Zero DM] (F39): "
-        f"N_CMB = {cc25['norm_cmb_uk2']:.1f} μK² | "
+        f"  • Genuine CAMB (`camb 2.0.5`) Coupled Multipole Boltzmann Hierarchy [2 <= l <= 2500, Zero Per-Peak Adjustments] (F39): "
         f"SW Plateau D₁₀^TT = {cc25['dl_sw_l10_pred_uk2']:.1f} μK² (Obs {cc25['dl_sw_l10_obs_uk2']:.1f}, Err {sw_err_pct:.2f}%) | "
-        f"1st Trough (l={cc25['l_trough1_pred']:.1f}) = {cc25['dl_trough1_pred_uk2']:.1f} μK² (Obs {cc25['dl_trough1_obs_uk2']:.1f}, Err {tr1_err_pct:.2f}%) | "
+        f"1st Trough (l={cc25['l_trough1_pred']:.2f}/{cc25['l_trough1_obs']:.2f}) = {cc25['dl_trough1_pred_uk2']:.1f} μK² (Obs {cc25['dl_trough1_obs_uk2']:.1f}, Err {tr1_err_pct:.2f}%) | "
         f"Lensing θ_RMS = {cc25['theta_lens_rms_arcmin']:.3f}' (Obs 2.70', A_L = {cc25['a_lens_cufg']:.4f}) | "
-        f"21-Band TT+TE+EE χ²_ν = {cc25['chi2_red_cmb_21bands']:.3f} (TT₇ χ²_ν = {cc25['chi2_red_tt_7peaks']:.3f} vs No-2π {cc25['chi2_red_tt_no_2pi']:.1f}, EE₆ χ²_ν = {cc25['chi2_red_ee_6peaks']:.3f}, TE₆ χ²_ν = {cc25['chi2_red_te_6extrema']:.3f}) | "
-        f"2,499-Multipole Sky RMS σ_T = {cc25['sigma_t_sky_cufg_uk']:.2f} μK (No-2π {cc25['sigma_t_sky_no_2pi_uk']:.2f} μK)"
+        f"21-Extrema χ²_ν = {cc25['chi2_red_cmb_21bands']:.4f} (TT₇ χ²_ν = {cc25['chi2_red_tt_7peaks']:.4f} vs No-2π {cc25['chi2_red_tt_no_2pi']:.1f}, EE₆ χ²_ν = {cc25['chi2_red_ee_6peaks']:.4f}, TE₆ χ²_ν = {cc25['chi2_red_te_6extrema']:.4f}) | "
+        f"Full 215-Bin Planck PR3 χ²/N = {cc25['chi2_planck_215bins']:.3f} (83 TT = {cc25['chi2_tt_83bins']:.3f} vs No-2π {cc25['chi2_tt_nodm_83bins']:.1f}, 66 TE = {cc25['chi2_te_66bins']:.3f}, 66 EE = {cc25['chi2_ee_66bins']:.3f}) | "
+        f"2,499-Multipole Sky RMS σ_T = {cc25['sigma_t_sky_cufg_uk']:.2f} μK (Obs {cc25['sigma_t_sky_planck_obs_uk']:.2f} μK, No-2π {cc25['sigma_t_sky_no_2pi_uk']:.2f} μK)"
     )
     tt_str = " | ".join(
-        f"m={pk['m']}(l={pk['l_pred']:.1f}/{pk['l_obs']:.0f}, {pk['l_err_pct']:.2f}%): "
-        f"{pk['dl_tt_2nd_order_uk2']:.1f} μK² [1st-Ord {pk['dl_tt_pred_uk2']:.1f}] (Obs {pk['dl_tt_obs_uk2']:.1f}, {pk['dl_err_2nd_order_pct']:.2f}%)"
+        f"m={pk['m']}(l={pk['l_pred']:.2f}/{pk['l_obs']:.2f}, {pk['l_err_pct']:.2f}%): "
+        f"{pk['dl_tt_2nd_order_uk2']:.1f} μK² [Unlensed {pk['dl_tt_1st_order_uk2']:.1f}] (Obs {pk['dl_tt_obs_uk2']:.1f}, {pk['dl_err_2nd_order_pct']:.2f}%)"
         for pk in cc25["tt_peaks_l2500"]
     )
-    print(f"    -> TT Acoustic Peaks (m=1..7): {tt_str}")
+    print(f"    -> TT Acoustic Peaks (m=1..7, CubicSpline dD_l/dl=0): {tt_str}")
     ee_str = " | ".join(
-        f"EE{pk['m']}(l={pk['l_pred']:.1f}/{pk['l_obs']:.0f}): "
+        f"EE{pk['m']}(l={pk['l_pred']:.2f}/{pk['l_obs']:.2f}): "
         f"{pk['dl_ee_pred_uk2']:.2f} μK² (Obs {pk['dl_ee_obs_uk2']:.2f}, {pk['dl_err_pct']:.2f}%)"
         for pk in cc25["ee_peaks_l2500"]
     )
-    print(f"    -> EE Polarization Peaks (m=1..6): {ee_str}")
+    print(f"    -> EE Polarization Peaks (m=1..6, CubicSpline dD_l/dl=0): {ee_str}")
     te_str = " | ".join(
-        f"TE{ex['n']}(l={ex['l_pred']:.0f}): {ex['dl_te_pred_uk2']:+.1f} μK² (Obs {ex['dl_te_obs_uk2']:+.0f})"
+        f"TE{ex['n']}(l={ex['l_pred']:.2f}/{ex['l_obs']:.2f}): {ex['dl_te_pred_uk2']:+.2f} μK² (Obs {ex['dl_te_obs_uk2']:+.2f})"
         for ex in cc25["te_extrema_l2500"]
     )
-    print(f"    -> TE Cross-Spectrum Extrema (n=1..6): {te_str}")
+    print(f"    -> TE Cross-Spectrum Extrema (n=1..6, CubicSpline dD_l/dl=0): {te_str}")
+    print(
+        f"    -> [Referee Expansion-History Δχ² Diagnostic (83 TT / 215 TT+TE+EE Planck PR3 Bins, Zero Added Terms)] "
+        f"Planck 6-Param Baseline χ² = {cc25['chi2_sum_pl_tt_83bins']:.1f} (TT) / {cc25['chi2_sum_pl_215bins']:.1f} (215) | "
+        f"(1) CUFG Λ-Background (l_A={cc25['l_a_camb_lambda']:.2f}, l₁={cc25['tt_peaks_l2500'][0]['l_pred']:.2f}): χ²_TT = {cc25['chi2_sum_tt_83bins']:.1f} (Δχ²_TT = +{cc25['delta_chi2_tt_lambda_83bins']:.1f}), χ²_215 = {cc25['chi2_sum_215bins']:.1f} (Δχ²_215 = +{cc25['delta_chi2_215_lambda']:.1f}) | "
+        f"(2) Unmodified Repo Void History (l_A={cc25['l_a_repo_void']:.2f}, l₁={cc25['l1_repo_void_camb']:.2f}): χ²_TT = {cc25['chi2_sum_tt_repo_void_83bins']:.1f} (Δχ²_TT = +{cc25['delta_chi2_tt_repo_void_83bins']:.1f}), χ²_215 = {cc25['chi2_sum_215_repo_void']:.1f} (Δχ²_215 = +{cc25['delta_chi2_215_repo_void']:.1f}) | "
+        f"(3) Bare w_void(a) PPF (l_A={cc25['l_a_void_ppf']:.2f}, l₁={cc25['l1_void_ppf_camb']:.2f}): χ²_TT = {cc25['chi2_sum_tt_void_ppf_83bins']:.1f} (Δχ²_TT = +{cc25['delta_chi2_tt_void_ppf_83bins']:.1f}) | "
+        f"Δl_A Decomposition (+{cc25['l_a_repo_void'] - 301.63:.2f}): Ω_m,eff(8π/81) = +{cc25['delta_la_omega_m']:.2f}, Massless-ν 1D = +{cc25['delta_la_massless_nu_1d']:.2f}, Void Decay (+{cc25['delta_dm_void_decay_mpc']:.1f} Mpc) vs LOS Boost ({cc25['delta_dm_los_boost_mpc']:+.1f} Mpc) = +{cc25['delta_la_void_vs_los']:.2f}"
+    )
     v3d_cosmo = cosmo_res["voronoi_3d1d_cosmic_web_audit"]
     print(
         f"    -> [Upgrade 5 & 3D+1D Voronoi Lattice Inversion] {cc25['n_k_modes_ode']} Continuous k-Modes ({cc25['k_min_mpc_inv']:.5f}..{cc25['k_max_mpc_inv']:.4f} Mpc⁻¹) | "
